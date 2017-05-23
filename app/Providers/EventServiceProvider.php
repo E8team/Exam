@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\SubmitedTopic;
+use App\Listeners\AuthListener;
+use App\Listeners\TopicListener;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -13,8 +17,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
+        SubmitedTopic::class => [
+            TopicListener::class,
+        ],
+        Registered::class => [
+            AuthListener::class,
         ],
     ];
 

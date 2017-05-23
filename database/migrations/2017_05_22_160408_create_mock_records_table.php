@@ -17,7 +17,7 @@ class CreateMockRecordsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->index();
             $table->timestamps();
-            $table->timestamp('ended_at');
+            $table->timestamp('ended_at')->nullable();
         });
     }
 

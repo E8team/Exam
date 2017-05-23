@@ -19,6 +19,7 @@ class CreateSubmitRecordsTable extends Migration
             $table->char('selected_answer_id', 1)->comment('用户提交时所选的答案 (A|B|C|D)');
             $table->boolean('is_right')->comment('用户提交的答案是否是正确的');
             $table->char('type', 10)->index()->comment('提交分类 (practice|mock) (练习|模拟)');
+            $table->unsignedInteger('mock_record_id')->nullable()->index()->comment('模拟记录id 如果该提交记录是模拟时提交则需要该字段');
             $table->timestamps();
         });
     }

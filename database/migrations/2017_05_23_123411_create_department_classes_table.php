@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMockRecordsTable extends Migration
+class CreateDepartmentClassesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateMockRecordsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mock_records', function (Blueprint $table) {
+        Schema::create('department_classes', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id')->index();
-            $table->timestamps();
-            $table->timestamp('ended_at');
+            $table->string('title');
+            $table->unsignedInteger('parent_id')->index();
+            // $table->timestamps();
         });
     }
 
@@ -28,6 +28,6 @@ class CreateMockRecordsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mock_records');
+        Schema::dropIfExists('department_classes');
     }
 }

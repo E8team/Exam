@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMockRecordsTable extends Migration
+class CourseUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateMockRecordsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mock_records', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('user_id')->index();
-            $table->timestamps();
-            $table->timestamp('ended_at');
+        Schema::create('course_user', function (Blueprint $table) {
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('user_id');
+            $table->primary(['course_id', 'user_id']);
         });
     }
 
@@ -28,6 +27,6 @@ class CreateMockRecordsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mock_records');
+        Schema::dropIfExists('course_user');
     }
 }

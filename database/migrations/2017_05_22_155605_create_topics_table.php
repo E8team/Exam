@@ -15,6 +15,11 @@ class CreateTopicsTable extends Migration
     {
         Schema::create('topics', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('course_id')->index();
+            $table->string('title');
+            $table->char('answer', 1);
+            $table->unsignedInteger('correct_submit_count')->comment('提交正确的数量');
+            $table->unsignedInteger('total_submit_count')->comment('提交总量');
             $table->timestamps();
         });
     }

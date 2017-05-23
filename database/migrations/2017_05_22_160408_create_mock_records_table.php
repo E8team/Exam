@@ -15,6 +15,7 @@ class CreateMockRecordsTable extends Migration
     {
         Schema::create('mock_records', function (Blueprint $table) {
             $table->increments('id');
+
             $table->timestamps();
         });
     }

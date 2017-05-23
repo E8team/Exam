@@ -15,7 +15,10 @@ class CreateOptionsTable extends Migration
     {
         Schema::create('options', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->unsignedInteger('topic_id')->comment('题目标题')->index();
+            $table->char('option_id')->comment('选项id (A|B|C|D)');
+            $table->string('title')->comment('选项标题');
+            // $table->timestamps();
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExerciseRecordsTable extends Migration
+class CreateSubmitRecordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class CreateExerciseRecordsTable extends Migration
      */
     public function up()
     {
-        Schema::create('exercise_records', function (Blueprint $table) {
+        Schema::create('submit_records', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id')->index();
+            $table->char('selected_answer_id', 1)->comment('用户提交时所选的答案 (A|B|C|D)');
+            $table->boolean('is_right')->comment('用户提交的答案是否是正确的');
+            $table->char('type', 10)->index()->comment('提交分类 (practice|mock) (练习|模拟)');
             $table->timestamps();
         });
     }

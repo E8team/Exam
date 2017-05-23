@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Widgets\Alert;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,5 +38,9 @@ class AppServiceProvider extends ServiceProvider
             return new Alert($app->make('session.store'), $config);
         }
         );
+        if ($this->app->environment() !== 'production') {
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        }
     }
 }

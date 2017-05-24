@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\DepartmentClassService;
+use App\Services\TopicService;
 use App\Widgets\Alert;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -39,6 +41,12 @@ class AppServiceProvider extends ServiceProvider
             return new Alert($app->make('session.store'), $config);
         }
         );
+        $this->app->singleton(TopicService::class, function (){
+            return new TopicService();
+        });
+        $this->app->singleton(DepartmentClassService::class, function (){
+            return new DepartmentClassService();
+        });
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);

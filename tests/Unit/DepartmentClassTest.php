@@ -18,7 +18,7 @@ class DepartmentClassTest extends TestCase
 
     public function testGetDepartmentClassFromCache()
     {
-        $departmentClass = DepartmentClassService::getDepartmentClassFromCache(17);
+        $departmentClass = app(DepartmentClassService::class)->getDepartmentClassFromCache(17);
         $this->assertTrue($departmentClass->parent->parent instanceof DepartmentClass);
 
     }

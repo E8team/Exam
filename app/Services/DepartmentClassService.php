@@ -6,14 +6,14 @@ use Cache;
 
 class DepartmentClassService
 {
-    public static function getDepartmentClass($id)
+    public function getDepartmentClass($departmentClassId)
     {
-        return DepartmentClass::findOrFail($id)->load('parent.parent.parent');
+        return DepartmentClass::findOrFail($departmentClassId)->load('parent.parent.parent');
     }
-    public static function getDepartmentClassFromCache($id)
+    public function getDepartmentClassFromCache($departmentClassId)
     {
-        return Cache::rememberForever('department_class:'.$id, function () use ($id){
-            return self::getDepartmentClass($id);
+        return Cache::rememberForever('department_class:'.$departmentClassId, function () use ($departmentClassId){
+            return $this->getDepartmentClass($departmentClassId);
         });
     }
 }

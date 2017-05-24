@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\DepartmentClassService;
+use App\Services\StudentService;
 use App\Services\TopicService;
 use App\Widgets\Alert;
 use Illuminate\Support\Facades\Schema;
@@ -46,6 +47,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton(DepartmentClassService::class, function (){
             return new DepartmentClassService();
+        });
+        $this->app->singleton(StudentService::class, function (){
+            return new StudentService();
         });
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);

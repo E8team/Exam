@@ -1,0 +1,78 @@
+html,body{height: 100%;width: 100%;font-family: "Microsoft YaHei"}
+.bg_box{
+	width: 100%;
+	background-image: url(/images/bg.jpg);
+	background-size: cover;
+	background-position: center;
+	text-align: center;
+	position: relative;
+	padding-top: 60px;
+	.chevron-down{
+		position: absolute;
+		left: 50%;
+		bottom: 10%;
+		cursor: pointer;
+		i{
+			color: #ccc;
+			font-size: 24px;
+			webkit-transition: all .2s ease-in-out;
+			transition: all .2s ease-in-out;
+			&:hover{
+				color: #fff;
+			}
+		}
+	}
+}
+.bg_box h2{
+	color: #fff;
+	font-size: 46px;
+	padding: 15% 0 30px;
+	margin: 0;
+	font-weight: 600;
+}
+.bg_box h3{
+	color: #fff;
+	padding-bottom: 50px;
+}
+.course{
+	margin-top: 30px;
+	.title{
+		margin-bottom: 30px;
+	}
+}
+.course_item{
+	margin-bottom: 25px;
+	.content{
+		border-radius: 5px;
+		box-shadow: rgba(0,0,0,.1) 0 0 10px;
+		webkit-transition: all .2s ease-in-out;
+		transition: all .2s ease-in-out;
+		overflow: hidden;
+		&:hover{
+			box-shadow:rgba(0,0,0,.2) 0 0 15px;
+			border-radius: 0;
+		}
+		.main{
+			height: 150px;
+			background-color: #41B146;
+			img{
+				display: block;
+				width: 80px;
+				margin: 0 auto;
+				padding-top: 35px;
+			}
+		}
+		.main.ma{
+			background-color: #1CB0F6;
+		}
+		.footer{
+			background-color: #fff;
+			height: 45px;
+			p{
+				text-align: center;
+				line-height: 45px;
+				font-size: 18px;
+			}
+		}
+	}
+}

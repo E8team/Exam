@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Jrean\UserVerification\Traits\VerifiesUsers;
 use UserVerification;
@@ -55,7 +56,9 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $data = $request->all();
+
         $this->validator($data)->validate();
+
         $student = false;
         try{
             $student = $this->validateStudent($data);
@@ -71,6 +74,7 @@ class RegisterController extends Controller
         $data['name'] = $student->name;
         $data['department_class_id'] = $student->department_class_id;
         $data['password'] = bcrypt($data['password']);
+
         $user = User::create($data);
 
         event(new Registered($user));
@@ -94,10 +98,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'student_num' => 'required|numeric|max:10|min:10',
-            'id_card' => 'required|string|max:6|min:6',
+            'student_num' => 'required|numeric|min:1000000000|max:9999999999',
+            'id_card' => 'required|string|size:6',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
         ]);
     }
 
@@ -105,7 +109,7 @@ class RegisterController extends Controller
     {
         $studentService = app(StudentService::class);
         $student = $studentService->findByStudentNum($data['student_num']);
-        if(substr($student->id_card_num,0 , -strlen($data['id_card'])) == $data['id_card']) {
+        if(substr($student->id_card_num, -strlen($data['id_card'])) == $data['id_card']) {
             return $student;
         }else{
             return false;

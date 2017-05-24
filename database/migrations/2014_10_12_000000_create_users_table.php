@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->char('id_card_num', 18)->unqiue()->comment('身份证号码');
             $table->unsignedInteger('department_class_id')->index();
             $table->string('email')->unique();
-            $table->char('tel', 11)->unqiue()->comment('手机号码');
+            $table->char('tel', 11)->unqiue()->default('')->comment('手机号码');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

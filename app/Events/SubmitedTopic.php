@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class SubmitedTopic extends BaseEvent
+class SubmitedTopic
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

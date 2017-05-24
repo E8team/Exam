@@ -5,6 +5,7 @@ namespace App\Models;
 
 class DepartmentClass extends BaseModel
 {
+
     public function parent()
     {
         return $this->hasOne(DepartmentClass::class, 'id', 'parent_id');

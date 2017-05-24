@@ -9,7 +9,9 @@ class TopicService
 {
     public function getTopic($topicId)
     {
-        $topic = Topic::findOrFail($topicId)->load('options');
+        $topic = Topic::findOrFail($topicId)->load(['options'=>function ($query){
+            return $query->orderByKey();
+        }]);
         return $topic;
     }
     public function getTopicFromCache($topicId)

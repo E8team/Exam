@@ -24,6 +24,11 @@ class BaseModel extends Model
         return $query->orderBy('order', 'desc');
     }
 
+    public function scopeOrderByKey($query)
+    {
+        return $query->orderBy($this->getKeyName(), 'ASC');
+    }
+
     /**
      * 过滤有默认值的字段并且字段的值为null的数组
      *

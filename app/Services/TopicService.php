@@ -7,15 +7,15 @@ use Cache;
 
 class TopicService
 {
-    public function getTopic($topicId)
+    public function findTopic($topicId)
     {
         $topic = Topic::findOrFail($topicId)->load('options');
         return $topic;
     }
-    public function getTopicFromCache($topicId)
+    public function findTopicFromCache($topicId)
     {
         return Cache::rememberForever('topic:'.$topicId, function () use ($topicId){
-            return $this->getTopic($topicId);
+            return $this->findTopic($topicId);
         });
     }
 }

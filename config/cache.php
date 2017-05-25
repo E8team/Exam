@@ -86,6 +86,7 @@ return [
     |
     */
 
-    'prefix' => 'laravel',
-
+    'prefix' => 'e8',
+    //默认缓存时间
+    'ttl' => 60
 ];

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class SubmitRecordRequest extends FormRequest
 {
@@ -13,7 +14,8 @@ class SubmitRecordRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        //return Auth::check();
+        return true;
     }
 
     /**
@@ -25,7 +27,7 @@ class SubmitRecordRequest extends FormRequest
     {
         return [
             'topic_id' => 'required|integer',
-            'option_id' => 'required|integer',
+            'selected_option_id' => 'required|integer',
             'type' => 'in:practice,mock',
             'mock_record_id' => 'required_if:type,mock|integer'
         ];

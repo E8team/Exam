@@ -1,9 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
+
 
 
 class MockRecord extends BaseModel
 {
-    //
+
 }

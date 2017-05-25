@@ -2,8 +2,6 @@
 namespace App\Services;
 
 use App\Models\Course;
-use App\Models\DepartmentClass;
-use App\Models\SubmitRecord;
 use App\Models\Topic;
 use Cache;
 

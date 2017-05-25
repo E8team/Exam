@@ -98,7 +98,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'student_num' => 'required|numeric|min:1000000000|max:9999999999',
+            'student_num' => 'required|integer|min:1000000000|max:9999999999',
             'id_card' => 'required|string|size:6',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',

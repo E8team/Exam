@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class MockRecord extends Model
+class MockRecord extends BaseModel
 {
     //
 }

@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
-class SubmitRecord extends Model
+class SubmitRecord extends BaseModel
 {
-    //
+
 }

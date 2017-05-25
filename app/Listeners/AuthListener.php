@@ -22,10 +22,10 @@ class AuthListener
     /**
      * Handle the event.
      *
-     * @param  BaseEvent  $event
+     * @param  $event
      * @return void
      */
-    public function handle(BaseEvent $event)
+    public function handle($event)
     {
         if($event instanceof Registered){
             // 注册成功

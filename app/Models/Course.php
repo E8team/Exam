@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Course extends Model
+class Course extends BaseModel
 {
-
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
 }

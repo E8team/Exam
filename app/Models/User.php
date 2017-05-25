@@ -41,4 +41,9 @@ class User extends BaseModel implements
     {
         return $this->hasMany(SubmitRecord::class);
     }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
 }

@@ -150,4 +150,12 @@ class RegisterController extends Controller
             ->withInput($request->except('password'))
             ->withErrors($errors);
     }
+
+    public function selectCourses(Request $request)
+    {
+        $this->validate($request, [
+            'course_ids' => 'required|array'
+        ]);
+        Auth::user()->courses()->attach($request->get('course_ids'));
+    }
 }

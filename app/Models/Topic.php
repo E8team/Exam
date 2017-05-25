@@ -38,6 +38,11 @@ class Topic extends BaseModel
         });
     }
 
+    public function scopeOrderedByTopicNum($query)
+    {
+        return $query->orderBy('topic_num', 'ASC');
+    }
+
     public function scopeByCourse($query, $course)
     {
         if($course instanceof Course){
@@ -46,5 +51,9 @@ class Topic extends BaseModel
         return $query->where('course_id', $course);
     }
 
+    public function submitRecord()
+    {
+        return $this->hasMany(SubmitRecord::class);
+    }
 
 }

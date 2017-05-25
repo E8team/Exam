@@ -17,8 +17,8 @@ class TopicSeeder extends Seeder
                 $str = str_repeat($str,10);
                 $title =  ucfirst(substr(str_shuffle($str),0, random_int(50, 190)));
                 //dd(strlen($title));
-
                 DB::table('topics')->insert([
+                    'topic_num'=>$i,
                     'course_id'=>$j,
                     'title'=>$title,
                     //'correct_option_id'=>$answerMap[random_int(0,3)],

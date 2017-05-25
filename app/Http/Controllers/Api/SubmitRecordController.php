@@ -7,8 +7,6 @@ use App\Events\SubmitedTopic;
 use App\Http\Requests\SubmitRecordRequest;
 use App\Models\SubmitRecord;
 use App\Services\TopicService;
-use Auth;
-use Illuminate\Http\Response;
 
 class SubmitRecordController extends ApiController
 {

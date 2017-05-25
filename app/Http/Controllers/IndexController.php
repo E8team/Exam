@@ -3,17 +3,13 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\User;
-use App\Services\TopicService;
+use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
 
-    public function test()
+    public function test(Request $request)
     {
-        
-        $topic = app(TopicService::class)->randomTopic(User::find(1), 2);
-        return '123';
 
     }
 

@@ -3,7 +3,11 @@ namespace App\Services;
 
 use App\Models\Course;
 use App\Models\Topic;
+use App\Models\User;
 use Cache;
+use Illuminate\Pagination\AbstractPaginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class TopicService
 {
@@ -20,14 +24,23 @@ class TopicService
         });
     }
 
+    public function findTopicsFromCache($topicIds)
+    {
+        $res = new Collection();
+        foreach ($topicIds as $topicId){
+            $res->push($this->findTopicFromCache($topicId));
+        }
+        return $res;
+    }
+
     /**
-     *  随机$topicCount个题目
+     *  随机$topicCount个题目的id
      * @param $user
      * @param $course
      * @param int $topicCount
      * @return mixed
      */
-    public function randomTopic($user, $course, $topicCount = 50)
+    public function randomTopicIds($user, $course, $topicCount = 50)
     {
         if($course instanceof Course){
             $courseId = $course->id;
@@ -41,7 +54,7 @@ class TopicService
             ->distinct()
             ->get()
             ->pluck('id');
-        $topIds = Topic::byCourse($course)->select('id')->limit(500)->get()->pluck('id');
+        $topIds = Topic::select('id')->byCourse($course)->limit(500)->get()->pluck('id');
         // 没做过的题目
         $noSubmitTopicIds = $topIds->diff($submitedTopicIds);
         if($noSubmitTopicIds->count() >= $topicCount){
@@ -49,6 +62,31 @@ class TopicService
         }else{
             $randomTopicIds = $submitedTopicIds->random($topicCount-$noSubmitTopicIds->count())->merge($noSubmitTopicIds);
         }
-        return Topic::findOrFail($randomTopicIds);
+        return $randomTopicIds;
+    }
+
+    public function allTopicNum($course, $user)
+    {
+        $topic = Topic::select(['id', 'topic_num'])->byCourse($course)->with(['submitRecord'=>function ($query) use($user){
+            if($user instanceof User){
+                $userId = $user->id;
+            }else{
+                $userId = $user;
+            }
+            return $query->where('submit_records.user_id', $userId)->recent()->limit(1);
+
+        }])->orderedByTopicNum()->get();
+        dd($topic->toArray());
+    }
+
+    public function getPaginator($topics, $perPage, $pageName = 'page', $page = null)
+    {
+        $page = $page?:AbstractPaginator::resolveCurrentPage($pageName);
+        if($topics instanceof Collection){
+            return new LengthAwarePaginator($topics->forPage($page, $perPage), $topics->count(), $perPage);
+        } else {
+            // array
+            return new LengthAwarePaginator(array_slice($topics, ($page - 1) * $perPage, $perPage, true), count($topics), $prePage);
+        }
     }
 }

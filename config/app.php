@@ -168,7 +168,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Jrean\UserVerification\UserVerificationServiceProvider::class,
-
+        Dingo\Api\Provider\LaravelServiceProvider::class,
         /*
          * Application Service Providers...
          */

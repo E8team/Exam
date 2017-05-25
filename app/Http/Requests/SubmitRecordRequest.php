@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class SubmitRecordRequest extends FormRequest
+class SubmitRecordRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -7,6 +7,7 @@ use DB;
 
 class Topic extends BaseModel
 {
+    protected $table = 'topics';
 
     public function course()
     {
@@ -37,10 +38,12 @@ class Topic extends BaseModel
         });
     }
 
-
-    public function test()
+    public function scopeByCourse($query, $course)
     {
-        return $this->attributes;
+        if($course instanceof Course){
+            return $query->where('course_id', $course->id);
+        }
+        return $query->where('course_id', $course);
     }
 
 

@@ -58,7 +58,6 @@ class RegisterController extends Controller
         $data = $request->all();
 
         $this->validator($data)->validate();
-
         $student = false;
         try{
             $student = $this->validateStudent($data);

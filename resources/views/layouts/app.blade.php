@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>马克思学院在线练习系统</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" href="{!! mix('/css/app.css') !!}">
+	<link rel="stylesheet" href="{!! asset(mix('/css/app.css')) !!}">
 </head>
 <body>
 <!-- 导航栏 -->
@@ -28,7 +28,7 @@
 		<div class="footer_nav">E8net</div>
 	</div>
 
-	<script src="{!! mix('/js/app.js') !!}"></script>
+	<script src="{!! asset(mix('/js/app.js')) !!}"></script>
 	<script>
     $(document).ready(function(){
       $('.bg_box').height($(window).height()-60);

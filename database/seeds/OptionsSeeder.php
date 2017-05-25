@@ -13,15 +13,15 @@ class OptionsSeeder extends Seeder
     {
         DB::table('topics')->orderBy('id')->chunk(100, function ($topics){
             foreach ($topics as $topic){
+                $isCorrect = random_int(0,3);
                 for($i=0;$i<4;$i++){
                     $str = join('',range('a', 'z'));
                     $str = str_repeat($str,10);
                     $title =  ucfirst(substr(str_shuffle($str),0, random_int(30, 130)));
-                    $answerMap = ['A', 'B', 'C', 'D'];
                     DB::table('options')->insert([
                         'topic_id'=>$topic->id,
                         'title'=>$title,
-                        'option_id' => $answerMap[$i]
+                        'is_correct' => $isCorrect==$i
                     ]);
                 }
             }

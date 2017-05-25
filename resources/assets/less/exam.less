@@ -1,3 +1,7 @@
+@defaultColor: #fff;
+@nightColor: #111;
+@eyeColor: #222;
+@defauleFont: 16px;
 .exam_state{
   background-color: #fff;
   margin: 30px 0;
@@ -23,7 +27,7 @@
         height: 100%;
         display: block;
         border-radius: 20px;
-        background: @themeColor;
+        background-color: @themeColor;
         overflow: hidden;
         width: 30%;
         transition: width .3s;
@@ -34,6 +38,168 @@
       line-height: 50px;
       span{
         color: @themeColor;
+      }
+    }
+  }
+}
+// 考试
+.exam_body{
+  // 提醒
+  .remind_box{
+    background-color: @defaultColor;
+    border-radius: 5px;
+    // 提醒头部
+    .header{
+      border-bottom: 1px solid #F1F1F1;
+      position: relative;
+      height: 55px;
+      padding: 0 15px;
+      &:after{
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 1px;
+        background-color: #E45C40;
+        width: 100px;
+      }
+      .title{
+        float: left;
+        line-height: 55px;
+        font-size: 18px;
+      }
+      .count_down{
+        text-align: center;
+        line-height: 55px;
+        .time{
+          color: @themeColor;
+        }
+      }
+      .seting{
+        position: absolute;
+        right: 0px;
+        top: 8px;
+        padding: 10px;
+        i{
+          font-size: 18px;
+          color: #444;
+          transition: all .8s;
+        }
+        &:hover i{
+          transform: rotate(360deg);
+        }
+        &:hover .seting_body{
+          display: block;
+        }
+        .seting_body{
+          padding: 10px;
+          background-color: #fff;
+          position: absolute;
+          top: 50px;
+          width: 250px;
+          left: -100px;
+          display: none;
+        }
+      }
+    }
+    // 提醒框内容
+    .remind_content{
+      padding: 15px;
+      border-bottom: 1px solid #F1F1F1;
+      .subject_list{
+        overflow: hidden;
+        li{
+          float: left;
+          a{
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            text-align: center;
+            line-height: 32px;
+            margin: 0 6px 5px 0;
+            color: #666;
+            font-size: 14px;
+            border: 1px solid #E6E8EC;
+            border-radius: 3px;
+          }
+          a.error{
+            background-color: #E45C40;
+            color: #fff;
+          }
+          a.right{
+            background-color: #47AD76;
+            color: #fff;
+          }
+        }
+      }
+    }
+    // 提醒尾部
+    .footer{
+      padding: 15px;
+      position: relative;
+      overflow: hidden;
+      .subject_state{
+        li{
+          float: left;
+          margin-right: 28px;
+          position: relative;
+          span{
+
+          }
+          em{
+            position: absolute;
+            right: -20px;
+            top: 3px; 
+            display: inline-block;
+            height: 15px;
+            width: 15px;
+            border: 1px solid #E6E8EC;
+          }
+          em.error{
+            background-color: #E45C40;
+          }
+          em.right{
+            background-color: #47AD76;
+          }
+        }
+      }
+      .btn{
+        position: absolute;
+        right: 20px;
+        top: 9px;
+        background-color: @themeColor;
+        border: none;
+      }
+    }
+  }
+  // 题目列表
+  .exam_main{
+    .exam_list{
+      .exam_item{
+        background-color: @defaultColor;
+        margin-bottom: 30px;
+        border-radius: 5px;
+        border: 1px solid #e0e3e9;
+        .subject{
+          font-size: @defauleFont;
+          margin-bottom: 15px;
+          background-color: #f9f9fa;
+          padding: 15px;
+        }
+        .option_list{
+          padding: 10px 30px 15px;
+          .option_item{
+            margin-bottom: 10px;
+            background-color: #F5F5F5;
+            padding: 0 10px;
+            height: 45px;
+            label{
+              height: 100%;
+              width: 100%;
+              line-height: 45px;
+            }
+          }
+        }
       }
     }
   }

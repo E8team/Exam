@@ -16,6 +16,10 @@ p {
 body {
   background-color: #f1f1f1;
 }
+ul,
+li {
+  list-style: none;
+}
 .nav {
   height: 60px;
   background-color: #fff;

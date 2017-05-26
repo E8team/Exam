@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Course;
@@ -20,7 +21,7 @@ class TopicService
 
     public function findTopicFromCache($topicId)
     {
-        return Cache::rememberForever('topic:'.$topicId, function () use ($topicId){
+        return Cache::rememberForever('topic:' . $topicId, function () use ($topicId) {
             return $this->findTopic($topicId);
         });
     }
@@ -28,7 +29,7 @@ class TopicService
     public function findTopicsFromCache($topicIds)
     {
         $res = new Collection();
-        foreach ($topicIds as $topicId){
+        foreach ($topicIds as $topicId) {
             $res->push($this->findTopicFromCache($topicId));
         }
         return $res;
@@ -41,12 +42,9 @@ class TopicService
 
     public function getTopicIdsByCourseFromCache($course)
     {
-        if (Cache::getStore() instanceof TaggableStore) {
-            return Cache::tags(Topic::class)->rememberForever('all_topic_ids', function () use($course){
-                return $this->getTopicIdsByCourse($course);
-            });
-        }
-        return $this->getTopicIdsByCourse($course);
+        return Cache::rememberForever('all_topic_ids', function () use ($course) {
+            return $this->getTopicIdsByCourse($course);
+        });
     }
 
     /**
@@ -56,11 +54,11 @@ class TopicService
      * @param int $topicCount
      * @return mixed
      */
-    public function randomTopicIds($user, $course, $topicCount = 50)
+    public function randomTopicIds(User $user, $course, $topicCount = 50)
     {
-        if($course instanceof Course){
+        if ($course instanceof Course) {
             $courseId = $course->id;
-        }else{
+        } else {
             $courseId = $course;
         }
         // 优先获取没有模拟过的题目
@@ -73,35 +71,34 @@ class TopicService
         $topIds = $this->getTopicIdsByCourseFromCache($course)->pluck('id');
         // 没做过的题目
         $noSubmitTopicIds = $topIds->diff($submitedTopicIds);
-        if($noSubmitTopicIds->count() >= $topicCount){
+        if ($noSubmitTopicIds->count() >= $topicCount) {
             $randomTopicIds = $noSubmitTopicIds->random($topicCount);
-        }else{
-            $randomTopicIds = $submitedTopicIds->random($topicCount-$noSubmitTopicIds->count())->merge($noSubmitTopicIds);
+        } else {
+            $randomTopicIds = $submitedTopicIds->random($topicCount - $noSubmitTopicIds->count())->merge($noSubmitTopicIds);
         }
         return $randomTopicIds;
     }
 
-    public function allTopicNum($course, $user)
+    public function allTopicNumWithLastSubmitRecord($course, $user)
     {
         $topicIds = $this->getTopicIdsByCourseFromCache($course);
 
-        $topicIds->load(['submitRecord'=>function ($query) use($user){
-            if($user instanceof User){
+        $topicIds->load(['submitRecord' => function ($query) use ($user) {
+            if ($user instanceof User) {
                 $userId = $user->id;
-            }else{
+            } else {
                 $userId = $user;
             }
             return $query->where('submit_records.user_id', $userId)->recent()->limit(1);
 
-        }])->get();
-
-        dd($topicIds->toArray());
+        }]);
+        return $topicIds;
     }
 
     public function getPaginator($topics, $perPage, $pageName = 'page', $page = null)
     {
-        $page = $page?:AbstractPaginator::resolveCurrentPage($pageName);
-        if($topics instanceof Collection){
+        $page = $page ?: AbstractPaginator::resolveCurrentPage($pageName);
+        if ($topics instanceof Collection) {
             return new LengthAwarePaginator($topics->forPage($page, $perPage), $topics->count(), $perPage);
         } else {
             // array

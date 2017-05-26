@@ -44,7 +44,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => ['getVerification', 'getVerificationError']]);
+        $this->middleware('guest', ['except' => ['getVerification', 'getVerificationError', 'selectCourses']]);
     }
 
     /**

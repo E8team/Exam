@@ -8,6 +8,7 @@ use Cache;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Cache\TaggableStore;
 
 class TopicService
 {
@@ -33,6 +34,21 @@ class TopicService
         return $res;
     }
 
+    public function getTopicIdsByCourse($course)
+    {
+        return Topic::byCourse($course)->orderedByTopicNum()->limit(500)->get(['id', 'topic_num']);
+    }
+
+    public function getTopicIdsByCourseFromCache($course)
+    {
+        if (Cache::getStore() instanceof TaggableStore) {
+            return Cache::tags(Topic::class)->rememberForever('all_topic_ids', function () use($course){
+                return $this->getTopicIdsByCourse($course);
+            });
+        }
+        return $this->getTopicIdsByCourse($course);
+    }
+
     /**
      *  随机$topicCount个题目的id
      * @param $user
@@ -54,7 +70,7 @@ class TopicService
             ->distinct()
             ->get()
             ->pluck('id');
-        $topIds = Topic::select('id')->byCourse($course)->limit(500)->get()->pluck('id');
+        $topIds = $this->getTopicIdsByCourseFromCache($course)->pluck('id');
         // 没做过的题目
         $noSubmitTopicIds = $topIds->diff($submitedTopicIds);
         if($noSubmitTopicIds->count() >= $topicCount){
@@ -67,7 +83,9 @@ class TopicService
 
     public function allTopicNum($course, $user)
     {
-        $topic = Topic::select(['id', 'topic_num'])->byCourse($course)->with(['submitRecord'=>function ($query) use($user){
+        $topicIds = $this->getTopicIdsByCourseFromCache($course);
+
+        $topicIds->load(['submitRecord'=>function ($query) use($user){
             if($user instanceof User){
                 $userId = $user->id;
             }else{
@@ -75,8 +93,9 @@ class TopicService
             }
             return $query->where('submit_records.user_id', $userId)->recent()->limit(1);
 
-        }])->orderedByTopicNum()->get();
-        dd($topic->toArray());
+        }])->get();
+
+        dd($topicIds->toArray());
     }
 
     public function getPaginator($topics, $perPage, $pageName = 'page', $page = null)

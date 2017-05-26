@@ -21,7 +21,7 @@
   </div>
   <!--练习部分-->
   <div class="exam_body">
-    <div class="col-md-4">
+    <div class="col-md-4 col-lg-4 hidden-sm hidden-xs">
       <div class="remind_box">
         <!-- 提醒框头部 -->
         <div class="header">
@@ -80,34 +80,121 @@
       </div>
     </div>
     <!-- 题目列表 -->
-    <div class="col-md-8">
+    <div class="col-md-8 col-lg-8 col-sm-12">
       <div class="exam_main">
         <ul class="exam_list">
           <li class="exam_item">
             <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( )</p>
             <ul class="option_list">
-              <li class="option_item">
+              <li class="option_active option_item">
                 <label>
                   <input type="radio" name="tobic_1" checked>
-                  A.java Test . class
+                  <span class="letter">A</span>java Test . class
                 </label>
               </li>
               <li class="option_item">
                 <label>
                   <input type="radio" name="tobic_1">
-                  B.java Test . class
+                  <span class="letter">B</span>java Test . class
                 </label>
               </li>
               <li class="option_item">
                 <label>
                   <input type="radio" name="tobic_1">
-                  C.java Test . class
+                  <span class="letter">C</span>java Test . class
                 </label>
               </li>
               <li class="option_item">
                 <label>
                   <input type="radio" name="tobic_1">
-                  D.java Test . class
+                  <span class="letter">D</span>java Test . class
+                </label>
+              </li>
+            </ul>
+          </li>
+          <li class="exam_item">
+            <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( )</p>
+            <ul class="option_list">
+              <li class="option_active option_item">
+                <label>
+                  <input type="radio" name="tobic_1" checked>
+                  <span class="letter">A</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">B</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">C</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">D</span>java Test . class
+                </label>
+              </li>
+            </ul>
+          </li>
+          <li class="exam_item">
+            <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( )</p>
+            <ul class="option_list">
+              <li class="option_active option_item">
+                <label>
+                  <input type="radio" name="tobic_1" checked>
+                  <span class="letter">A</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">B</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">C</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">D</span>java Test . class
+                </label>
+              </li>
+            </ul>
+          </li>
+          <li class="exam_item">
+            <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( )</p>
+            <ul class="option_list">
+              <li class="option_active option_item">
+                <label>
+                  <input type="radio" name="tobic_1" checked>
+                  <span class="letter">A</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">B</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">C</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">D</span>java Test . class
                 </label>
               </li>
             </ul>
@@ -115,6 +202,15 @@
         </ul>
       </div>
     </div>
+  </div>
+</div>
+<!-- 手机页面设置 -->
+<div class="remind_box_xs hidden-lg hidden-md hidden-sm">
+  <div class="show_state">
+    <!-- 显示设置、对的题目数、错的题目数、共多少题和做了多少题 -->
+  </div>
+  <div class="subject_list">
+    <!-- 显示所以的题目序号 -->
   </div>
 </div>
 @endsection

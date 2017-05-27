@@ -51,6 +51,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(StudentService::class, function (){
             return new StudentService();
         });
+        $this->app->singleton(MockService::class, function (){
+            return new MockService();
+        });
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);

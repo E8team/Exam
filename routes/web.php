@@ -25,6 +25,7 @@ Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerif
 
 Route::get('/courses' , 'TestController@courses');
 Route::post('auth/register', 'Auth\RegisterController@register');
+
 Route::post('submit', 'SubmitRecordController@submit');
 
 Route::get('allStudent', 'Admin\StudentController@allStudent');

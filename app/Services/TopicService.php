@@ -13,10 +13,10 @@ use Illuminate\Cache\TaggableStore;
 
 class TopicService
 {
+
     public function findTopic($topicId)
     {
-        $topic = Topic::findOrFail($topicId)->load('options');
-        return $topic;
+        return Topic::findOrFail($topicId)->load('options');
     }
 
     /**
@@ -35,6 +35,11 @@ class TopicService
         });
     }
 
+    /**
+     * 从缓存中获取多个题目
+     * @param $topicIds
+     * @return Collection
+     */
     public function findTopicsFromCache($topicIds)
     {
         $res = new Collection();

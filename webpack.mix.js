@@ -10,7 +10,20 @@ const { mix } = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+mix.webpackConfig({
+    module: {
+        loaders: [
+            {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader'
+            }
+        ]
+    }
+});
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .less('resources/assets/less/app.less', 'public/css')
-    .copy('resources/assets/images','public/images/');
+    .less('resources/assets/less/app.less', 'public/css')
+    .copy('resources/assets/images','public/images/')
+    // ------------admin-------------
+    .js('resources/assets/admin/js/app.js', 'public/admin/js')
+    .version();

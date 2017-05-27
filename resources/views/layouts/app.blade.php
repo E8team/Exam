@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>马克思学院在线练习系统</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" href="{!! asset(mix('/css/app.css')) !!}">
+	<link rel="stylesheet" href="{!! asset(mix('css/app.css')) !!}">
 </head>
 <body>
 <!-- 导航栏 -->

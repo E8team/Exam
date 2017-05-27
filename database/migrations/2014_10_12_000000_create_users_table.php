@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->char('tel', 11)->unqiue()->default('')->comment('手机号码');
             $table->string('password');
+            $table->boolean('is_selected_courses')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

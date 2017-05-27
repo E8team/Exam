@@ -15,6 +15,7 @@ class CreateTopicsTable extends Migration
     {
         Schema::create('topics', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('topic_num')->index()->comment('题号');
             $table->unsignedInteger('course_id')->index();
             $table->string('title');
             // $table->unsignedInteger('correct_option_id')->default(0);

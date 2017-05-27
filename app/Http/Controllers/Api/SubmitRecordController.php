@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 
 use App\Events\SubmitedTopic;
 use App\Http\Requests\SubmitRecordRequest;
 use App\Models\SubmitRecord;
 use App\Services\TopicService;
-use Auth;
 
-class SubmitRecordController
+class SubmitRecordController extends ApiController
 {
 
     public function submit(SubmitRecordRequest $request)
@@ -23,9 +22,10 @@ class SubmitRecordController
         }else{
             $data['is_correct'] = false;
         }
-        $data['user_id'] = Auth::id();
+        $data['user_id'] = 1;// Auth::id();
         $submitRecord = SubmitRecord::create($data);
         event(new SubmitedTopic($topic, $submitRecord));
+        return $this->response->noContent();
     }
 
 }

@@ -7,6 +7,7 @@ use DB;
 
 class Topic extends BaseModel
 {
+    protected $table = 'topics';
 
     public function course()
     {
@@ -37,11 +38,22 @@ class Topic extends BaseModel
         });
     }
 
-
-    public function test()
+    public function scopeOrderedByTopicNum($query)
     {
-        return $this->attributes;
+        return $query->orderBy('topic_num', 'ASC');
     }
 
+    public function scopeByCourse($query, $course)
+    {
+        if($course instanceof Course){
+            return $query->where('course_id', $course->id);
+        }
+        return $query->where('course_id', $course);
+    }
+
+    public function submitRecord()
+    {
+        return $this->hasMany(SubmitRecord::class);
+    }
 
 }

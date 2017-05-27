@@ -22,3 +22,7 @@ Route::get('email-verification/error', 'Auth\RegisterController@getVerificationE
 Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
 
 Route::post('auth/register', 'Auth\RegisterController@register');
+
+Route::post('submit', 'SubmitRecordController@submit');
+
+Route::auth();

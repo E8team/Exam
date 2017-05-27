@@ -19,15 +19,6 @@ class TopicService
         return Topic::findOrFail($topicId)->load('options');
     }
 
-    /**
-     * 返回所有题目
-     * @return mixed
-     */
-    public function findAllTopic()
-    {
-        return Topic::all()->load('options')->take(10);
-    }
-
     public function findTopicFromCache($topicId)
     {
         return Cache::rememberForever('topic:' . $topicId, function () use ($topicId) {

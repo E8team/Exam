@@ -25,9 +25,6 @@ class TopicService
             return $this->findTopic($topicId);
         });
     }
-<<<<<<< HEAD
-}
-=======
 
     public function findTopicsFromCache($topicIds)
     {
@@ -109,4 +106,3 @@ class TopicService
         }
     }
 }
->>>>>>> e197fb8bcfba7176572973c72ee37c7b45bbd1cd

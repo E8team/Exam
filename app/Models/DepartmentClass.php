@@ -38,4 +38,14 @@ class DepartmentClass extends BaseModel
         }
         return $str;
     }
+
+    /**
+     * --
+     * 系别下有多个学生
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

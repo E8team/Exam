@@ -8,4 +8,5 @@ class Course extends BaseModel
     {
         return $this->hasMany(Topic::class);
     }
+
 }

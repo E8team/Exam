@@ -1,7 +1,9 @@
 <?php
 
 return [
+    'max_per_page' => 40,
 
+    'default_per_page' => 20,
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -168,7 +170,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Jrean\UserVerification\UserVerificationServiceProvider::class,
-
+        Dingo\Api\Provider\LaravelServiceProvider::class,
         /*
          * Application Service Providers...
          */

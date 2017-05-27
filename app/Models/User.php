@@ -36,4 +36,14 @@ class User extends BaseModel implements
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function submitRecords()
+    {
+        return $this->hasMany(SubmitRecord::class);
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
 }

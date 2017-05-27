@@ -22,5 +22,11 @@ Route::get('email-verification/error', 'Auth\RegisterController@getVerificationE
 Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
 
 
+
 Route::get('/courses' , 'TestController@courses');
 Route::post('auth/register', 'Auth\RegisterController@register');
+Route::post('submit', 'SubmitRecordController@submit');
+
+Route::get('allStudent', 'Admin\StudentController@allStudent');
+//==Route::get('topics', 'Admin\TopicController@topics');
+Route::auth();

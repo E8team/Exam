@@ -44,7 +44,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => ['getVerification', 'getVerificationError']]);
+        $this->middleware('guest', ['except' => ['getVerification', 'getVerificationError', 'selectCourses']]);
     }
 
     /**
@@ -58,7 +58,6 @@ class RegisterController extends Controller
         $data = $request->all();
 
         $this->validator($data)->validate();
-
         $student = false;
         try{
             $student = $this->validateStudent($data);
@@ -150,5 +149,13 @@ class RegisterController extends Controller
         return redirect()->back()
             ->withInput($request->except('password'))
             ->withErrors($errors);
+    }
+
+    public function selectCourses(Request $request)
+    {
+        $this->validate($request, [
+            'course_ids' => 'required|array'
+        ]);
+        Auth::user()->courses()->attach($request->get('course_ids'));
     }
 }

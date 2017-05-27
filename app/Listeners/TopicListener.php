@@ -21,11 +21,17 @@ class TopicListener
     /**
      * Handle the event.
      *
-     * @param  SubmitedTopic  $event
+     * @param $event
      * @return void
      */
-    public function handle(SubmitedTopic $event)
+    public function handle($event)
     {
-        //
+        if($event instanceof SubmitedTopic){
+            $event->topic->total_submit_count++;
+            if($event->submitRecord->is_correct){
+                $event->topic->correct_submit_count++;
+            }
+            $event->topic->save();
+        }
     }
 }

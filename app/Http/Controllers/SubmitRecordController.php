@@ -16,7 +16,7 @@ class SubmitRecordController
     {
         $data = $request->all();
         $topicService = app(TopicService::class);
-        $topic = $topicService->getTopicFromCache($data['topic_id']);
+        $topic = $topicService->findTopicFromCache($data['topic_id']);
         $correctOption = $topic->options->where('is_correct', true)->first();
         if($correctOption->id == $data['selected_option_id']){
             $data['is_correct'] = true;

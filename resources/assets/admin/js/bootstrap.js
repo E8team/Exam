@@ -1,6 +1,6 @@
-import 'admin-lte/dist/css/AdminLTE.css';
-import 'admin-lte/dist/css/skins/skin-blue.css';
-import 'admin-lte/bootstrap/js/bootstrap.js';
-import 'admin-lte/dist/js/app.js';
 window.$ = window.jQuery = require('jquery');
 require('bootstrap-less');
+require('admin-lte/dist/css/AdminLTE.css');
+require('admin-lte/dist/css/skins/skin-blue.css');
+// require('admin-lte/bootstrap/js/bootstrap.js');
+require('admin-lte/dist/js/app.js');

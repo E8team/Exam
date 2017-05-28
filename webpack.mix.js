@@ -26,4 +26,5 @@ mix.js('resources/assets/js/app.js', 'public/static/js')
     .copy('resources/assets/images','public/static/images/')
     // ------------admin-------------
     .js('resources/assets/admin/js/app.js', 'public/static/admin/js')
+    .copy('node_modules/admin-lte/dist/img','public/static/admin/img')
     .version();

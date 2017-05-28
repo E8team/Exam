@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Listable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -16,8 +17,9 @@ class User extends BaseModel implements
     CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword;
-    use Notifiable;
-
+    use Notifiable, Listable;
+    protected static $allowSortFields = ['id', 'studnet_num'];
+    protected static $allowSearchFields = ['student_num', 'name'];
     /**
      * The attributes that are mass assignable.
      *
@@ -52,6 +54,7 @@ class User extends BaseModel implements
         return $this->belongsTo(Course::class , 'is_selected_courses');
     }
 
+
     /**
      * --
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -59,5 +62,16 @@ class User extends BaseModel implements
     public function departmentClass()
     {
         return $this->belongsTo(DepartmentClass::class);
+    }
+
+
+    public function getMockCount()
+    {
+        return $this->mockRecords()->count();
+    }
+
+    public function mockRecords()
+    {
+        return $this->hasMany(MockRecord::class);
     }
 }

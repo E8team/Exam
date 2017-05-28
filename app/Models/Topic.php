@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Listable;
 use Cache;
 use DB;
 
 class Topic extends BaseModel
 {
+    use Listable;
     protected $table = 'topics';
+
+    protected static $allowSearchFields = [ 'title' ];
+    protected static $allowSortFields = ['id' , 'title' , 'correct_submit_count' , 'total_submit_count'];
 
     public function course()
     {

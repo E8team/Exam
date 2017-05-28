@@ -8,7 +8,6 @@ class IndexController extends Controller
 
    public function home()
    {
-
        return view('admin.student');
    }
 }

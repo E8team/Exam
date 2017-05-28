@@ -16,7 +16,7 @@ class StudentController extends Controller
     public function getStudent()
     {
         $userId = 1;
-        dd( app(UserService::class)->findUser($userId)->toArray());
+        dd( app(UserService::class)->findUser()->toArray());
     }
 
 

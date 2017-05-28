@@ -24,7 +24,7 @@ class submitRecords extends Seeder
             }
             $type = array('practice' , 'mock');
             $randType = rand(0,1);
-
+            
             DB::table('submit_records')->insert([
                 'user_id' => $userId,
                 'topic_id' => $topicId,

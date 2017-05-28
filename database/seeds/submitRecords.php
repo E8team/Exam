@@ -12,7 +12,7 @@ class submitRecords extends Seeder
      */
     public function run()
     {
-        for($i = 1 ; $i<=100 ; $i++){
+        for($i = 1 ; $i<=300 ; $i++){
             $userId = random_int(1,100);
             $topicId = random_int(1,100);
             $topic = app(TopicService::class)->findTopic($topicId);

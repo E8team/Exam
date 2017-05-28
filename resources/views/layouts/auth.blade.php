@@ -5,29 +5,28 @@
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta name="renderer" content="webkit">
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @section('title')
     @endsection
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{!! asset(mix('static/css/comm.css')) !!}">
-    <link rel="stylesheet" href="{!! asset(mix('static/login.css')) !!}">
-    {{--@section('styles')
-    @endsection--}}
-</head>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{!! asset('static/css/comm.css') !!}">
+    <link rel="stylesheet" href="{!! asset('static/css/login.css') !!}">
 </head>
 <body>
 <!-- 导航栏 -->
 <div class="nav">
     <div class="container">
-        <a class="logo" href="javascript:;">
-            <img src="{!! asset(mix('static/images/logo.png')) !!}">
+        <a class="logo" href="{{url('/')}}">
+            <img src="{!! asset('static/images/logo.png') !!}">
         </a>
         <p class="title">马克思学院考试系统</p>
         <div class="login_right">
-            已有账号，直接 <a href="#">登录</a>
+            还没有账号，点击 <a href="{{ route('register') }}">注册</a>
         </div>
     </div>
 </div>
+{!! Facades\App\Widgets\Alert::render() !!}
 @yield('content')
 <!-- 底部 -->
 <div class="footer_nav">E8网络技术联盟</div>

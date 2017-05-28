@@ -7,7 +7,7 @@ use App\Services\StudentService;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Foundation\Auth\RedirectsUsers;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -28,14 +28,14 @@ class RegisterController extends Controller
     |
     */
 
-    use RedirectsUsers, VerifiesUsers;
+    use VerifiesUsers,RegistersUsers;
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -45,6 +45,16 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => ['getVerification', 'getVerificationError', 'selectCourses']]);
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view('register');
     }
 
     /**

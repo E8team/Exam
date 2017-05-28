@@ -100,14 +100,15 @@ class TopicService
         return $topicIds;
     }
 
-    public function getPaginator($topics, $perPage, $pageName = 'page', $page = null)
+    public function getPaginator($topicIds, $perPage, $pageName = 'page', $page = null)
     {
         $page = $page ?: AbstractPaginator::resolveCurrentPage($pageName);
-        if ($topics instanceof Collection) {
-            return new LengthAwarePaginator($topics->forPage($page, $perPage), $topics->count(), $perPage);
+        if ($topicIds instanceof Collection) {
+            return new LengthAwarePaginator($this->findTopicsFromCache($topicIds->forPage($page, $perPage)), $topicIds->count(), $perPage);
         } else {
             // array
-            return new LengthAwarePaginator(array_slice($topics, ($page - 1) * $perPage, $perPage, true), count($topics), $prePage);
+            $topicIdsForPage = array_slice($topicIds, ($page - 1) * $perPage, $perPage, true);
+            return new LengthAwarePaginator($this->findTopicsFromCache($topicIdsForPage), count($topicIds), $perPage);
         }
     }
 }

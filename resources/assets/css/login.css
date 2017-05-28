@@ -1,0 +1,134 @@
+/*已有账号直接登录*/
+.login_right{
+	float: right;
+	line-height: 60px;
+}
+.login_right a{
+	color: #5bc0de;
+}
+.login_right a:hover{
+	color: #269abc;
+}
+/*登录注册页面开始*/
+/*登录*/
+.forget{
+	margin-top: 20px;
+	text-align: center!important;
+	cursor: pointer;
+}
+.forget a{
+	color: #666;
+}
+.mks_container, .mks_container_information{
+	height: 650px;
+	padding-top: 60px;
+}
+.mks_container_main{
+	width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    margin-top: 30px;
+    border-radius:10px;
+    border: 1px solid #ccc;
+}
+.mks_container_form{
+	padding:20px 40px;
+}
+.mks_container_form h2{
+	font-size: 20px;
+    text-align: center!important;
+    font-weight: bold;
+    color: #333;
+    font-family: "Microsoft Yahei", 微软雅黑;
+    margin: 20px 0px 20px 0;
+}
+.next_btn{
+	width: 100%;
+    margin-top: 30px;
+    font-size: 14px;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+}
+/*信息确认*/
+.form_text{
+	border: 1px solid #ccc;
+    height: 34px;
+    border-radius: 4px;
+}
+.control-title{
+	line-height: 34px;
+}
+.control-main{
+	float: right;
+	text-align: right!important;
+	font-weight: 400;
+}
+/*验证邮件*/
+.prompt{
+	width: 600px;
+	padding:30px;
+}
+.prompt .title{
+	margin-bottom: 20px;
+}
+.prompt .title .icon_ok{
+	float: left;
+    padding-right: 5px;
+    color: green;
+}
+.prompt_main{
+	margin-bottom: 20px;
+}
+.prompt p{
+	color: #999;
+	font-size:14px;
+}
+.prompt_success{
+	text-align: center!important;
+}
+.prompt_title{
+    width: 50%;
+}
+.prompt_title img{
+	width: 50px;
+    height: 50px;
+    float: left;
+    display: block;
+}
+/*图片过高导致按钮不能居中*/
+.prompt .prompt_title_h3{
+	margin-bottom: 1px;
+}
+.prompt_title h3{
+	line-height: 50px;
+}
+.login_btn{
+	width: 50%;
+}
+.verification{
+	width: 70%;
+	float: left;
+	border-radius: 4px 0px 0px 4px;
+}
+.verification_btn{
+	width: 30%;
+	color: #999;
+	border-radius: 0px 4px 4px 0px;
+}
+@media screen and (max-width: 768px){
+	.prompt{
+		width: 100%;
+	}
+}
+@media screen and (max-width: 550px){
+	.prompt_title{width: 100%;}
+	.login_btn{width: 100%;}
+}
+@media screen and (max-width: 460px){
+	.checkbox-inline+.checkbox-inline{margin-left: 0;}
+	.container{width: 100%;}
+	.login_right{display: none;}
+	.mks_container_main{width: 100%;border: none;}
+	.prompt{width: 100%;}
+}

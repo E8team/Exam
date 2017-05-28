@@ -5,6 +5,8 @@
 	<title>马克思学院在线练习系统</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link rel="stylesheet" href="{!! asset(mix('static/css/app.css')) !!}">
+	@section('styles')
+	@endsection
 </head>
 <body>
 <!-- 导航栏 -->

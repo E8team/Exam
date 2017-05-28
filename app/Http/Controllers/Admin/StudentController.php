@@ -19,7 +19,7 @@ class StudentController extends Controller
      */
     public function getAllStudent()
     {
-        dd(app(UserService::class)->allUser()->toArray());
+        //dd(app(UserService::class)->allUser()->toArray());
     }
 
     /**

@@ -24,6 +24,7 @@ mix.webpackConfig({
 mix.js('resources/assets/js/app.js', 'public/static/js')
     .less('resources/assets/less/app.less', 'public/static/css')
     .copy('resources/assets/images','public/static/images/')
+    .copy('resources/assets/css','public/static/css/')
     // ------------admin-------------
     .js('resources/assets/admin/js/app.js', 'public/static/admin/js')
     .copy('node_modules/admin-lte/dist/img','public/static/admin/img')

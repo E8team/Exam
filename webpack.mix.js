@@ -21,9 +21,9 @@ mix.webpackConfig({
     }
 });
 
-mix.js('resources/assets/js/app.js', 'public/js')
-    .less('resources/assets/less/app.less', 'public/css')
-    .copy('resources/assets/images','public/images/')
+mix.js('resources/assets/js/app.js', 'public/static/js')
+    .less('resources/assets/less/app.less', 'public/static/css')
+    .copy('resources/assets/images','public/static/images/')
     // ------------admin-------------
-    .js('resources/assets/admin/js/app.js', 'public/admin/js')
+    .js('resources/assets/admin/js/app.js', 'public/static/admin/js')
     .version();

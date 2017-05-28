@@ -1,2 +1,2 @@
 <?php
-Route::get('home', 'IndexController@home');
+Route::get('/', 'IndexController@home');

@@ -383,7 +383,7 @@ desired effect
 
 <!-- REQUIRED JS SCRIPTS -->
 
-<script src="{!! asset(mix('admin/app.js')) !!}"></script>
+<script src="{!! asset(mix('static/admin/js/app.js')) !!}"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

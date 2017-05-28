@@ -1,5 +1,9 @@
 h1,h2,h3,h4,h5,h6,div,ul,li,span,body,p{margin: 0;padding: 0;}
-body{background-color: #f1f1f1;}
+body{background-color: #f1f1f1}
+.alert.alert-info{
+	margin-bottom: 0;
+	margin-top: 70px;
+}
 /* 导航栏 */
 .nav{
 	height: 60px;

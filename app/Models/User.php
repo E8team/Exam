@@ -42,8 +42,22 @@ class User extends BaseModel implements
         return $this->hasMany(SubmitRecord::class);
     }
 
-    public function courses()
+    /*public function courses()
     {
         return $this->belongsToMany(Course::class);
+    }*/
+    
+    public function courses()
+    {
+        return $this->belongsTo(Course::class , 'is_selected_courses');
+    }
+
+    /**
+     * --
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function departmentClass()
+    {
+        return $this->belongsTo(DepartmentClass::class);
     }
 }

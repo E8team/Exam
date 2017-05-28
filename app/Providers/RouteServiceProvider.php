@@ -76,6 +76,10 @@ class RouteServiceProvider extends ServiceProvider
                 ['namespace' => 'Api'], function ($api) {
                 include base_path('routes/api.php');
             });
+            $api->group(
+                ['namespace' => 'Admin\Api', 'prefix'=>'admin'], function ($api) {
+                include base_path('routes/admin/api.php');
+            });
         });
     }
 }

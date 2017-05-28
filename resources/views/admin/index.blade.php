@@ -1,2 +1,0 @@
-@extends('admin.layouts.app')
-

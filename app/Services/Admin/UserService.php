@@ -41,7 +41,6 @@ class UserService
     }
 
     /**
-     * --
      * 查询$userId的提交总数，和正确率
      * @param $userId
      * @return array

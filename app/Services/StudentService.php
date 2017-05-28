@@ -13,4 +13,9 @@ class StudentService
         return Student::where('student_num', $studentNum)->firstOrFail();
     }
 
+    public function allStudent()
+    {
+        return Student::all()->toArray();
+    }
+
 }

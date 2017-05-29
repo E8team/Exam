@@ -13,7 +13,6 @@ use App\Models\User;
 
 class UserService
 {
-
     /**
      * 返回学生所有信息(所选课程,系别)
      * @param null $userId
@@ -26,11 +25,9 @@ class UserService
         }else{
             return User::all()->load('courses')->load('departmentClass');
         }
-
     }
 
     /**
-     * --
      * 返回$userId提交信息
      * @param  $userId
      * @return $this
@@ -51,7 +48,7 @@ class UserService
         $count = count($submits['submit_records']);
         $num = 0;
         foreach ($submits['submit_records'] as $submit){
-            if($submit['is_correct'] == 'true'){
+            if($submit['is_correct'] == true){
                 $num++;
             }
         }

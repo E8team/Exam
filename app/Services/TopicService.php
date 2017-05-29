@@ -9,7 +9,6 @@ use Cache;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Illuminate\Cache\TaggableStore;
 
 class TopicService
 {
@@ -27,7 +26,6 @@ class TopicService
     }
 
     /**
-     * --
      * 从缓存中返回$num个题目
      * @param $num
      * @return Collection
@@ -116,6 +114,15 @@ class TopicService
             // array
             $topicIdsForPage = array_slice($topicIds, ($page - 1) * $perPage, $perPage, true);
             return new LengthAwarePaginator($this->findTopicsFromCache($topicIdsForPage), count($topicIds), $perPage);
+        }
+    }
+
+    public function getTopicSubmit($topicId = null)
+    {
+        if(empty($topicId)){
+            return Topic::all()->load('submitRecord');
+        }else{
+            return Topic::findOrFail($topicId)->load('submitRecord');
         }
     }
 }

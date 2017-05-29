@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use \App\Models\Admin\User;
+use \App\Models\User;
 
 class Course extends BaseModel
 {

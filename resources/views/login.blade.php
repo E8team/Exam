@@ -1,7 +1,5 @@
 @extends('layouts.auth')
-@section('title')
-    <title>登录</title>
-@endsection
+@section('title')登录@endsection
 
 @section('content')
     <div class="container mks_container">

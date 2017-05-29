@@ -25,7 +25,7 @@ class User extends BaseModel implements
      */
     protected $fillable = [
         'student_num', 'id_card_num', 'name',
-        'email', 'password', 'department_class_id'
+        'email', 'password', 'department_class_id' , 'is_selected_courses'
     ];
 
     /**
@@ -37,20 +37,24 @@ class User extends BaseModel implements
         'password', 'remember_token',
     ];
 
+    protected $casts = [
+        'verified' => 'boolean'
+    ];
+
     public function submitRecords()
     {
         return $this->hasMany(SubmitRecord::class);
     }
 
-    /*public function courses()
-    {
-        return $this->belongsToMany(Course::class);
-    }*/
-    
     public function courses()
     {
-        return $this->belongsTo(Course::class , 'is_selected_courses');
+        return $this->belongsToMany(Course::class , 'course_user' , 'user_id' ,'course_id');
     }
+    
+    /*public function courses()
+    {
+        return $this->belongsTo(Course::class , 'is_selected_courses');
+    }*/
 
     /**
      * --

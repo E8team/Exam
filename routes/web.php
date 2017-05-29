@@ -31,3 +31,9 @@ Route::post('submit', 'SubmitRecordController@submit');
 Route::get('allStudent', 'Admin\StudentController@allStudent');
 //==Route::get('topics', 'Admin\TopicController@topics');
 Route::auth();
+
+Route::get('wait_verify', 'Auth\RegisterController@showWaitVerifyForm')->name('wait_verify');
+Route::get('resend_verify_email', 'Auth\RegisterController@sendVerifyEmail')->name('resend_verify_email');
+Route::get('after_verification', 'Auth\RegisterController@showAfterVerifyForm')->name('after_verification');
+Route::get('choose', 'Auth\RegisterController@showChooseCourseForm')->name('choose');
+Route::post('choose', 'Auth\RegisterController@selectCourses')->name('choose');

@@ -29,7 +29,7 @@ return [
         | This option defines a custom view name.
         |
         */
-        'view' => null,
+        'view' => 'emails.email',
     ],
 
     /*

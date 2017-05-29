@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Listable;
+use App\Notifications\ResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -77,5 +78,16 @@ class User extends BaseModel implements
     public function mockRecords()
     {
         return $this->hasMany(MockRecord::class);
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
     }
 }

@@ -23,7 +23,7 @@
         </a>
         <p class="title">马克思学院考试系统</p>
         <div class="login_right">
-            还没有账号，点击 <a href="{{ route('register') }}">注册</a>
+            还没有账号，点击 <a href="{{route('password.request')}}">注册</a>
         </div>
     </div>
 </div>

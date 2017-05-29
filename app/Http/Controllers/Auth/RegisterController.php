@@ -143,7 +143,6 @@ class RegisterController extends Controller
         } else {
             return redirect(route('after_verification'));
         }
-
     }
 
     /**

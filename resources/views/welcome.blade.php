@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title')欢迎@endsection
 @section('content')
 <!-- 背景 -->
 <div class="up_top_padding bg_box">
@@ -13,7 +14,7 @@
 	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 course_item">
 		<div class="content">
 			<div class="main">
-				<img src="{!! asset('/images/shi.png') !!}">
+				<img src="{!! asset('/static/images/shi.png') !!}">
 			</div>
 			<div class="footer">
 				<p>中国近代史纲要</p>
@@ -24,7 +25,7 @@
 	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 course_item">
 		<div class="content">
 			<div class="main ma">
-				<img src="{!! asset('/images/ma.png') !!}">
+				<img src="{!! asset('/static/images/ma.png') !!}">
 			</div>
 			<div class="footer">
 				<p>马克思主义基本原理概论</p>

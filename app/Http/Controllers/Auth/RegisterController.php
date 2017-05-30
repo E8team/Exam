@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use App\Services\DepartmentClassService;
 use App\Services\StudentService;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
@@ -31,25 +30,6 @@ class RegisterController extends Controller
     */
 
     use VerifiesUsers;
-
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-        $this->middleware('guest', ['except' => [
-            'getVerification',
-            'getVerificationError',
-            'showWaitVerifyForm',
-            'showAfterVerifyForm',
-            'sendVerifyEmail',
-        ]]);
-    }
-
     /**
      * Show the application registration form.
      *
@@ -62,7 +42,12 @@ class RegisterController extends Controller
 
     public function showWaitVerifyForm()
     {
-        return view('wait_verify', ['user' => Auth::user()]);
+        if(!Auth::user()->verified){
+            return view('wait_verify', ['user' => Auth::user()]);
+        }else{
+            return redirect(route('choose'));
+        }
+
     }
 
     /**

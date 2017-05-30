@@ -15,12 +15,12 @@ class IsVerified extends \Jrean\UserVerification\Middleware\IsVerified
      * @param  \Closure $next
      * @return mixed
      *
-     * @throws Jrean\UserVerification\Exceptions\UserNotVerifiedException
      */
     public function handle($request, Closure $next)
     {
         //如果用户没有验证邮箱则跳转到验证邮箱form
         if (!is_null($request->user()) && !$request->user()->verified) {
+            app(Alert::class)->setDanger('您的邮箱还没有通过验证！');
             return redirect(route('resend_verify_email'));
         }
         return $next($request);

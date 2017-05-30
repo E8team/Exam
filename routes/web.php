@@ -10,10 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 
 Route::get('/test', 'IndexController@test');
 
@@ -37,15 +38,17 @@ Route::group(['middleware' => 'auth'],function (){
     $this->post('logout', 'Auth\LoginController@logout')->name('logout');
     // 邮箱验证通过
     Route::group(['middleware'=>'isVerified'], function () {
-        Route::get('/exam', function () {
-            return view('exam');
+        Route::group(['middleware'=>'user_selected_courses'], function (){
+            Route::get('/exam', function () {
+                return view('exam');
+            });
         });
         Route::get('after_verification', 'Auth\RegisterController@showAfterVerifyForm')->name('after_verification');
         Route::get('choose', 'CoursesController@showChooseCourseForm')->name('choose');
         Route::post('choose', 'CoursesController@selectCourses');
     });
-
 });
+
 
 Route::group(['middleware'=>'guest'], function (){
     // Registration Routes...

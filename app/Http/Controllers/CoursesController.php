@@ -7,7 +7,7 @@ use App\Services\DepartmentClassService;
 use Illuminate\Http\Request;
 use Auth;
 
-class CoursesController
+class CoursesController extends Controller
 {
 
     public function showChooseCourseForm()
@@ -25,6 +25,7 @@ class CoursesController
         }
         return redirect(url('/'));
     }
+
 
     public function selectCourses(Request $request)
     {

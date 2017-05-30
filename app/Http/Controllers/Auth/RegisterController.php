@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Services\StudentService;
 use App\Http\Controllers\Controller;
+use App\Widgets\Alert;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -100,9 +101,13 @@ class RegisterController extends Controller
 
     public function sendVerifyEmail()
     {
+        $alert = app(Alert::class);
+        if($alert->hasMessage()) {
+            $alert->keepMessage();
+        }
         $user = Auth::user();
         if (!$user->verified) {
-            UserVerification::generate($user);
+            serVerification::generate($user);
             UserVerification::sendQueue($user, $this->sendEmailTitle);
             return redirect(route('wait_verify'));
         } else {

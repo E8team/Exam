@@ -2,7 +2,7 @@
 
 namespace App\Widgets;
 
-use Illuminate\Contracts\Session\Session;
+use Illuminate\Session\Store as Session;
 
 class Alert extends BaseWidget
 {
@@ -14,6 +14,16 @@ class Alert extends BaseWidget
     {
         $this->session = $session;
         $this->config = $config;
+    }
+
+    public function hasMessage()
+    {
+        return $this->session->has(static::ALERT_KEY);
+    }
+
+    public function keepMessage()
+    {
+        $this->session->keep(static::ALERT_KEY);
     }
 
     public function setMessage($type, $message, $hasCloseButton = null, $needContainer = null)
@@ -67,7 +77,7 @@ class Alert extends BaseWidget
     }
     public function render()
     {
-        if($this->session->has(static::ALERT_KEY)){
+        if($this->hasMessage()){
             return parent::render();
         }else{
             return '';

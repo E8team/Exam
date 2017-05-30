@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Widgets\Alert;
 use Auth;
 use Closure;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -18,7 +19,8 @@ class CheckUserIsSelectedCourses
     public function handle($request, Closure $next)
     {
         if (Auth::check() && !Auth::user()->is_selected_courses) {
-            throw new AuthorizationException('请先选择课程');
+            app(Alert::class)->setDanger('请先选择课程');
+            return redirect(route('choose'));
         }
         return $next($request);
     }

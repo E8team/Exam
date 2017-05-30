@@ -103,8 +103,7 @@ class RegisterController extends Controller
         $user = Auth::user();
         if (!$user->verified) {
             UserVerification::generate($user);
-
-            UserVerification::send($user, $this->sendEmailTitle);
+            UserVerification::sendQueue($user, $this->sendEmailTitle);
             return redirect(route('wait_verify'));
         } else {
             return redirect(route('after_verification'));

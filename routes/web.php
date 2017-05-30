@@ -14,9 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/exam', function () {
-    return view('exam');
-});
+
 Route::get('/test', 'IndexController@test');
 Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError')->name('email-verification.error');
 Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
@@ -29,13 +27,20 @@ Route::post('submit', 'SubmitRecordController@submit');
 
 Route::get('allStudent', 'Admin\StudentController@allStudent');
 //==Route::get('topics', 'Admin\TopicController@topics');
-Route::auth();
 
+
+//Auth routes
+Route::auth();
 //注册时等待邮箱验证
 Route::get('wait_verify', 'Auth\RegisterController@showWaitVerifyForm')->name('wait_verify');
 //重新发送验证邮件
 Route::get('resend_verify_email', 'Auth\RegisterController@sendVerifyEmail')->name('resend_verify_email');
-
-Route::get('after_verification', 'Auth\RegisterController@showAfterVerifyForm')->name('after_verification');
-Route::get('choose', 'Auth\RegisterController@showChooseCourseForm')->name('choose');
-Route::post('choose', 'Auth\RegisterController@selectCourses')->name('choose');
+//邮箱验证通过
+Route::group(['middleware' => ['auth','isVerified']], function () {
+    Route::get('/exam', function () {
+        return view('exam');
+    });
+    Route::get('after_verification', 'Auth\RegisterController@showAfterVerifyForm')->name('after_verification');
+    Route::get('choose', 'Auth\RegisterController@showChooseCourseForm')->name('choose');
+    Route::post('choose', 'Auth\RegisterController@selectCourses')->name('choose');
+});

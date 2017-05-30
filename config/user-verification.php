@@ -19,7 +19,7 @@ return [
         | Supported: "default", "markdown"
         |
         */
-        'type' => 'default',
+        'type' => 'markdown',
 
         /*
         |-----------------------------------------------------------------------
@@ -29,7 +29,7 @@ return [
         | This option defines a custom view name.
         |
         */
-        'view' => 'emails.email',
+        'view' => null,
     ],
 
     /*

@@ -1,3 +1,4 @@
+{{--
 <div style="text-align:center;">
     <table width="600" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
         <tbody>
@@ -28,4 +29,15 @@
         </tr>
         </tbody>
     </table>
-</div>
+</div>--}}
+@component('mail.html.message')
+
+    Hello!
+
+    @component('mail.html.button', ['url' => route('email-verification.check', $user->verification_token) . '?email=' . urlencode($user->email) ])
+        Click here to verify your account
+    @endcomponent
+
+    Thanks,<br>
+    {{ config('app.name') }}
+@endcomponent

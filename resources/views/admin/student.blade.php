@@ -2,18 +2,7 @@
 @section('title')学生管理@endsection
 @section('js')
     <script>
-        $(function () {
-            $("#table_server").dataTable({
-                "ajax": "http://exam.dev/api/admin/test",
-                "columns": [
-                    { "data": "id" },
-                    { "data": "student_num" },
-                    { "data": "name" },
-                    { "data": "id_card_num" },
-                    { "data": "department_class_id" }
-                ]
-            });
-        });
+
     </script>
 @endsection
 @section('content')

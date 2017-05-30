@@ -16,31 +16,48 @@ Route::get('/', function () {
 });
 
 Route::get('/test', 'IndexController@test');
-Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError')->name('email-verification.error');
-Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
+
 
 
 Route::get('/courses' , 'TestController@courses');
-Route::post('auth/register', 'Auth\RegisterController@register');
-
-Route::post('submit', 'SubmitRecordController@submit');
 
 Route::get('allStudent', 'Admin\StudentController@allStudent');
-//==Route::get('topics', 'Admin\TopicController@topics');
 
 
-//Auth routes
-Route::auth();
-//注册时等待邮箱验证
-Route::get('wait_verify', 'Auth\RegisterController@showWaitVerifyForm')->name('wait_verify');
-//重新发送验证邮件
-Route::get('resend_verify_email', 'Auth\RegisterController@sendVerifyEmail')->name('resend_verify_email');
-//邮箱验证通过
-Route::group(['middleware' => ['auth','isVerified']], function () {
-    Route::get('/exam', function () {
-        return view('exam');
+Route::group(['middleware' => 'auth'],function (){
+    // 注册时等待邮箱验证
+    Route::get('wait_verify', 'Auth\RegisterController@showWaitVerifyForm')->name('wait_verify');
+    // 重新发送验证邮件
+    Route::get('resend_verify_email', 'Auth\RegisterController@sendVerifyEmail')->name('resend_verify_email');
+    // 邮箱验证的token错误
+    Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError')->name('email-verification.error');
+    // 检验邮箱验证token
+    Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
+    // 退出登录
+    $this->post('logout', 'Auth\LoginController@logout')->name('logout');
+    // 邮箱验证通过
+    Route::group(['middleware'=>'isVerified'], function () {
+        Route::get('/exam', function () {
+            return view('exam');
+        });
+        Route::get('after_verification', 'Auth\RegisterController@showAfterVerifyForm')->name('after_verification');
+        Route::get('choose', 'CoursesController@showChooseCourseForm')->name('choose');
+        Route::post('choose', 'CoursesController@selectCourses');
     });
-    Route::get('after_verification', 'Auth\RegisterController@showAfterVerifyForm')->name('after_verification');
-    Route::get('choose', 'Auth\RegisterController@showChooseCourseForm')->name('choose');
-    Route::post('choose', 'Auth\RegisterController@selectCourses')->name('choose');
+
+});
+
+Route::group(['middleware'=>'guest'], function (){
+    // Registration Routes...
+    $this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+    $this->post('register', 'Auth\RegisterController@register');
+    // Password Reset Routes...
+    $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    $this->post('password/reset', 'Auth\ResetPasswordController@reset');
+    //Auth routes
+    // Authentication Routes...
+    $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+    $this->post('login', 'Auth\LoginController@login');
 });

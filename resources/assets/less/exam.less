@@ -1,6 +1,6 @@
 @defaultColor: #fff;
-@nightColor: #111;
-@eyeColor: #222;
+@nightColor: #252B37;
+@eyeColor: #D4DFE3;
 @defauleFont: 16px;
 .exam_state{
   background-color: #fff;
@@ -192,7 +192,7 @@
             margin-bottom: 10px;
             background-color: #F5F5F5;
             padding: 0 10px;
-            height: 50px;
+            height: 45px;
             position: relative;
             border: 1px solid #F5F5F5;
             &:hover{
@@ -205,21 +205,34 @@
             label{
               height: 100%;
               width: 100%;
-              line-height: 50px;
+              line-height: 45px;
               padding-left: 20px;
               position: relative;
+              font-size: @defauleFont - 2;
               .letter{
                 position: absolute;
                 top: 0px;
                 left: 10px;
-                font-size: 24px;
+                font-size: @defauleFont + 2;
                 margin-right: 15px;
               }
             }
           }
-          .option_active{
-            border: 2px solid #00b33b;
+          .option_right_active{
+            border: 1px solid #00b33b;
             color: #00b33b;
+            &:after{
+              border-top: 30px solid #00b33b;
+            }
+          }
+          .option_error_active{
+            border: 1px solid #E45C40;
+            color: #E45C40;
+            &:after{
+              border-top: 30px solid #E45C40;
+            }
+          }
+          .option_right_active,.option_error_active{
             &:after{
               content: '';
               position: absolute;
@@ -227,7 +240,6 @@
               left: 0;
               width: 0;
               height: 0;
-              border-top: 30px solid #00b33b;
               border-bottom: 30px solid transparent;
               border-right: 30px solid transparent;
               z-index: 9;
@@ -258,10 +270,110 @@
   left: 0;
   bottom: 0;
   width: 100%;
+  z-index: 998;
   .show_state{
     height: 50px;
+    .menu{
+      height: 100%;
+      line-height: 50px;
+      font-size: 18px;
+    }
+    .menu_info{
+      float: right;
+      line-height: 50px;
+      .right,.error{
+        float: left;
+        margin-right: 25px;
+        span{
+          border: 1px solid #444;
+          font-size: 12px;
+          padding: 0 2px;
+          border-radius: 4px;
+          margin-right: 2px;
+          color: #444!important;
+        }
+      }
+      .error{
+        color: #E45C40;
+      }
+      .right{
+        color: #47AD76;
+      }
+    }
+  }
+  .subject_list{
+
   }
 }
+
+//设置字体、模式
+.setting{
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.03);
+  z-index: 999;
+  >.setting_box{
+    left: 0;
+    bottom: 0;
+    position: fixed;
+    padding-top: 15px;
+    width: 100%;
+    padding-bottom: 20px;
+    background-color: #fff;
+    >.title{
+      padding: 0 0 15px 15px;
+      font-size: 16px;
+      border-bottom: 1px solid #e0e3e9;
+      color: #888;
+    }
+    >.font{
+      margin-bottom: 20px;
+      text-align: center;
+      padding-top: 15px;
+      >li{
+        display: inline-block;
+        border: 1px solid #e0e3e9;
+        height: 40px;
+        width: 40px;
+        text-align: center;
+        line-height: 40px;
+        font-size: 16px;
+        margin-right: 20px;
+        border-radius: 100px;
+      }
+      >li.active{
+        background-color: #31b0d5;
+        color: #fff;
+        border-color: #46b8da;
+      }
+    }
+    .color_model{
+      text-align: center;
+      >li{
+        display: inline-block;
+        text-align: center;
+        margin-right: 30px;
+        >span{
+          border: 1px solid #e0e3e9;
+          border-radius: 100px;
+          padding: 7px 10px;
+          margin-bottom: 15px;
+          display: inline-block;
+        }
+        >span.active{
+          background-color: #31b0d5;
+          border-color: #46b8da;
+          color: #fff;
+        }
+      }
+    }
+  }
+} 
 
 @media(max-width:768px){
 

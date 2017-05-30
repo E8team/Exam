@@ -86,7 +86,65 @@
           <li class="exam_item">
             <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( )</p>
             <ul class="option_list">
-              <li class="option_active option_item">
+              <li class="option_right_active option_item">
+                <label>
+                  <input type="radio" name="tobic_1" checked>
+                  <span class="letter">A</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">B</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">C</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">D</span>java Test . class
+                </label>
+              </li>
+            </ul>
+          </li>
+          <li class="exam_item">
+            <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( ) <a href="javascript:;" class="btn btn-link">正确答案</a></p>
+            <ul class="option_list">
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1" checked>
+                  <span class="letter">A</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">B</span>java Test . class
+                </label>
+              </li>
+              <li class="option_error_active option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">C</span>java Test . class
+                </label>
+              </li>
+              <li class="option_item">
+                <label>
+                  <input type="radio" name="tobic_1">
+                  <span class="letter">D</span>java Test . class
+                </label>
+              </li>
+            </ul>
+          </li>
+          <li class="exam_item">
+            <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( )</p>
+            <ul class="option_list">
+              <li class="option_error_active option_item">
                 <label>
                   <input type="radio" name="tobic_1" checked>
                   <span class="letter">A</span>java Test . class
@@ -115,65 +173,7 @@
           <li class="exam_item">
             <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( )</p>
             <ul class="option_list">
-              <li class="option_active option_item">
-                <label>
-                  <input type="radio" name="tobic_1" checked>
-                  <span class="letter">A</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">B</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">C</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">D</span>java Test . class
-                </label>
-              </li>
-            </ul>
-          </li>
-          <li class="exam_item">
-            <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( )</p>
-            <ul class="option_list">
-              <li class="option_active option_item">
-                <label>
-                  <input type="radio" name="tobic_1" checked>
-                  <span class="letter">A</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">B</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">C</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">D</span>java Test . class
-                </label>
-              </li>
-            </ul>
-          </li>
-          <li class="exam_item">
-            <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( )</p>
-            <ul class="option_list">
-              <li class="option_active option_item">
+              <li class="option_error_active option_item">
                 <label>
                   <input type="radio" name="tobic_1" checked>
                   <span class="letter">A</span>java Test . class
@@ -205,12 +205,55 @@
   </div>
 </div>
 <!-- 手机页面设置 -->
-<div class="remind_box_xs hidden-lg hidden-md hidden-sm">
+<div class="remind_box_xs hidden-lg hidden-md hidden-sm container">
   <div class="show_state">
     <!-- 显示设置、对的题目数、错的题目数、共多少题和做了多少题 -->
+    <span class="menu"><i class="glyphicon glyphicon-th"></i></span>
+    <div class="menu_info">
+      <div class="right">
+        <span><i class="glyphicon glyphicon-ok"></i></span>
+        0
+      </div>
+      <div class="error">
+        <span><i class="glyphicon glyphicon-remove"></i></span>
+        0
+      </div>
+      <span class="object_num"><b>1</b>/500</span>
+    </div>
   </div>
   <div class="subject_list">
     <!-- 显示所以的题目序号 -->
+  </div>
+</div>
+<!-- 设置字体、模式 -->
+<div class="setting hidden-lg hidden-md hidden-sm container">
+  <div class="setting_box">
+    <h2  class="title">设置字体、模式</h2>
+     <ul class="font">
+      <li>
+        大
+      </li>
+      <li class="active">
+        中
+      </li>
+      <li>
+        小
+      </li>
+    </ul>
+    <ul class="color_model">
+      <li>
+        <span><i class="glyphicon glyphicon-eye-open"></i></span>
+        <p>护眼模式</p>
+      </li>
+      <li>
+        <span><i class="glyphicon glyphicon-adjust"></i></span>
+        <p>夜间模式</p>
+      </li>
+      <li>
+        <span class="active"><i class="glyphicon glyphicon-certificate"></i></span>
+        <p>日间模式</p>
+      </li>
+    </ul>
   </div>
 </div>
 @endsection

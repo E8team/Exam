@@ -1,6 +1,46 @@
 @extends('layouts.app')
+@push('js')
+<script type="text/javascript">
+ // 切换主题
+  $(function () {
+    $('.color_model>li').click(function() {
+      var $this = $(this);
+      $this.parent().find('li').removeClass("active");
+      $this.addClass("active");
+      document.body.className = $this.attr('data-mode');
+    })
+  });
+  // 固定定位
+  $(function () {
+    var $remindBox = $('.remind_box');
+    var $remindBoxTop = $remindBox.offset().top;
+    $(document).scroll(function () {
+      if($remindBoxTop - $(document).scrollTop() <= 20 ){
+        $remindBox.css({
+          "position": "fixed",
+          "width": $remindBox.parent().width(),
+          "top": "20px"
+        });
+      } else {
+        $remindBox.css({
+          "position": "static"
+        });
+      }
+    })
+  });
+  // show 字体、模式
+  $(function () {
+    $('.m_setting_btn').click(function () {
+      $('.setting').fadeToggle("fast");
+    });
+    $('.setting>.mask').click(function () {
+      $('.setting').fadeToggle("fast");
+    })
+  });
+</script>
+@endpush
 @section('content')
-<div class="up_top_padding container">
+<div class="container">
   <div class="exam_state">
     <div class="crumbs">
       <ol class="breadcrumb">
@@ -14,8 +54,8 @@
         <em class="page_done"></em>
       </div>
       <div class="txt">
-        <span>已完成23题</span>
-        / 共500题
+        <span>23</span>
+        / 500
       </div>
     </div>
   </div>
@@ -208,7 +248,7 @@
 <div class="remind_box_xs hidden-lg hidden-md hidden-sm container">
   <div class="show_state">
     <!-- 显示设置、对的题目数、错的题目数、共多少题和做了多少题 -->
-    <span class="menu"><i class="glyphicon glyphicon-th"></i></span>
+    <span class="m_setting_btn"><i class="glyphicon glyphicon-font"></i></span>
     <div class="menu_info">
       <div class="right">
         <span><i class="glyphicon glyphicon-ok"></i></span>
@@ -218,6 +258,7 @@
         <span><i class="glyphicon glyphicon-remove"></i></span>
         0
       </div>
+      <span class="menu"><i class="glyphicon glyphicon-th-large"></i></span>
       <span class="object_num"><b>1</b>/500</span>
     </div>
   </div>
@@ -241,19 +282,20 @@
       </li>
     </ul>
     <ul class="color_model">
-      <li>
+      <li data-mode="nightColor">
         <span><i class="glyphicon glyphicon-eye-open"></i></span>
         <p>护眼模式</p>
       </li>
-      <li>
+      <li data-mode="eyeColor">
         <span><i class="glyphicon glyphicon-adjust"></i></span>
         <p>夜间模式</p>
       </li>
-      <li>
-        <span class="active"><i class="glyphicon glyphicon-certificate"></i></span>
+      <li data-mode="day" class="active">
+        <span><i class="glyphicon glyphicon-certificate"></i></span>
         <p>日间模式</p>
       </li>
     </ul>
   </div>
+  <div class="mask"></div>
 </div>
 @endsection

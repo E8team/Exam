@@ -48,4 +48,24 @@ class DepartmentClass extends BaseModel
     {
         return $this->hasMany(User::class);
     }
+
+    public function getClass()
+    {
+        return $this;
+    }
+
+    public function getGrade()
+    {
+        return $this->parent;
+    }
+
+    public function getMajor()
+    {
+        return $this->parent->parent;
+    }
+
+    public function getDepartment()
+    {
+        return $this->parent->parent->parent;
+    }
 }

@@ -19,15 +19,15 @@
                     </div>
                     <div class="form-group form_text">
                         <label class="col-sm-4 control-label control-title">院系</label>
-                        <label class="col-sm-8 form-control-static control-main">{{$user_class['department']}}</label>
+                        <label class="col-sm-8 form-control-static control-main">{{$departmentClass->getDepartment()->title}}</label>
                     </div>
                     <div class="form-group form_text">
                         <label class="col-sm-4 control-label control-title">专业</label>
-                        <label class="col-sm-8 form-control-static control-main">{{$user_class['major']}}</label>
+                        <label class="col-sm-8 form-control-static control-main">{{$departmentClass->getMajor()->title}}</label>
                     </div>
                     <div class="form-group form_text">
                         <label class="col-sm-4 control-label control-title">班级</label>
-                        <label class="col-sm-8 form-control-static control-main">{{$user_class['grade'].'级'.$user_class['class'].'班'}}</label>
+                        <label class="col-sm-8 form-control-static control-main">{{$departmentClass->getGrade()->title.'级'.$departmentClass->title.'班'}}</label>
                     </div>
                     <div class="form-group{!! $errors->has('course_ids') ? ' has-error' : '' !!}">
                         <label for="exampleInputEmail1">考试课程</label>

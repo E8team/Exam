@@ -167,7 +167,7 @@
     <a class="btn btn-primary assignment_btn" data-target="#assignment" data-toggle="modal">交卷</a>
   </div>
   <div class="subject_list">
-    <!-- 显示所以的题目序号 -->
+    <!-- 显示所有的题目序号 -->
   </div>
 </div>
 <!-- 设置字体、模式 -->

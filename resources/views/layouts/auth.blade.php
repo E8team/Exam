@@ -23,10 +23,12 @@
         <p class="title">马克思学院考试系统</p>
         <div class="login_right">
             @if (Auth::guest())
-                还没有账号，点击 <a href="{{route('register')}}">注册</a>
+                还没有账号，点击 <a class="reg" href="{{route('register')}}">注册</a>
             @else
-                <a class="btn btn-default">欢迎{{Auth::user()->name}}同学</a>
-                <a href="{{ route('logout') }}" class="btn btn-info">退出</a>
+                <div class="btn-group">
+                    <a class="btn btn-default user_name">欢迎{{Auth::user()->name}}同学</a>
+                    <a href="{{ route('logout') }}" class="btn btn-info user_exit">退出</a>
+                </div>
             @endif
         </div>
     </div>

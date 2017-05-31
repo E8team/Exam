@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'],function (){
     // 检验邮箱验证token
     Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
     // 退出登录
-    $this->post('logout', 'Auth\LoginController@logout')->name('logout');
+    $this->get('logout', 'Auth\LoginController@logout')->name('logout');
     // 邮箱验证通过
     Route::group(['middleware'=>'isVerified'], function () {
         Route::group(['middleware'=>'user_selected_courses'], function (){
@@ -59,7 +59,6 @@ Route::group(['middleware'=>'guest'], function (){
     $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
     $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
     $this->post('password/reset', 'Auth\ResetPasswordController@reset');
-    //Auth routes
     // Authentication Routes...
     $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
     $this->post('login', 'Auth\LoginController@login');

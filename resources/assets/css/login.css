@@ -1,14 +1,22 @@
+/*用户*/
+.login_right .user_name{
+	color: #333;
+}
+.login_right .user_exit{
+	color: #fff;
+}
 /*已有账号直接登录*/
 .login_right{
 	float: right;
 	line-height: 60px;
 }
-.login_right a{
+.login_right .reg{
 	color: #5bc0de;
 }
-.login_right a:hover{
+.login_right reg:hover{
 	color: #269abc;
 }
+
 /*登录注册页面开始*/
 /*登录*/
 .forget{

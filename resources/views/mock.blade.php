@@ -73,7 +73,7 @@
               scrollTop: $target.offset().top - 20
           }, 300);
       }
-    var $subjectList = $('#subject-list');
+    var $subjectList = $('.subject_list');
       goSubject(window.location.hash.substr(1));
       $subjectList.find('li>a').click(function () {
         var targetId = this.getAttribute('href').substr(1);
@@ -148,7 +148,7 @@
       </div>
     </div>
     <!-- 题目列表 -->
-    <div class="col-md-8 col-lg-8 col-sm-12">
+    <div class="exam_body col-md-8 col-lg-8 col-sm-12">
       <div class="exam_main">
         <ul class="exam_list">
           @foreach($topics as $k => $topic)
@@ -173,27 +173,35 @@
   </div>
 </div>
 <!-- 手机页面设置 -->
-<div class="remind_box_xs hidden-lg hidden-md hidden-sm container">
-  <div class="show_state">
-    <!-- 显示设置、对的题目数、错的题目数、共多少题和做了多少题 -->
-    <span class="m_setting_btn"><i class="glyphicon glyphicon-font"></i></span>
-    <div class="menu_info">
-      <div class="right">
-        <span><i class="glyphicon glyphicon-ok"></i></span>
-        0
+<div class="remind_box_body hidden-lg hidden-md hidden-sm">
+  <div class="remind_box_xs container">
+    <div class="show_state">
+      <!-- 显示设置、对的题目数、错的题目数、共多少题和做了多少题 -->
+      <span class="m_setting_btn"><i class="glyphicon glyphicon-font"></i></span>
+      <div class="menu_info">
+        <div class="right">
+          <span><i class="glyphicon glyphicon-ok"></i></span>
+          0
+        </div>
+        <div class="error">
+          <span><i class="glyphicon glyphicon-remove"></i></span>
+          0
+        </div>
+        <span class="object_num"><b>1</b>/500</span>
+        <span class="menu"><i class="glyphicon glyphicon-th-large"></i></span>
       </div>
-      <div class="error">
-        <span><i class="glyphicon glyphicon-remove"></i></span>
-        0
-      </div>
-      <span class="object_num"><b>1</b>/500</span>
-      <span class="menu"><i class="glyphicon glyphicon-th-large"></i></span>
+      <a class="btn btn-primary assignment_btn" data-target="#assignment" data-toggle="modal">交卷</a>
     </div>
-    <a class="btn btn-primary assignment_btn" data-target="#assignment" data-toggle="modal">交卷</a>
+    <div class="subject_list_body">
+      <!-- 显示所有的题目序号 -->
+      <ul id="subject-list" class="subject_list">
+        @foreach($topics as $k => $topic)
+          <li><a class="@if(!$topic->submitRecord->isEmpty()) {!! $topic->submit_record->is_correct?'righe':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
+        @endforeach
+      </ul>
+    </div>
   </div>
-  <div class="subject_list">
-    <!-- 显示所有的题目序号 -->
-  </div>
+  <div class="mask"></div>
 </div>
 <!-- 设置字体、模式 -->
 <div class="setting hidden-lg hidden-md hidden-sm container">
@@ -216,38 +224,6 @@
         <p>护眼模式</p>
       </li>
       <li data-mode="eyeColor">
-        <span><i class="glyphicon glyphicon-adjust"></i></span>
-        <p>夜间模式</p>
-      </li>
-      <li data-mode="day" class="active">
-        <span><i class="glyphicon glyphicon-certificate"></i></span>
-        <p>日间模式</p>
-      </li>
-    </ul>
-  </div>
-  <div class="mask"></div>
-</div>
-<!-- 设置字体、模式 -->
-<div class="setting hidden-lg hidden-md hidden-sm container">
-  <div class="setting_box">
-    <h2  class="title">设置字体、模式</h2>
-     <ul class="font">
-      <li data-size="largeFont">
-        大
-      </li>
-      <li data-size="Font" class="active">
-        中
-      </li>
-      <li data-size="smallFont">
-        小
-      </li>
-    </ul>
-    <ul class="color_model">
-      <li data-mode="eyeColor">
-        <span><i class="glyphicon glyphicon-eye-open"></i></span>
-        <p>护眼模式</p>
-      </li>
-      <li data-mode="nightColor">
         <span><i class="glyphicon glyphicon-adjust"></i></span>
         <p>夜间模式</p>
       </li>

@@ -161,6 +161,10 @@
             font-size: 14px;
             border: 1px solid #E6E8EC;
             border-radius: 3px;
+            text-decoration: none;
+            &:hover{
+              background-color: #f1f1f1;
+            }
           }
           a.error{
             background-color: #E45C40;
@@ -234,6 +238,7 @@
             padding: 10px;
             position: relative;
             border: 1px solid #F5F5F5;
+            cursor: pointer;
             &:hover{
               border: 1px solid #00b33b;
             }
@@ -247,6 +252,9 @@
               padding-left: 20px;
               position: relative;
               font-size: @defauleFont - 2;
+              cursor: pointer;
+              table-layout:fixed;
+              word-break: break-all; 
               .letter{
                 position: absolute;
                 top: 0px;
@@ -300,15 +308,38 @@
     }
   }
 }
-
+.remind_box_body{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  .mask{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.1;
+    filter:alpha(opacity=10);  
+    z-index: 998;
+  }
+}
 .remind_box_xs{
   background-color: #fff;
   border-top: 1px solid #e0e3e9;
-  position: fixed;
+  position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 999;
+  transform: translateY(400px);
+  transition: transfrom .4s;
   .show_state{
     height: 50px;
     position: relative;
@@ -355,8 +386,40 @@
       }
     }
   }
-  .subject_list{
-
+  .subject_list_body{
+    padding-top: 10px;
+    height: 400px;
+    overflow-y: scroll;
+    >.subject_list{
+      overflow: hidden;
+      >li{
+        float: left;
+        a{
+          display: inline-block;
+          width: 40px;
+          height: 40px;
+          text-align: center;
+          line-height: 40px;
+          margin: 0 15px 15px 0;
+          color: #666;
+          font-size: 14px;
+          border: 1px solid #E6E8EC;
+          border-radius: 100px;
+          text-decoration: none;
+          &:hover{
+            background-color: #f1f1f1;
+          }
+        }
+        a.error{
+          background-color: #E45C40;
+          color: #fff;
+        }
+        a.right{
+          background-color: #47AD76;
+          color: #fff;
+        }
+      }
+    }
   }
 }
 
@@ -446,5 +509,5 @@
 } 
 
 @media(max-width:768px){
-
+  .exam_body{padding:0;}
 }

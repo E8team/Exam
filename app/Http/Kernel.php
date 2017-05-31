@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'user_selected_courses' => \App\Http\Middleware\CheckUserIsSelectedCourses::class,
         'isVerified' => \App\Http\Middleware\IsVerified::class,
+        'isMockEnded' => \App\Http\Middleware\IsMockEnded::class,
     ];
 }

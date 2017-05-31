@@ -47,7 +47,7 @@
                     </div>
                     <div class="form-group{!! $errors->has('password_confirmation') ? ' has-error' : '' !!}">
                         <label for="exampleInputPassword1">确认密码</label>
-                        <input type="password" name="password_confirmation" value="{{old('password_confirmation')}}" class="form-control"
+                        <input type="password" name="password_confirmation"  class="form-control"
                                id="exampleInputPassword1" placeholder="请再次输入密码">
                         @if ($errors->has('password_confirmation'))
                             <span class="help-block">

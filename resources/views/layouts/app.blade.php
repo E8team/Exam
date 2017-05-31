@@ -24,7 +24,7 @@
                     <div class="login">
                         <div class="btn-group" role="group">
                             @if (Auth::check())
-                                <a href="{{ url('/') }}" class="btn btn-default">欢迎{{Auth::user()->name}}同学</a>
+                                <a href="#" class="btn btn-default">欢迎&nbsp;{{Auth::user()->name}}&nbsp;同学</a>
                                 <a href="{{ route('logout') }}" class="btn btn-info">退出</a>
                             @else
                                 <a href="{{route('login')}}" class="btn btn-default">登录</a>

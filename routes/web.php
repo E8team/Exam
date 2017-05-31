@@ -39,9 +39,8 @@ Route::group(['middleware' => 'auth'],function (){
     // 邮箱验证通过
     Route::group(['middleware'=>'isVerified'], function () {
         Route::group(['middleware'=>'user_selected_courses'], function (){
-            Route::get('/exam', function () {
-                return view('exam');
-            });
+            Route::get('/create_mock/course/{courseId}', 'MockController@createMock')->name('create_mock');
+            Route::get('/mock/{mockRecordId}', 'MockController@mock');
         });
         Route::get('after_verification', 'Auth\RegisterController@showAfterVerifyForm')->name('after_verification');
         Route::get('choose', 'CoursesController@showChooseCourseForm')->name('choose');

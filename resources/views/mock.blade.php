@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title')模拟考试中@endsection
 @push('js')
 <script type="text/javascript">
  // 切换主题

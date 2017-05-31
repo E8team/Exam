@@ -6,9 +6,9 @@ use App\Models\Course;
 use App\Models\Topic;
 use App\Models\User;
 use Cache;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 
 class TopicService
 {
@@ -25,18 +25,8 @@ class TopicService
         });
     }
 
-    /**
-     * 从缓存中返回$num个题目
-     * @param $num
-     * @return Collection
-     */
-    public function findTopicsNumFromCache($num)
+    public function findTopicsFromCache($topicIds)
     {
-        $topicIds = [];
-        for ($i=1; $i<=$num ; $i++) {
-            $arr = random_int(1, 100);
-            $topicIds[$i] = $arr;
-        }
         $res = new Collection();
         foreach ($topicIds as $topicId) {
             $res->push($this->findTopicFromCache($topicId));
@@ -89,7 +79,19 @@ class TopicService
         return $randomTopicIds;
     }
 
-    public function allTopicNumWithLastSubmitRecord($course, $user)
+    public function makeTopicsWithLastSubmitRecord($topics, $user)
+    {
+        return $topics->load(['submitRecord' => function ($query) use ($user) {
+            if ($user instanceof User) {
+                $userId = $user->id;
+            } else {
+                $userId = $user;
+            }
+            return $query->where('submit_records.user_id', $userId)->recent()->limit(1);
+        }]);
+    }
+
+    /*public function allTopicNumWithLastSubmitRecord($course, $user)
     {
         $topicIds = $this->getTopicIdsByCourseFromCache($course);
 
@@ -103,7 +105,7 @@ class TopicService
 
         }]);
         return $topicIds;
-    }
+    }*/
 
     public function getPaginator($topicIds, $perPage, $pageName = 'page', $page = null)
     {

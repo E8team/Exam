@@ -136,8 +136,7 @@ class RegisterController extends Controller
             'student_num' => 'required|digits:10|unique:users',
             'id_card' => 'required|string|size:6',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-            'password_confirmation' => 'required|string|min:6',
+            'password' => 'required|string|min:6|confirmed'
         ], [
             'student_num.required' => '请填写学号',
             'student_num.digits' => '学号必须是10位的数字',
@@ -149,8 +148,7 @@ class RegisterController extends Controller
             'email.unique' => '该邮箱已经被注册',
             'password.required' => '请填写密码',
             'password.min' => '密码最低6位',
-            'password_confirmation.required' => '请确认密码',
-            'password_confirmation.min' => '密码最低6位',
+            'password.confirmed' =>'两次密码不相同',
         ]);
     }
 

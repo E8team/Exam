@@ -14,6 +14,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/exam', function () {
+    return view('exam');
+});
 
 
 Route::get('/test', 'IndexController@test');
@@ -39,8 +42,9 @@ Route::group(['middleware' => 'auth'],function (){
     // 邮箱验证通过
     Route::group(['middleware'=>'isVerified'], function () {
         Route::group(['middleware'=>'user_selected_courses'], function (){
-            Route::get('/exam', function () {
-                return view('exam');
+            Route::group(['middleware'=>'isMockEnded'], function (){
+                Route::get('/create_mock/course/{courseId}', 'MockController@createMock')->name('create_mock');
+                Route::get('/mock/{mockRecordId}', 'MockController@showMockView')->name('mock');
             });
         });
         Route::get('after_verification', 'Auth\RegisterController@showAfterVerifyForm')->name('after_verification');

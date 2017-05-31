@@ -25,10 +25,9 @@ class MockService
      * 判断用户最后一次模拟做题是否完成
      * @return mixed
      */
-    public function isMocked(User $user)
+    public function getNotEndedMockRecord(User $user)
     {
-        $mockrecord = MockRecord::Recent()->where(['user_id'=>$user->id])->first();
-        return !is_null($mockrecord->ended_at)? true: false;
+        return MockRecord::where(['user_id'=>$user->id])->whereNull('ended_at')->recent()->firstOrFail();
     }
 
     /**

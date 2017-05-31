@@ -9,6 +9,7 @@ class BaseModel extends Model
 {
     protected $hasDefaultValuesFields = [];
 
+
     public function scopeRecent($query)
     {
         return $query->orderBy('created_at', 'desc');

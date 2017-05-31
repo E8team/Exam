@@ -51,4 +51,9 @@ class MockRecord extends BaseModel
     {
         return !is_null($this->ended_at);
     }
+
+    public function mockTopics()
+    {
+        return $this->hasMany(MockTopic::class);
+    }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMockTopicTable extends Migration
+class CreateMockTopicsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMockTopicTable extends Migration
      */
     public function up()
     {
-        Schema::create('mock_topic', function (Blueprint $blueprint) {
+        Schema::create('mock_topics', function (Blueprint $blueprint) {
            $blueprint->increments('id');
            $blueprint->unsignedInteger('mock_record_id')->nullable()->index();
            $blueprint->unsignedInteger('topic_id');
@@ -28,6 +28,6 @@ class CreateMockTopicTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mock_topic');
+        Schema::dropIfExists('mock_topics');
     }
 }

@@ -28,13 +28,15 @@ class MockController extends Controller
                 'order' => $i++
             ];
         }
-        MockTopic::create($data);
-        return redirect(route('create_mock'));
+        MockTopic::insert($data);
+        return redirect(route('mock', ['mockRecordId'=>$mockRecord->id]));
     }
 
     public function showMockView($mockRecordId)
     {
-        $mockTopics = MockTopic::where('mock_record_id', $mockRecordId)->ordered()->limit(config('exam.mock_topics_count'))->get();
-        return view('mock', ['mockTopics' => $mockTopics]);
+        $mockRecord = MockRecord::findOrFail($mockRecordId);
+        $mockTopics = $mockRecord->mockTopics()->ordered()->limit(config('exam.mock_topics_count'))->get();
+        $topics = app(TopicService::class)->findTopicsFromCache($mockTopics->pluck('topic_id'));
+        return view('mock', ['topics' => $topics]);
     }
 }

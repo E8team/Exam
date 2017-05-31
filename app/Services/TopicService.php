@@ -25,18 +25,8 @@ class TopicService
         });
     }
 
-    /**
-     * 从缓存中返回$num个题目
-     * @param $num
-     * @return Collection
-     */
-    public function findTopicsNumFromCache($num)
+    public function findTopicsFromCache($topicIds)
     {
-        $topicIds = [];
-        for ($i=1; $i<=$num ; $i++) {
-            $arr = random_int(1, 100);
-            $topicIds[$i] = $arr;
-        }
         $res = new Collection();
         foreach ($topicIds as $topicId) {
             $res->push($this->findTopicFromCache($topicId));

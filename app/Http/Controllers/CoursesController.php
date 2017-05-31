@@ -16,7 +16,7 @@ class CoursesController extends Controller
         $user = Auth::user();
         if(!$user->is_selected_courses){
             $departmentClass = app(DepartmentClassService::class)->getDepartmentClassFromCache($user->department_class_id);
-            return view('choose', ['user' => Auth::user(),'departmentClass' => $departmentClass]);
+            return view('choose', ['user' => $user,'departmentClass' => $departmentClass]);
         }
         return redirect(url('/'));
     }

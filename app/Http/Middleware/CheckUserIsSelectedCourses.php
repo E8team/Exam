@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use App\Widgets\Alert;
 use Auth;
 use Closure;
-use Illuminate\Auth\Access\AuthorizationException;
 
 class CheckUserIsSelectedCourses
 {

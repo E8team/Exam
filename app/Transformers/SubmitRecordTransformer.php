@@ -18,7 +18,7 @@ class SubmitRecordTransformer extends TransformerAbstract
     {
         return [
             'id' => $submitRecord->id,
-            'user_name' => '',
+            'user_name' => $submitRecord->user()->pluck('name'),
             'topic_id' => $submitRecord -> topic_id,
             'is_correct' => $submitRecord ->is_correct,
             'type' => $submitRecord -> type,

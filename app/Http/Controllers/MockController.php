@@ -6,6 +6,7 @@ use App\Models\MockRecord;
 use App\Models\MockTopic;
 use App\Services\TopicService;
 use Auth;
+use Carbon\Carbon;
 
 class MockController extends Controller
 {
@@ -34,9 +35,15 @@ class MockController extends Controller
 
     public function showMockView($mockRecordId)
     {
+        $topicService = app(TopicService::class);
+
         $mockRecord = MockRecord::findOrFail($mockRecordId);
+
         $mockTopics = $mockRecord->mockTopics()->ordered()->limit(config('exam.mock_topics_count'))->get();
-        $topics = app(TopicService::class)->findTopicsFromCache($mockTopics->pluck('topic_id'));
-        return view('mock', ['topics' => $topics]);
+
+        $topics = $topicService->findTopicsFromCache($mockTopics->pluck('topic_id'));
+        $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, Auth::user());
+
+        return view('mock', ['topics' => $topics, 'remainingTime'=>config('exam.mock_time') - Carbon::now()->diffInSeconds($mockRecord->created_at, true)]);
     }
 }

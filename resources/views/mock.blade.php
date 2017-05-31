@@ -81,24 +81,9 @@
         <!-- 提醒框内容 -->
         <div class="remind_content">
           <ul class="subject_list">
-            <li><a class="error" href="javascript:;">1</a></li>
-            <li><a class="error" href="javascript:;">2</a></li>
-            <li><a class="right" href="javascript:;">3</a></li>
-            <li><a class="right" href="javascript:;">4</a></li>
-            <li><a class="right" href="javascript:;">5</a></li>
-            <li><a href="javascript:;">6</a></li>
-            <li><a class="error" href="javascript:;">7</a></li>
-            <li><a class="error" href="javascript:;">8</a></li>
-            <li><a class="right" href="javascript:;">9</a></li>
-            <li><a class="right" href="javascript:;">10</a></li>
-            <li><a class="right" href="javascript:;">11</a></li>
-            <li><a href="javascript:;">12</a></li>
-            <li><a class="error" href="javascript:;">13</a></li>
-            <li><a class="error" href="javascript:;">14</a></li>
-            <li><a class="right" href="javascript:;">15</a></li>
-            <li><a class="right" href="javascript:;">16</a></li>
-            <li><a class="right" href="javascript:;">17</a></li>
-            <li><a href="javascript:;">18</a></li>
+            @foreach($topics as $k => $topic)
+              <li><a class="@if(!$topic->submitRecord->isEmpty()) {!! $topic->submit_record->is_correct?'righe':'error' !!} @endif" href="javascript:;">{!! $k+1 !!}</a></li>
+            @endforeach
           </ul>
         </div>
         <div class="footer">
@@ -124,122 +109,22 @@
     <div class="col-md-8 col-lg-8 col-sm-12">
       <div class="exam_main">
         <ul class="exam_list">
-          <li class="exam_item">
-            <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( )</p>
-            <ul class="option_list">
-              <li class="option_right_active option_item">
-                <label>
-                  <input type="radio" name="tobic_1" checked>
-                  <span class="letter">A</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">B</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">C</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">D</span>java Test . class
-                </label>
-              </li>
-            </ul>
-          </li>
-          <li class="exam_item">
-            <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( ) <a href="javascript:;" class="btn btn-link">正确答案</a></p>
-            <ul class="option_list">
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1" checked>
-                  <span class="letter">A</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">B</span>java Test . class
-                </label>
-              </li>
-              <li class="option_error_active option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">C</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">D</span>java Test . class
-                </label>
-              </li>
-            </ul>
-          </li>
-          <li class="exam_item">
-            <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( )</p>
-            <ul class="option_list">
-              <li class="option_error_active option_item">
-                <label>
-                  <input type="radio" name="tobic_1" checked>
-                  <span class="letter">A</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">B</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">C</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">D</span>java Test . class
-                </label>
-              </li>
-            </ul>
-          </li>
-          <li class="exam_item">
-            <p class="subject">1.在控制台运行一个 Java 程序 Test . class ，使用的命令正确的是( )</p>
-            <ul class="option_list">
-              <li class="option_error_active option_item">
-                <label>
-                  <input type="radio" name="tobic_1" checked>
-                  <span class="letter">A</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">B</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">C</span>java Test . class
-                </label>
-              </li>
-              <li class="option_item">
-                <label>
-                  <input type="radio" name="tobic_1">
-                  <span class="letter">D</span>java Test . class
-                </label>
-              </li>
-            </ul>
-          </li>
+          @foreach($topics as $k => $topic)
+            <li class="exam_item">
+              <p class="subject">{!! $k+1 !!} . {!! $topic->title !!}</p>
+              <ul class="option_list">
+                @foreach($topic->options as $option)
+                <li class=" option_item">
+                  <label>
+                    <input type="radio" name="tobic_{!! $option->id !!}" checked>
+                    <span class="letter">{!! chr(ord('A') + $loop->index) !!}</span>{{ $option->title }}
+                  </label>
+                </li>
+                @endforeach
+              </ul>
+            </li>
+          @endforeach
+
         </ul>
       </div>
     </div>

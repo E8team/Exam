@@ -9,7 +9,7 @@
     @section('styles')
     @endsection
 </head>
-<body class="">
+<body>
 <!-- 导航栏 -->
 <div class="main">
     <!-- 导航栏 -->

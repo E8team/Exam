@@ -14,7 +14,7 @@ class MockController extends Controller
     public function createMock($courseId)
     {
         $user = Auth::user();
-
+        
         $mockRecord = MockRecord::create(['user_id'=>$user->id]);
 
         $topicService = app(TopicService::class);
@@ -30,20 +30,22 @@ class MockController extends Controller
             ];
         }
         MockTopic::insert($data);
+    
         return redirect(route('mock', ['mockRecordId'=>$mockRecord->id]));
     }
 
     public function showMockView($mockRecordId)
     {
+        //dd($mockRecordId);
         $topicService = app(TopicService::class);
 
         $mockRecord = MockRecord::findOrFail($mockRecordId);
-
+  
         $mockTopics = $mockRecord->mockTopics()->ordered()->limit(config('exam.mock_topics_count'))->get();
 
         $topics = $topicService->findTopicsFromCache($mockTopics->pluck('topic_id'));
         $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, Auth::user());
-
+        
         return view('mock', ['topics' => $topics, 'remainingTime'=>config('exam.mock_time') - Carbon::now()->diffInSeconds($mockRecord->created_at, true)]);
     }
 }

@@ -3,6 +3,7 @@
 @push('js')
 <script type="text/javascript">
  // 切换主题
+
   $(function () {
     $('.color_model>li').click(function() {
       var $this = $(this);
@@ -11,7 +12,20 @@
       document.body.className = $this.attr('data-mode');
     })
   });
+
+  // 改变字号
+
+  $(function () {
+    $('.font>li').click(function () {
+      var $this = $(this);
+      $this.parent().find('li').removeClass("active");
+      $this.addClass("active");
+      document.body.className = $this.attr('data-size');
+    })
+  });
+
   // 固定定位
+
   $(function () {
     var $remindBox = $('.remind_box');
     var $remindBoxTop = $remindBox.offset().top;
@@ -29,7 +43,9 @@
       }
     })
   });
+
   // show 字体、模式
+
   $(function () {
     $('.m_setting_btn').click(function () {
       $('.setting').fadeToggle("fast");
@@ -38,6 +54,7 @@
       $('.setting').fadeToggle("fast");
     })
   });
+
 </script>
 @endpush
 @section('content')
@@ -101,7 +118,7 @@
               <em></em>
             </li>
           </ul>
-          <a type="button" class="btn btn-primary">交卷</a>
+          <a type="button" class="btn btn-primary" data-target="#assignment" data-toggle="modal">交卷</a>
         </div>
       </div>
     </div>
@@ -144,9 +161,10 @@
         <span><i class="glyphicon glyphicon-remove"></i></span>
         0
       </div>
-      <span class="menu"><i class="glyphicon glyphicon-th-large"></i></span>
       <span class="object_num"><b>1</b>/500</span>
+      <span class="menu"><i class="glyphicon glyphicon-th-large"></i></span>
     </div>
+    <a class="btn btn-primary assignment_btn" data-target="#assignment" data-toggle="modal">交卷</a>
   </div>
   <div class="subject_list">
     <!-- 显示所以的题目序号 -->
@@ -183,5 +201,53 @@
     </ul>
   </div>
   <div class="mask"></div>
+</div>
+<!-- 设置字体、模式 -->
+<div class="setting hidden-lg hidden-md hidden-sm container">
+  <div class="setting_box">
+    <h2  class="title">设置字体、模式</h2>
+     <ul class="font">
+      <li data-size="largeFont">
+        大
+      </li>
+      <li data-size="Font" class="active">
+        中
+      </li>
+      <li data-size="smallFont">
+        小
+      </li>
+    </ul>
+    <ul class="color_model">
+      <li data-mode="eyeColor">
+        <span><i class="glyphicon glyphicon-eye-open"></i></span>
+        <p>护眼模式</p>
+      </li>
+      <li data-mode="nightColor">
+        <span><i class="glyphicon glyphicon-adjust"></i></span>
+        <p>夜间模式</p>
+      </li>
+      <li data-mode="day" class="active">
+        <span><i class="glyphicon glyphicon-certificate"></i></span>
+        <p>日间模式</p>
+      </li>
+    </ul>
+  </div>
+  <div class="mask"></div>
+</div>
+<!-- dialog -->
+<div class="modal fade" tabindex="-1" id="assignment" role="dialog" aria-labelledby="assignment">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body confirma_box">
+        <p>操作提示：</p>
+        <p>1：点击【确认交卷】，将提交考试成绩，结束考试！</p>
+        <p>2：点击【继续考试】，将关闭本窗口，继续考试！</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">继续答题</button>
+        <button type="button" class="btn btn-primary">确认交卷</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection

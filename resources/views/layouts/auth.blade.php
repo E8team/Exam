@@ -26,7 +26,7 @@
                 还没有账号，点击 <a class="reg" href="{{route('register')}}">注册</a>
             @else
                 <div class="btn-group">
-                    <a class="btn btn-default user_name">欢迎{{Auth::user()->name}}同学</a>
+                    <a href="#" class="btn btn-default user_name">欢迎&nbsp;{{Auth::user()->name}}&nbsp;同学</a>
                     <a href="{{ route('logout') }}" class="btn btn-info user_exit">退出</a>
                 </div>
             @endif

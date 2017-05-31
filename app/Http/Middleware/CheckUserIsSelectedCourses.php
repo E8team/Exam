@@ -20,7 +20,7 @@ class CheckUserIsSelectedCourses
     {
         if (Auth::check() && !Auth::user()->is_selected_courses) {
             app(Alert::class)->setDanger('请先选择课程');
-            return redirect(route('choose'));
+            return redirect()->guest(route('choose'));
         }
         return $next($request);
     }

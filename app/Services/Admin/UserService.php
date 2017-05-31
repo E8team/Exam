@@ -18,31 +18,27 @@ class UserService
      * @param null $userId
      * @return mixed
      */
-    public function findUser($userId = null)
+    public function getUsers($userId = null)
     {
         if(!empty($userId)){
-            return User::findOrFail($userId)->load('courses')->load('departmentClass');
+            return User::findOrFail($userId)->load(['courses','departmentClass']);
         }else{
-            return User::all()->load('courses')->load('departmentClass');
+            return User::all()->load(['courses','departmentClass']);
         }
     }
 
-    /**
-     * 返回$userId提交信息
-     * @param  $userId
-     * @return $this
-     */
+
     public function getSubmitRelated($userId)
     {
         return User::findOrFail($userId)->load('submitRecords');
     }
 
     /**
-     * 查询$userId的提交总数，和正确率
+     * 获取正确率
      * @param $userId
-     * @return array
+     * @return string
      */
-    public function getAvgCount($userId)
+    public function getCorrectRate($userId)
     {
         $submits = $this->getSubmitRelated($userId)->toArray();
         $count = count($submits['submit_records']);
@@ -53,14 +49,8 @@ class UserService
             }
         }
         $avg = round($num/$count*100 , 2 ).'%';
-        $information = ['count'=>$count , 'avg'=>$avg];
 
-        return $information;
+        return $avg;
     }
-
-
-
-
-
 
 }

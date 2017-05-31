@@ -9,14 +9,8 @@ class Course extends BaseModel
         return $this->hasMany(Topic::class);
     }
 
-    /**
-     * --
-     * 课程下有多个学生
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class,'course_user' ,  'course_id' ,'user_id');
     }
-
 }

@@ -18,6 +18,11 @@ class TopicService
         return Topic::findOrFail($topicId)->load('options');
     }
 
+    /*public function getTopicOpions($topicId)
+    {
+        return $this->findTopic($topicId);
+    }*/
+
     public function findTopicFromCache($topicId)
     {
         return Cache::rememberForever('topic:' . $topicId, function () use ($topicId) {

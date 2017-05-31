@@ -29,18 +29,25 @@
   $(function () {
     var $remindBox = $('.remind_box');
     var $remindBoxTop = $remindBox.offset().top;
+    function toggleFixed() {
+        if($remindBoxTop - $(document).scrollTop() <= 20 ){
+            $remindBox.css({
+                "position": "fixed",
+                "width": $remindBox.parent().width(),
+                "top": "20px"
+            });
+        } else {
+            $remindBox.css({
+                "position": "static"
+            });
+        }
+    }
+    toggleFixed();
+    $(window).resize(function () {
+        toggleFixed();
+    })
     $(document).scroll(function () {
-      if($remindBoxTop - $(document).scrollTop() <= 20 ){
-        $remindBox.css({
-          "position": "fixed",
-          "width": $remindBox.parent().width(),
-          "top": "20px"
-        });
-      } else {
-        $remindBox.css({
-          "position": "static"
-        });
-      }
+        toggleFixed();
     })
   });
 
@@ -55,6 +62,24 @@
     })
   });
 
+  // 锚点动画
+
+  $(function () {
+      function goSubject(targetId) {
+          var $target = $('[data-id = ' + targetId + ']');
+          $target.parent().find('li.active').removeClass('active');
+          $target.addClass('active');
+          $(document.body).animate({
+              scrollTop: $target.offset().top - 20
+          }, 300);
+      }
+    var $subjectList = $('#subject-list');
+      goSubject(window.location.hash.substr(1));
+      $subjectList.find('li>a').click(function () {
+        var targetId = this.getAttribute('href').substr(1);
+        goSubject(targetId);
+    });
+  })
 </script>
 @endpush
 @section('content')
@@ -97,7 +122,7 @@
         </div>
         <!-- 提醒框内容 -->
         <div class="remind_content">
-          <ul class="subject_list">
+          <ul id="subject-list" class="subject_list">
             @foreach($topics as $k => $topic)
               <li><a class="@if(!$topic->submitRecord->isEmpty()) {!! $topic->submit_record->is_correct?'righe':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
             @endforeach
@@ -127,14 +152,14 @@
       <div class="exam_main">
         <ul class="exam_list">
           @foreach($topics as $k => $topic)
-            <li class="exam_item" id="topic_{!! $topic->id !!}">
+            <li class="exam_item" data-id="topic_{!! $topic->id !!}">
               <p class="subject">{!! $k+1 !!} . {!! $topic->title !!}</p>
               <ul class="option_list">
                 @foreach($topic->options as $option)
-                <li class=" option_item">
+                <li class="option_item">
                   <label>
                     <input type="radio" name="tobic_{!! $option->id !!}" checked>
-                    <span class="letter">{!! chr(ord('A') + $loop->index) !!}</span>{{ $option->title }}
+                    <span class="letter">{!! chr(ord('A') + $loop->index) !!}. </span>{{ $option->title }}
                   </label>
                 </li>
                 @endforeach

@@ -2,6 +2,7 @@
 @nightColor: #252B37;
 @eyeColor: #D4DFE3;
 @defauleFont: 16px;
+// 定义模式和字体
 .nightColor{
   background-color: #1c1f2b;
   color: #bdcadb;
@@ -9,6 +10,34 @@
 .eyeColor{
   color: #704214;
   background: #f3eacb;
+}
+// 大字体
+.largeFont{
+  .exam_item .subject{
+    font-size: @defauleFont + 1!important;
+  }
+  .option_item label{
+    font-size: @defauleFont - 1!important;
+    >.letter{
+      font-size: @defauleFont + 3!important;
+    }
+  }
+}
+// 小字体
+.smallFont{
+  .exam_item .subject{
+    font-size: @defauleFont - 1!important;
+  }
+  .option_item label{
+    font-size: @defauleFont - 3!important;
+    >.letter{
+      font-size: @defauleFont + 2!important;
+    }
+  }
+}
+.confirma_box p{
+  margin-bottom: 15px;
+  font-size: @defauleFont;
 }
 .exam_state{
   background-color: #fff;
@@ -283,19 +312,33 @@
   z-index: 100;
   .show_state{
     height: 50px;
+    position: relative;
     .menu,.m_setting_btn{
-      display: inline-block;
-      padding: 0 10px;
-      height: 100%;
-      line-height: 50px;
+      padding: 10px;
       font-size: 18px;
     }
+    .m_setting_btn{
+      position: absolute;
+      top: 5px;
+      left: 15px;
+    }
+    .assignment_btn{
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background-color: #E45C40;
+      border: none;
+    }
     .menu_info{
-      float: right;
       line-height: 50px;
+      width: 260px;
+      margin: 0 auto;
+      .object_num{
+        margin-left: 15px;
+      }
       .right,.error{
         float: left;
-        margin-right: 25px;
+        margin-left: 25px;
         span{
           border: 1px solid #444;
           font-size: 12px;

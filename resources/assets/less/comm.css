@@ -23,9 +23,6 @@ li {
 .nav {
   height: 60px;
   background-color: #fff;
-  width: 100%;
-  position: fixed;
-  z-index: 99;
 }
 .nav .logo img {
   display: block;
@@ -49,7 +46,4 @@ li {
   padding: 20px 0;
   font-size: 12px;
   color: #999;
-}
-.up_top_padding {
-  padding-top: 60px;
 }

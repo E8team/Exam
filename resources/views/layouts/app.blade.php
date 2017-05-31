@@ -9,7 +9,7 @@
     @section('styles')
     @endsection
 </head>
-<body>
+<body class="">
 <!-- 导航栏 -->
 <div class="main">
     <!-- 导航栏 -->
@@ -41,6 +41,8 @@
 </div>
 
 <script src="{!! asset(mix('static/js/app.js')) !!}"></script>
+@yield('js')
+@stack('js')
 <script>
     $(document).ready(function () {
         $('.bg_box').height($(window).height() - 60);
@@ -50,8 +52,8 @@
             $(document.body).animate({
                 'scrollTop': $('.course').offset().top
             }, 500);
-        })
-    })
+        });
+    });
 </script>
 </body>
 </html>

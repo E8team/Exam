@@ -82,7 +82,7 @@
         <div class="remind_content">
           <ul class="subject_list">
             @foreach($topics as $k => $topic)
-              <li><a class="@if(!$topic->submitRecord->isEmpty()) {!! $topic->submit_record->is_correct?'righe':'error' !!} @endif" href="javascript:;">{!! $k+1 !!}</a></li>
+              <li><a class="@if(!$topic->submitRecord->isEmpty()) {!! $topic->submit_record->is_correct?'righe':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
             @endforeach
           </ul>
         </div>
@@ -110,7 +110,7 @@
       <div class="exam_main">
         <ul class="exam_list">
           @foreach($topics as $k => $topic)
-            <li class="exam_item">
+            <li class="exam_item" id="topic_{!! $topic->id !!}">
               <p class="subject">{!! $k+1 !!} . {!! $topic->title !!}</p>
               <ul class="option_list">
                 @foreach($topic->options as $option)

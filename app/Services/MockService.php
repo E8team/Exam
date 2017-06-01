@@ -31,7 +31,7 @@ class MockService
     }
 
     /**
-     * 模拟完毕后获取正确的题目数
+     * 交卷
      * @param User $user
      * @return int
      */

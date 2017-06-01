@@ -5,9 +5,14 @@
     <title>@yield('title') - 马克思学院在线考试系统</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{!! asset(mix('static/css/app.css')) !!}">
-    @section('styles')
-    @endsection
+    <link rel="stylesheet" href="{!! asset(mix('static/css/app.css')) !!}" >
+    @yield('styles')
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="{{ asset('static/js/es5-shim.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('static/js/es5-sham.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('static/js/respond.min.js') }}"></script>
+    <![endif]-->
+    <script src="{!! asset(mix('static/js/app.js')) !!}"></script>
 </head>
 <body>
 <!-- 导航栏 -->
@@ -40,7 +45,6 @@
     <div class="footer_nav">E8net</div>
 </div>
 
-<script src="{!! asset(mix('static/js/app.js')) !!}"></script>
 @yield('js')
 @stack('js')
 <script>

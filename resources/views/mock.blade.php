@@ -54,8 +54,9 @@
   // show 字体、模式
 
   $(function () {
-    $('.m_setting_btn').click(function () {
+    $('.m_setting_btn').click(function (event) {
       $('.setting').fadeToggle("fast");
+      event.stopPropagation();
     });
     $('.setting>.mask').click(function () {
       $('.setting').fadeToggle("fast");
@@ -65,21 +66,49 @@
   // 锚点动画
 
   $(function () {
-      function goSubject(targetId) {
-          var $target = $('[data-id = ' + targetId + ']');
-          $target.parent().find('li.active').removeClass('active');
-          $target.addClass('active');
-          $(document.body).animate({
-              scrollTop: $target.offset().top - 20
-          }, 300);
-      }
+    function goSubject(targetId) {
+        var $target = $('[data-id = ' + targetId + ']');
+        $target.parent().find('li.active').removeClass('active');
+        $target.addClass('active');
+        $(document.body).animate({
+            scrollTop: $target.offset().top - 20
+        }, 300);
+    }
     var $subjectList = $('.subject_list');
-      goSubject(window.location.hash.substr(1));
+      var hash = window.location.hash.substr(1);
+      if(hash.length > 0){
+        goSubject(window.location.hash.substr(1));
+      }
       $subjectList.find('li>a').click(function () {
         var targetId = this.getAttribute('href').substr(1);
         goSubject(targetId);
     });
   })
+
+  // 手机列表显示
+  $(function() {
+    var $remindBoxXs = $('.remind_box_xs');
+    var $remindMask = $('.remind_box_body>.mask');
+    function remindSwitch() {
+      $remindBoxXs.toggleClass('remind_box_switch');
+      $remindMask.fadeToggle();
+      $(document.body).toggleClass('modal-open');
+    }
+    $remindMask.click(function() {
+      remindSwitch();
+    });
+    $remindBoxXs.click(function() {
+      remindSwitch();
+    });
+  });
+
+  // 交卷
+  $(function (){
+    $('#assignment_btn').click(function(event){
+      $('#assignment').modal('toggle');
+      event.stopPropagation();
+    });
+  });
 </script>
 @endpush
 @section('content')
@@ -190,7 +219,7 @@
         <span class="object_num"><b>1</b>/500</span>
         <span class="menu"><i class="glyphicon glyphicon-th-large"></i></span>
       </div>
-      <a class="btn btn-primary assignment_btn" data-target="#assignment" data-toggle="modal">交卷</a>
+      <a class="btn btn-primary assignment_btn" id="assignment_btn" data-toggle="modal">交卷</a>
     </div>
     <div class="subject_list_body">
       <!-- 显示所有的题目序号 -->

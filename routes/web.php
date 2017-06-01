@@ -14,8 +14,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/exam', function () {
-    return view('exam');
+Route::get('/menu', function () {
+    return view('menu');
 });
 
 Route::get('/test', 'IndexController@test');

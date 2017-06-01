@@ -2,6 +2,7 @@
 @nightColor: #252B37;
 @eyeColor: #D4DFE3;
 @defauleFont: 16px;
+
 // 定义模式和字体
 .nightColor{
   background-color: #1c1f2b;
@@ -11,6 +12,7 @@
   color: #704214;
   background: #f3eacb;
 }
+
 // 大字体
 .largeFont{
   .exam_item .subject{
@@ -23,6 +25,7 @@
     }
   }
 }
+
 // 小字体
 .smallFont{
   .exam_item .subject{
@@ -35,6 +38,12 @@
     }
   }
 }
+
+// 手机版题目列表开关
+.remind_box_switch{
+  transform: translateY(0)!important;
+}
+
 .confirma_box p{
   margin-bottom: 15px;
   font-size: @defauleFont;
@@ -193,7 +202,7 @@
           em{
             position: absolute;
             right: -20px;
-            top: 3px; 
+            top: 3px;
             display: inline-block;
             height: 15px;
             width: 15px;
@@ -219,11 +228,17 @@
   // 题目列表
   .exam_main{
     .exam_list{
+      .active{
+        border: 1px solid #47AD76!important;
+      }
       .exam_item{
         background-color: @defaultColor;
         margin-bottom: 30px;
         border-radius: 5px;
         border: 1px solid #e0e3e9;
+        .active{
+          border-color: #47AD76;
+        }
         .subject{
           font-size: @defauleFont;
           margin-bottom: 15px;
@@ -254,7 +269,7 @@
               font-size: @defauleFont - 2;
               cursor: pointer;
               table-layout:fixed;
-              word-break: break-all; 
+              word-break: break-all;
               .letter{
                 position: absolute;
                 top: 0px;
@@ -326,8 +341,9 @@
     height: 100%;
     background-color: #000;
     opacity: 0.1;
-    filter:alpha(opacity=10);  
+    filter:alpha(opacity=10);
     z-index: 998;
+    display: none;
   }
 }
 .remind_box_xs{
@@ -339,7 +355,7 @@
   width: 100%;
   z-index: 999;
   transform: translateY(400px);
-  transition: transfrom .4s;
+  transition: transform .1s ease-out;
   .show_state{
     height: 50px;
     position: relative;
@@ -392,15 +408,18 @@
     overflow-y: scroll;
     >.subject_list{
       overflow: hidden;
+      text-align: center;
       >li{
-        float: left;
+        display: inline-block;
         a{
           display: inline-block;
           width: 40px;
           height: 40px;
           text-align: center;
           line-height: 40px;
-          margin: 0 15px 15px 0;
+          margin-bottom: 15px;
+          margin-right: 8px;
+          margin-left: 8px;
           color: #666;
           font-size: 14px;
           border: 1px solid #E6E8EC;
@@ -484,7 +503,7 @@
           display: inline-block;
         }
         &.active{
-          >span{  
+          >span{
             background-color: #31b0d5;
             border-color: #46b8da;
             color: #fff;
@@ -503,10 +522,10 @@
     height: 100%;
     background-color: #000;
     opacity: 0.1;
-    filter:alpha(opacity=10);  
+    filter:alpha(opacity=10);
     z-index: 998;
   }
-} 
+}
 
 @media(max-width:768px){
   .exam_body{padding:0;}

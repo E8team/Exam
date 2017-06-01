@@ -1,0 +1,91 @@
+.menu_body{
+  margin-top: 35px;
+
+  // 左边个人中心
+  .personal_center{
+    background-color: #fff;
+    padding: 30px 0;
+    .head_portrait{
+      text-align: center;
+      img{
+        border-radius: 100px;
+        display: inline-block;
+      }
+      p{
+        margin-top: 10px;
+      }
+    }
+    .personal_info{
+      width: 50%;
+      margin: 0 auto;
+      margin-top: 20px;
+      .info_item{
+        margin-top: 10px;
+        p{
+          float: left;
+          color: #999;
+        }
+        span{
+          text-align: center;
+          display: block;
+        }
+      }
+    }
+  }
+
+  // 右边
+  .pattern_info{
+    .simulation,.practice{
+      margin-bottom: 30px;
+      border: 1px solid #e0e3e9;
+      border-radius: 6px;
+      .title{
+        font-size: 16px;
+        font-weight: 400;
+        padding: 10px;
+        background-color: #f9f9fa;
+      }
+      .content{
+        background-color: #fff;
+        padding: 15px;
+        overflow: hidden;
+      }
+    }
+    .simulation{
+      .main{
+        li{
+          margin-bottom: 15px;
+          em{
+            width: 10px;
+            height: 10px;
+            border-radius: 100px;
+            display: inline-block;
+            margin-right: 15px;
+          }
+          em.right{
+            background-color: #47AD76;
+          }
+          em.error{
+            background-color: #E45C40;
+          }
+          em.no{
+            background-color: #ddd;
+          }
+          span{
+            width: 100px;
+            display: inline-block;
+          }
+        }
+      }
+      .choose_btn{
+         li{
+           text-align: center;
+           margin-bottom: 15px;
+           button{
+             display: inline-block;
+           }
+         }
+      }
+    }
+  }
+}

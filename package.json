@@ -13,7 +13,9 @@
     "bootstrap-less": "^3.3.7",
     "cross-env": "^3.2.3",
     "jquery": "^3.1.1",
-    "laravel-mix": "0.*"
+    "laravel-mix": "0.*",
+		"es5-shim": "^4.5.9",
+		"Respond.js": "scottjehl/Respond"
   },
   "dependencies": {
     "admin-lte": "^2.3.11"

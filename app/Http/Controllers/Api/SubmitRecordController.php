@@ -6,8 +6,11 @@ namespace App\Http\Controllers\Api;
 use App\Events\SubmitedTopic;
 use App\Http\Requests\SubmitRecordRequest;
 use App\Models\SubmitRecord;
+<<<<<<< HEAD
+=======
 use App\Models\Topic;
 use App\Models\User;
+>>>>>>> 15289d6da8c4efb3116682937098ab007002ac1e
 use App\Services\TopicService;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,7 +39,11 @@ class SubmitRecordController extends ApiController
 
     private function userIsSubmibedTopic($topicId, $userId)
     {
+<<<<<<< HEAD
+        return SubmitRecord::where(['user_id' =>Auth::user()->id,'topic_id' =>$topic->id])->mock()->first();
+=======
         return SubmitRecord::where(['user_id' => $userId,'topic_id' =>$topicId,'type' =>'mock'])->first();
+>>>>>>> 15289d6da8c4efb3116682937098ab007002ac1e
     }
 
 }

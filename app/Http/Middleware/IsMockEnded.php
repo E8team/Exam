@@ -23,7 +23,6 @@ class IsMockEnded
         if(Auth::check()){
             try{
                 $mockRecord = app(MockService::class)->getNotEndedMockRecord(Auth::user());
-                //dd($mockRecord->isEnded());
                 if(!$mockRecord->isEnded()){
                     if($mockRecord->isOvertime()){
                         // 跳转到 结束模拟页面

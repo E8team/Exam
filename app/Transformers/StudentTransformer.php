@@ -11,7 +11,6 @@ class StudentTransformer extends TransformerAbstract
 
     public function transform(Student $student)
     {
-
         return [
             'id' => $student->id,
             'student_num' => $student->student_num,

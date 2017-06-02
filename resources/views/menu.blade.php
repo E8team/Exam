@@ -7,10 +7,13 @@
     <!-- 左边 -->
     <div class="personal_center col-md-4 col-lg-4 ">
       <div class="head_portrait">
-          <img src="http://q.qlogo.cn/qqapp/101336553/04542CD17FA26ED728D996AFC2173EF2/100">
-          <p>git</p>
+          <h2>中国近代史纲要</h2>
       </div>
       <div class="personal_info">
+        <div class="info_item">
+          <p>姓　名：</p>
+          <span>田阳</span>
+        </div>
         <div class="info_item">
           <p>学　号：</p>
           <span>1508220128</span>

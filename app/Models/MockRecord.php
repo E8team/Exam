@@ -22,7 +22,8 @@ class MockRecord extends BaseModel
         return $this->belongsTo(User::class);
     }
 
-    public function submitRecord(){
+    public function submitRecord()
+    {
         return $this->hasMany(SubmitRecord::class);
     }
 

@@ -21,6 +21,7 @@ class CreateOptionsTable extends Migration
             $table->string('title')->comment('选项标题');
             // $table->timestamps();
         });
+
     }
 
     /**

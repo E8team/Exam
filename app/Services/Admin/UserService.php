@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: User
- * Date: 2017/5/27
- * Time: 20:35
- */
+
 
 namespace App\Services\Admin;
 

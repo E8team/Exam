@@ -7,13 +7,7 @@
     padding: 30px 0;
     .head_portrait{
       text-align: center;
-      img{
-        border-radius: 100px;
-        display: inline-block;
-      }
-      p{
-        margin-top: 10px;
-      }
+      margin-bottom: 30px;
     }
     .personal_info{
       width: 50%;
@@ -36,7 +30,7 @@
   // 右边
   .pattern_info{
     .simulation,.practice{
-      margin-bottom: 30px;
+      margin-bottom: 15px;
       border: 1px solid #e0e3e9;
       border-radius: 6px;
       .title{
@@ -47,14 +41,15 @@
       }
       .content{
         background-color: #fff;
-        padding: 15px;
+        padding: 15px 0;
         overflow: hidden;
       }
     }
     .simulation{
       .main{
         li{
-          margin-bottom: 15px;
+          margin-top: 15px;
+          text-align: center;
           em{
             width: 10px;
             height: 10px;
@@ -81,11 +76,72 @@
          li{
            text-align: center;
            margin-bottom: 15px;
+           &:last-child{
+             margin: 0;
+           }
            button{
              display: inline-block;
            }
          }
       }
+    }
+    .practice{
+      .data{
+        text-align: center;
+        .cumula_ball{
+          display: inline-block;
+          width: 120px;
+          height: 120px;
+          border: 7px solid #CCFFFF;
+          border-radius: 100px;
+          text-align: center;
+          span{
+            font-size: 12px;
+            color: #999;
+            margin-top: 20px;
+            display: inline-block;
+          }
+          p{
+            margin-top: 5px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #337ab7;
+          }
+        }
+        ul{
+          margin-top: 20px;
+          li{
+            display: inline-block;
+            width: 30%;
+            p.num{
+              color: #31b0d5;
+              font-size: 16px;
+              margin-bottom: 10px;
+            }
+          }
+        }
+      }
+      .practice_btn{
+        text-align: center;
+        margin-top: 75px;
+      }
+    }
+  }
+}
+
+@media(max-width:768px){
+  .pattern_info{
+    padding: 0;
+    margin-top: 30px;
+    .practice_btn{
+      margin-top: 20px!important;
+    }
+  }
+  .choose_btn{
+    text-align: center;
+    margin-top: 30px;
+    li{
+      display: inline-block;
     }
   }
 }

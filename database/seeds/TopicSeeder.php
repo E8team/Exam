@@ -1,7 +1,5 @@
 <?php
-
 use Illuminate\Database\Seeder;
-
 class TopicSeeder extends Seeder
 {
     /**
@@ -27,6 +25,5 @@ class TopicSeeder extends Seeder
                     'created_at'=>\Carbon\Carbon::now()
                 ]);
         }
-
     }
 }

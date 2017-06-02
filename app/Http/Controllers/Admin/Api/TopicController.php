@@ -31,9 +31,9 @@ class TopicController extends ApiController
      * @param TopicService $topicService
      * @return \Dingo\Api\Http\Response
      */
-    public function getTopic(TopicService $topicService)
+    public function getTopic(TopicService $topicService , $topicId)
     {
-        $topicId = 2;
+        //$topicId = 2;
         $option = $topicService->findTopic($topicId);
         return $this->response->item($option, new TopicTransformer())
             ->addMeta('options', $option['options']);

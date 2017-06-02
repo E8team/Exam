@@ -13,7 +13,12 @@ use App\Services\Admin\CourseService;
 
 class CourseController  extends ApiController
 {
-    public function getAllCourses(CourseService $courseService)
+    /**
+     * 返回课程列表
+     * @param CourseService $courseService
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function lists(CourseService $courseService)
     {
         $courses = $courseService->getCourses();
         return $courses;
@@ -24,9 +29,10 @@ class CourseController  extends ApiController
      * @param CourseService $courseService
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getCourse(CourseService $courseService)
+    public function getCourse(CourseService $courseService , $CourseId)
     {
-        $CourseId = 2;
+        //$CourseId = 2;
+        //dd($courseService->getCourses($CourseId)->toArray());
         return $courseService->getCourses($CourseId);
     }
 

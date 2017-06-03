@@ -71,15 +71,16 @@ class MockController extends Controller
             $submitRecords = $submitRecords->unique('topic_id');
             $mockRecord->submit_count = $submitRecords->count();
             $mockRecord->correct_count = $submitRecords->where('is_correct', true)->count();
-            $mockRecord->wrong_count = $mockRecord->submit_count-$mockRecord->correct_count;
             // 计算模拟得分
             $mockRecord->score = $mockRecord->correct_count/$mockTopicsCount*100;
             $mockRecord->ended_at = Carbon::now();
             $mockRecord->save();
             MockTopic::where('mock_record_id', $mockRecord->id)->delete();
         }
+        $wrongCount =  $mockRecord->submit_count - $mockRecord->correct_count;
         return view('score', [
             'mockRecord'=>$mockRecord,
+            'wrongCount' => $wrongCount,
             'mockTopicsCount'=>$mockTopicsCount
         ]);
     }

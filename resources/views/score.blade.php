@@ -19,7 +19,7 @@
 						<li class="dtsj"><i></i>答题时间<span>{!! $mockRecord->ended_at->diffInSeconds($mockRecord->created_at, true) !!} 30分20秒</span></li>
 						<li class="dtl"><i></i>答题量<span>{!! $mockRecord->submit_count.'/'.$mockTopicsCount !!}道</span></li>
 						<li class="dd"><i></i>答对<span>{!! $mockRecord->correct_count.'/'.$mockRecord->submit_count !!}道</span></li>
-						<li class="dc"><i></i>答错<span>{!! $mockRecord->wrong_count.'/'.$mockRecord->submit_count !!}道</span></li>
+						<li class="dc"><i></i>答错<span>{!! $wrongCount.'/'.$mockRecord->submit_count !!}道</span></li>
 						<li class="ld"><i></i>漏答<span>{!! ($mockTopicsCount-$mockRecord->submit_count).'/'.$mockTopicsCount !!}道</span></li>
 					</ul>
 					</div>

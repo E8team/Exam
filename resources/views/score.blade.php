@@ -12,15 +12,15 @@
 				<div class="title"><h3>试卷得分</h3></div>
 				<div class="score_lcon">
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-						<div class="re_num"><em>90</em>分</div>
+						<div class="re_num"><em>{!! $mockRecord->score !!}</em>分</div>
 					</div>
 					<div  class="analysis col-lg-8 col-md-8 col-sm-8 col-xs-12">
 					<ul>
-						<li class="dtsj"><i></i>答题时间<span>30分20秒</span></li>
-						<li class="dtl"><i></i>答题量<span>49/50道</span></li>
-						<li class="dd"><i></i>答对<span>46/49道</span></li>
-						<li class="dc"><i></i>答错<span>46/49道</span></li>
-						<li class="ld"><i></i>漏答<span>1/50道</span></li>							
+						<li class="dtsj"><i></i>答题时间<span>{!! $mockRecord->ended_at->diffInSeconds($mockRecord->created_at, true) !!} 30分20秒</span></li>
+						<li class="dtl"><i></i>答题量<span>{!! $mockRecord->submit_count.'/'.$mockTopicsCount !!}道</span></li>
+						<li class="dd"><i></i>答对<span>{!! $mockRecord->correct_count.'/'.$mockRecord->submit_count !!}道</span></li>
+						<li class="dc"><i></i>答错<span>{!! $mockRecord->wrong_count.'/'.$mockRecord->submit_count !!}道</span></li>
+						<li class="ld"><i></i>漏答<span>{!! ($mockTopicsCount-$mockRecord->submit_count).'/'.$mockTopicsCount !!}道</span></li>
 					</ul>
 					</div>
 				</div>

@@ -336,7 +336,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">继续答题</button>
-        <button type="button" class="btn btn-default">确认交卷</button>
+        <a href="{!! route('end_mock', ['mockRecordId'=>$mockRecord->id]) !!}" type="button" class="btn btn-default">确认交卷</a>
       </div>
     </div>
   </div>

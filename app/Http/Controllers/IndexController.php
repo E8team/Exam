@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MockRecord;
 use App\Models\Topic;
 use App\Services\DepartmentClassService;
+use App\Services\MockService;
 use App\Services\TopicService;
 use App\Widgets\Alert;
 use Auth;
@@ -14,6 +16,7 @@ class IndexController extends Controller
 
     public function index()
     {
+        app(MockService::class)->getSubmitRecords(MockRecord::find(1), Auth::user());
         return view('welcome');
     }
 

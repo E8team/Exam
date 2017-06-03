@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title')模拟考试中@endsection
+@section('title')随机答题中@endsection
 @push('js')
 <script type="text/javascript">
  // 切换主题
@@ -325,8 +325,8 @@
     <div class="modal-content">
       <div class="modal-body confirma_box">
         <p>操作提示：</p>
-        <p>1：点击【确认交卷】，将提交考试成绩，结束考试！</p>
-        <p>2：点击【继续考试】，将关闭本窗口，继续考试！</p>
+        <p>1：点击【确认交卷】，将提交成绩，结束答题！</p>
+        <p>2：点击【继续答题】，将关闭本窗口，继续答题！</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">继续答题</button>

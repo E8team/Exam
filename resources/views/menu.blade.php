@@ -73,12 +73,12 @@
       </div>
       <!-- 全真模拟 -->
       <div class="practice">
-        <h2 class="title">全真模拟</h2>
+        <h2 class="title">随机答题</h2>
         <div class="content">
           <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
             <div class="data">
               <div class="cumula_ball">
-                <span>累计做题数</span>
+                <span>累计答题数</span>
                 <p>{{$topicInfo->recordCount}}</p>
               </div>
               <ul>
@@ -99,7 +99,7 @@
           </div>
           <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
             <div class="practice_btn">
-              <a href="{!! route('create_mock', ['courseId'=>$course->id]) !!}" type="button" class="btn btn-info">模拟考试</a>
+              <a href="{!! route('create_mock', ['courseId'=>$course->id]) !!}" type="button" class="btn btn-info">随机答题</a>
             </div>
           </div>
         </div>

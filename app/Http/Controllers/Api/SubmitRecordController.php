@@ -28,7 +28,6 @@ class SubmitRecordController extends ApiController
             $submitRecord = SubmitRecord::create($data);
             event(new SubmitedTopic($topic, $submitRecord));
 
-
             return [
                 'is_correct' => $submitRecord->is_correct,
                 'correct_option_ans' => $topic->getAns()

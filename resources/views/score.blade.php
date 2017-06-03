@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title')成绩@endsection
+@section('title')答题结束@endsection
 @section('styles')
 	<link rel="stylesheet" href="{!! asset('static/css/score.css') !!}" >
 @endsection
@@ -14,9 +14,9 @@
 <!-- 成绩分析 -->
 	<div class="container mks_container  score">
 		<div class=" mks_container_score">
-			<h2>恭喜你，通过本次考试！</h2>
+			<h2>答题结束！</h2>
 			<div class="container_score_body">
-				<div class="title"><h3>试卷得分</h3></div>
+				<div class="title"><h3>答题详情</h3></div>
 				<div class="score_lcon">
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 						<div class="re_num"><em>{!! $mockRecord->score !!}</em>分</div>

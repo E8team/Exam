@@ -14,11 +14,13 @@ class CourseSeeder extends Seeder
         DB::table('courses')->insert(
             [
                 [
+                    'id' => 1,
                     'name' => '马克思主义基本原理概论',
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
                 ],
                 [
+                    'id' => 2,
                     'name' => '中国近代史纲要',
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()

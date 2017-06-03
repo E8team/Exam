@@ -230,6 +230,7 @@
     .exam_list{
       .active{
         border: 1px solid #47AD76!important;
+        animation: emphasize .7s .5s;
       }
       .exam_item{
         background-color: @defaultColor;
@@ -246,6 +247,13 @@
           padding: 15px;
           table-layout: fixed;
           word-break: break-all;
+          position: relative;
+          padding-left: 40px;
+          span{
+            position: absolute;
+            top: 15px;
+            left: 15px;
+          }
         }
         .option_list{
           padding: 10px 30px 15px;
@@ -268,6 +276,7 @@
               width: 100%;
               padding-left: 20px;
               position: relative;
+              font-weight: normal;
               font-size: @defauleFont - 2;
               cursor: pointer;
               table-layout:fixed;
@@ -323,6 +332,18 @@
         }
       }
     }
+  }
+}
+
+@keyframes emphasize {
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.03);
+  }
+  100%{
+    transform: scale(1);
   }
 }
 .remind_box_body{

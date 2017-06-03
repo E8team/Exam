@@ -71,7 +71,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $api = app('Dingo\Api\Routing\Router');
         $api->version(
-            'v1', ['namespace' => $this->namespace, 'middleware' => 'api'], function ($api) {
+            'v1', ['namespace' => $this->namespace, 'middleware' => 'web'], function ($api) {
             $api->group(
                 ['namespace' => 'Api'], function ($api) {
                 include base_path('routes/api.php');

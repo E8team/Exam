@@ -1,7 +1,5 @@
 <?php
-
 use Illuminate\Database\Seeder;
-
 class TopicSeeder extends Seeder
 {
     /**
@@ -38,7 +36,7 @@ class TopicSeeder extends Seeder
             $topicTitle = $modernHistory[$i][1];
             $topicId = DB::table('topics')->insertGetId([
                 'topic_num'=>$modernHistory[$i][0],
-                'course_id'=>1,
+                'course_id'=>2,
                 'title' => $topicTitle,
                 'correct_submit_count'=>0,
                 'total_submit_count'=>0,

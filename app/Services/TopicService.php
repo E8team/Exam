@@ -47,7 +47,7 @@ class TopicService
 
     public function getTopicIdsByCourseFromCache($course)
     {
-        return Cache::rememberForever('all_topic_ids', function () use ($course) {
+        return Cache::rememberForever('all_topic_ids:course_'.$course, function () use ($course) {
             return $this->getTopicIdsByCourse($course);
         });
     }
@@ -84,33 +84,28 @@ class TopicService
         return $randomTopicIds;
     }
 
-    public function makeTopicsWithLastSubmitRecord($topics, $user)
+    public function makeTopicsWithLastSubmitRecord($topics,$type, $user)
     {
-        return $topics->load(['submitRecord' => function ($query) use ($user) {
+        return $topics->load(['submitRecord' => function ($query) use ($user,$type) {
             if ($user instanceof User) {
                 $userId = $user->id;
             } else {
                 $userId = $user;
             }
-            return $query->where('submit_records.user_id', $userId)->recent()->limit(1);
+            $query->where('submit_records.user_id', $userId);
+            switch ($type)
+            {
+                case 'practice':
+                    $query->practice();
+                    break;
+                case 'mock':
+                    $query->mock();
+                    break;
+            }
+            return $query->recent()->limit(1);
         }]);
     }
 
-    /*public function allTopicNumWithLastSubmitRecord($course, $user)
-    {
-        $topicIds = $this->getTopicIdsByCourseFromCache($course);
-
-        $topicIds->load(['submitRecord' => function ($query) use ($user) {
-            if ($user instanceof User) {
-                $userId = $user->id;
-            } else {
-                $userId = $user;
-            }
-            return $query->where('submit_records.user_id', $userId)->recent()->limit(1);
-
-        }]);
-        return $topicIds;
-    }*/
 
     public function getPaginator($topicIds, $perPage, $pageName = 'page', $page = null)
     {

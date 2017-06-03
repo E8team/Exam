@@ -35,14 +35,16 @@ class MockController extends Controller
 
     public function showMockView($mockRecordId)
     {
-        //todo 判断该mockRecord是否是当前登录用户的
+        $user = Auth::user();
         $topicService = app(TopicService::class);
-
         $mockRecord = MockRecord::findOrFail($mockRecordId);
+        if($mockRecord->user_id != $user->id){
+            // todo alert
+            abort(404);
+        }
         $mockTopics = $mockRecord->mockTopics()->ordered()->limit(config('exam.mock_topics_count'))->get();
         $topics = $topicService->findTopicsFromCache($mockTopics->pluck('topic_id'));
-
-        $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, Auth::user());
-        return view('mock', ['topics' => $topics, 'remainingTime'=>config('exam.mock_time') - Carbon::now()->diffInSeconds($mockRecord->created_at, true)]);
+        $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, $user);
+        return view('mock', ['topics' => $topics, 'mockRecord'=>$mockRecord, 'remainingTime'=>config('exam.mock_time') - Carbon::now()->diffInSeconds($mockRecord->created_at, true)]);
     }
 }

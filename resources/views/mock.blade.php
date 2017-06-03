@@ -67,6 +67,7 @@
   // 锚点动画
   function goSubject(targetId) {
       var $target = $('[data-id = ' + targetId + ']');
+      console.log($target);
       $target.parent().find('li.active').removeClass('active');
       $target.addClass('active');
       $(document.body).animate({
@@ -79,10 +80,13 @@
       if(hash.length > 0){
         goSubject(window.location.hash.substr(1));
       }
-      $subjectList.find('li>a').click(function () {
-        var targetId = this.getAttribute('href').substr(1);
-        goSubject(targetId);
-    });
+      document.body.onhashchange = function () {
+          goSubject(window.location.hash.substr(1));
+      }
+//      $subjectList.find('li>a').click(function () {
+//        var targetId = this.getAttribute('href').substr(1);
+//        goSubject(targetId);
+//      });
   })
 
   // 手机列表显示

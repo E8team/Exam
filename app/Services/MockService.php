@@ -37,7 +37,7 @@ class MockService
         }else{
             $userId = $user;
         }
-        dd(MockRecord::where(['user_id'=>$userId])->with("mockTopics")->get());
+        return MockRecord::where(['user_id'=>$userId])->get();
     }
 
     public function getSubmitRecords($mockRecord, $user){

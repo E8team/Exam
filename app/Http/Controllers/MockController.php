@@ -43,6 +43,9 @@ class MockController extends Controller
             //todo alert
             abort(404);
         }
+        if(!is_null($mockRecord->ended_at)){
+            return redirect(route('end_mock', ['mockRecordId'=>$mockRecordId]));
+        }
         $user = Auth::user();
         $topicService = app(TopicService::class);
 
@@ -60,11 +63,11 @@ class MockController extends Controller
     public function endMock($mockRecordId)
     {
         $mockRecord = MockRecord::findOrFail($mockRecordId);
-        $user = Auth::user();
-        if($mockRecord->user_id != $user->id){
+        if(Gate::denies('mock', $mockRecord)){
             //todo alert
             abort(404);
         }
+        $user = Auth::user();
         $mockTopicsCount = config('exam.mock_topics_count');
         if(is_null($mockRecord->ended_at)){
             $submitRecords = app(MockService::class)->getSubmitRecords($mockRecord, $user);

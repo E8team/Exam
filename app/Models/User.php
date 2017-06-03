@@ -41,7 +41,8 @@ class User extends BaseModel implements
     ];
 
     protected $casts = [
-        'verified' => 'boolean'
+        'verified' => 'boolean',
+        'is_selected_courses' => 'boolean'
     ];
 
     public function submitRecords()
@@ -89,5 +90,23 @@ class User extends BaseModel implements
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPassword($token));
+    }
+
+    public function isSelectedCourses()
+    {
+        return $this->is_selected_courses;
+    }
+
+    public function isSelectedGivenCourse($course)
+    {
+        if($course instanceof Course)
+            $courseId = $course->id;
+        else
+            $courseId = $course;
+        foreach($this->courses as $course){
+            if($course->id == $courseId)
+                return $course;
+        }
+        return false;
     }
 }

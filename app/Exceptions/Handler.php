@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Widgets\Alert;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -59,7 +60,7 @@ class Handler extends ExceptionHandler
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
-
+        app(Alert::class)->setDanger('请先登录');
         return redirect()->guest(route('login'));
     }
 }

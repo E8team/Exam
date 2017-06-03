@@ -7,32 +7,32 @@
     <!-- 左边 -->
     <div class="personal_center col-md-4 col-lg-4 ">
       <div class="head_portrait">
-          <h2>中国近代史纲要</h2>
+          <h2>{!! $course->name !!}</h2>
       </div>
       <div class="personal_info">
         <div class="info_item">
           <p>姓　名：</p>
-          <span>田阳</span>
+          <span>{{$user->name}}</span>
         </div>
         <div class="info_item">
           <p>学　号：</p>
-          <span>1508220128</span>
+          <span>{!! $user->student_num !!}</span>
         </div>
         <div class="info_item">
-          <p>手机号：</p>
-          <span>17775206961</span>
+          <p>邮箱：</p>
+          <span>{!! $user->email !!}</span>
         </div>
         <div class="info_item">
           <p>院　系：</p>
-          <span>计算机</span>
+          <span>{{$departmentClass->getDepartment()->title}}</span>
         </div>
         <div class="info_item">
           <p>专　业：</p>
-          <span>网络工程</span>
+          <span>{{$departmentClass->getMajor()->title}}</span>
         </div>
         <div class="info_item">
           <p>班　级：</p>
-          <span>网工二班</span>
+          <span>{{$departmentClass->getGrade()->title.'级'.$departmentClass->title.'班'}}</span>
         </div>
       </div>
     </div>

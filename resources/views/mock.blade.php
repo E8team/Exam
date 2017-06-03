@@ -273,7 +273,7 @@
       <!-- 显示所有的题目序号 -->
       <ul id="subject-list" class="subject_list">
         @foreach($topics as $k => $topic)
-          <li><a class="@if(!$topic->submitRecord->isEmpty()) {!! $topic->submit_record->is_correct?'righe':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
+          <li><a class="@if(!$topic->submitRecord->isEmpty()) {!! $topic->submit_record->first()->is_correct?'righe':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
         @endforeach
       </ul>
     </div>

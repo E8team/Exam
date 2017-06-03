@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         Gate::define('mock', function ($user, $mockRecord) {
-            return $mockRecord->user_id == $user->id && is_null($mockRecord->ended_at);
+            return $mockRecord->user_id == $user->id;
         });
     }
 

@@ -59,17 +59,19 @@ class IndexController extends Controller
     {
         $topicService = app(TopicService::class);
         $topicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
-        $submitRecords = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'mock',Auth::user())->toArray();
         $topic = new Collection();
         $topic->recordCount = 0;// 做的题目总数
         $topic->passCount = 0;// 模拟时的及格次数
         $topic->examCount = 0;// 累计模拟次数
         $topic->maxScore = 0;// 历史最高模拟成绩
-        foreach ($submitRecords as $submitRecord)
+        $allMockRecordByUser = app(MockService::class)->allMockRecordByUser(Auth::user());
+        foreach ($allMockRecordByUser as $item)
         {
-            $topic->recordCount  += count($submitRecord['submit_records']);
+            $topic->recordCount += $item->submit_count;
+            !($item->score >=60)?: $topic->passCount+=1;
+            !($item->score > $topic->maxScore)?:$topic->maxScore=$item->score;
         }
-        //dd(app(MockService::class)->allMockRecordByUser(Auth::user()));
+        $topic->examCount = count($allMockRecordByUser);
         return $topic;
     }
 }

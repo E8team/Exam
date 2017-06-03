@@ -27,7 +27,8 @@
 	</style>
 </head>
 <body>
-	<h1>404 没有找到相关内容</h1>
+	@inject('alert', 'App\Widgets\Alert')
+	<h1>@if($alert->hasMessage()) {!! $alert->getData()['message'] !!} @else 404 没有找到相关内容@endif</h1>
 	@php
 		$previous = URL::previous();
 	@endphp

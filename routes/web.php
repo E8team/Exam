@@ -10,13 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'IndexController@index');
 
-Route::get('/menu', function () {
-    return view('menu');
-});
 
 Route::get('/test', 'IndexController@test');
 
@@ -41,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'isVerified'], function () {
         Route::group(['middleware' => 'user_selected_courses'], function () {
             Route::group(['middleware' => 'isMockEnded'], function () {
+                Route::get('/menu/{courseId}', 'IndexController@menu')->name('menu');
                 Route::get('/create_mock/course/{courseId}', 'MockController@createMock')->name('create_mock');
                 Route::get('/mock/{mockRecordId}', 'MockController@showMockView')->name('mock');
             });

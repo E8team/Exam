@@ -11,26 +11,24 @@
 <!-- 选课 -->
 <div class="container course">
 	<h2 class="text-center title">选择你的课程</h2>
-	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 course_item">
-		<div class="content">
-			<div class="main">
-				<img src="{!! asset('/static/images/shi.png') !!}">
+	@if(Auth::check() && Auth::user()->isSelectedCourses())
+		@php$courses = Auth::user()->courses;@endphp
+		@else
+		@php $courses = \App\Models\Course::all();@endphp
+	@endif
+	@foreach($courses as $course)
+		<a href="{!! route('menu', ['courseId' => $course->id]) !!}">
+			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 course_item">
+				<div class="content">
+					<div class="main">
+						<img src="{!! asset('/static/images/'.$course->id.'.png') !!}">
+					</div>
+					<div class="footer">
+						<p>{!! $course->name !!}</p>
+					</div>
+				</div>
 			</div>
-			<div class="footer">
-				<p>中国近代史纲要</p>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 course_item">
-		<div class="content">
-			<div class="main ma">
-				<img src="{!! asset('/static/images/ma.png') !!}">
-			</div>
-			<div class="footer">
-				<p>马克思主义基本原理概论</p>
-			</div>
-		</div>
-	</div>
+		</a>
+	@endforeach
 </div>
 @endsection

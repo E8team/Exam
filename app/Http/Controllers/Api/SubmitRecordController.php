@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class SubmitRecordController extends ApiController
 {
-
     public function submit(SubmitRecordRequest $request)
     {
         $data = $request->all();
@@ -28,6 +27,19 @@ class SubmitRecordController extends ApiController
             $data['user_id'] = $userId;
             $submitRecord = SubmitRecord::create($data);
             event(new SubmitedTopic($topic, $submitRecord));
+            $ans = ord('A');
+            foreach ($topic->options as $option)
+            {
+                if($option->is_correct){
+                    break;
+                }
+                $ans++;
+            }
+
+            return [
+                'is_correct' => $submitRecord->is_correct,
+                'correct_option_ans' => chr($ans)
+            ];
         }
         return $this->response->noContent();
     }

@@ -213,12 +213,6 @@
               结束倒计时
             <span class="time time_count_down"></span>
           </div>
-          <div class="seting">
-            <i class="glyphicon glyphicon-cog"></i>
-            <div class="seting_body">
-              这里面是设置
-            </div>
-          </div>
         </div>
         <!-- 提醒框内容 -->
         <div class="remind_content">

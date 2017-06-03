@@ -21,7 +21,7 @@
                         @endif
                     </div>
                     <div class="form-group{!! $errors->has('id_card') ? ' has-error' : '' !!}">
-                        <label for="exampleInputid_number">身份证号码</label>
+                        <label for="exampleInputid_number">身份证号后六位</label>
                         <input type="text" name="id_card" value="{{old('id_card')}}" class="form-control" id="id_number" placeholder="身份证号码后6位">
                         @if ($errors->has('id_card'))
                             <span class="help-block">

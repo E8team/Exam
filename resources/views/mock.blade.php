@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title')模拟考试中@endsection
+@section('title')随机答题中@endsection
 @push('js')
 <script type="text/javascript">
  // 切换主题
@@ -69,7 +69,7 @@
       var $target = $('[data-id = ' + targetId + ']');
       $target.parent().find('li.active').removeClass('active');
       $target.addClass('active');
-      $(document.body).animate({
+      $('html,body').animate({
           scrollTop: $target.offset().top - 20
       }, 300);
   }
@@ -79,10 +79,13 @@
       if(hash.length > 0){
         goSubject(window.location.hash.substr(1));
       }
-      $subjectList.find('li>a').click(function () {
-        var targetId = this.getAttribute('href').substr(1);
-        goSubject(targetId);
-    });
+      document.body.onhashchange = function () {
+          goSubject(window.location.hash.substr(1));
+      }
+//      $subjectList.find('li>a').click(function () {
+//        var targetId = this.getAttribute('href').substr(1);
+//        goSubject(targetId);
+//      });
   })
 
   // 手机列表显示
@@ -117,22 +120,9 @@
     setInterval(function () {
       setTime();
     },1000);
-    function conversionToMinutes (secondNum, len) {
-      if(secondNum !== undefined){
-        secondNum = parseInt(secondNum)
-        let minute = parseInt(secondNum / 60)
-        let second = parseInt(secondNum % 60)
-        if(minute >= 0 && second >= 0){
-        	minute = String(minute)
-        	second = String(second)
-        	return new Array(len - minute.length + 1).join('0') + ((minute + ':' + new Array(2 - second.length + 1).join('0') + second).split('').join(''))
-        } else {
-        	return '0'
-        }
-      }
-    }
+
     function setTime(){
-      time.html(conversionToMinutes(remainingTime--, 2));
+      time.html(window.conversionToMinutes(remainingTime--, 2));
     }
   })
   // ajax提交答案
@@ -331,8 +321,8 @@
     <div class="modal-content">
       <div class="modal-body confirma_box">
         <p>操作提示：</p>
-        <p>1：点击【确认交卷】，将提交考试成绩，结束考试！</p>
-        <p>2：点击【继续考试】，将关闭本窗口，继续考试！</p>
+        <p>1：点击【确认交卷】，将提交成绩，结束答题！</p>
+        <p>2：点击【继续答题】，将关闭本窗口，继续答题！</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">继续答题</button>

@@ -67,10 +67,9 @@
   // 锚点动画
   function goSubject(targetId) {
       var $target = $('[data-id = ' + targetId + ']');
-      console.log($target);
       $target.parent().find('li.active').removeClass('active');
       $target.addClass('active');
-      $(document.body).animate({
+      $('html,body').animate({
           scrollTop: $target.offset().top - 20
       }, 300);
   }

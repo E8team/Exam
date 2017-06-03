@@ -9,7 +9,6 @@ body{background-color: #f1f1f1}
 	height: 60px;
 	background-color: #fff;
 	width: 100%;
-	position: fixed;
   	z-index: 99;
 }
 .nav .logo img{

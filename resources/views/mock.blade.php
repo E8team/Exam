@@ -69,7 +69,7 @@
       var $target = $('[data-id = ' + targetId + ']');
       $target.parent().find('li.active').removeClass('active');
       $target.addClass('active');
-      $(document.body).animate({
+      $('html,body').animate({
           scrollTop: $target.offset().top - 20
       }, 300);
   }
@@ -79,10 +79,13 @@
       if(hash.length > 0){
         goSubject(window.location.hash.substr(1));
       }
-      $subjectList.find('li>a').click(function () {
-        var targetId = this.getAttribute('href').substr(1);
-        goSubject(targetId);
-    });
+      document.body.onhashchange = function () {
+          goSubject(window.location.hash.substr(1));
+      }
+//      $subjectList.find('li>a').click(function () {
+//        var targetId = this.getAttribute('href').substr(1);
+//        goSubject(targetId);
+//      });
   })
 
   // 手机列表显示

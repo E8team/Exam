@@ -8,6 +8,7 @@ use App\Services\TopicService;
 use App\Widgets\Alert;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        Gate::define('mock', function ($user, $mockRecord) {
+            return $mockRecord->user_id == $user->id && is_null($mockRecord->ended_at);
+        });
     }
 
     /**

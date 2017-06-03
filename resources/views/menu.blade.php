@@ -79,19 +79,19 @@
             <div class="data">
               <div class="cumula_ball">
                 <span>累计做题数</span>
-                <p>2504</p>
+                <p>{{$topicInfo->recordCount}}</p>
               </div>
               <ul>
                 <li>
-                  <p class="num">12</p>
+                  <p class="num">{{$topicInfo->passCount}}</p>
                   <p>及格次数</p>
                 </li>
                 <li>
-                  <p class="num">20</p>
+                  <p class="num">{{$topicInfo->examCount}}</p>
                   <p>累计考试次数</p>
                 </li>
                 <li>
-                  <p class="num">96</p>
+                  <p class="num">{{$topicInfo->maxScore}}</p>
                   <p>历史最高</p>
                 </li>
               </ul>

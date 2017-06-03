@@ -87,7 +87,6 @@ class TopicService
 
     public function makeTopicsWithLastSubmitRecord($topics,$type, $user)
     {
-
       return $topics->load(['submitRecord' => function ($query) use ($user,$type) {
             if ($user instanceof User) {
                 $userId = $user->id;
@@ -98,14 +97,14 @@ class TopicService
             switch ($type)
             {
                 case 'practice':
-                    $query->practice();
+                    $query->practice()->groupBy('submit_records.topic_id');
                     break;
                 case 'mock':
                     $query->mock();
                     break;
             }
             // todo 这里必须要关闭mysql的严格模式 不知道为啥
-            return $query->recent()->groupBy('submit_records.topic_id');
+            return $query->recent();
         }]);
     }
 

@@ -16,6 +16,7 @@ class CreateMockRecordsTable extends Migration
         Schema::create('mock_records', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->index();
+            $table->unsignedInteger('score')->comment("模拟分数");
             $table->timestamps();
             $table->timestamp('ended_at')->nullable();
         });

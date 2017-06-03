@@ -52,6 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('after_verification', 'Auth\RegisterController@showAfterVerifyForm')->name('after_verification');
         Route::get('choose', 'CoursesController@showChooseCourseForm')->name('choose');
         Route::post('choose', 'CoursesController@selectCourses');
+        Route::get('re_choose', 'CoursesController@showReChooseCourseForm')->name('re_choose');
+        Route::post('re_choose', 'CoursesController@reSelectCourses');
     });
 });
 

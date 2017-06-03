@@ -9,7 +9,6 @@ use Cache;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Pagination\LengthAwarePaginator;
-use DB;
 
 class TopicService
 {
@@ -99,17 +98,16 @@ class TopicService
             switch ($type)
             {
                 case 'practice':
-                    $query->practice()->groupBy('submit_records.topic_id');
+                    $query->practice();
                     break;
                 case 'mock':
                     $query->mock();
                     break;
             }
             // todo 这里必须要关闭mysql的严格模式 不知道为啥
-            return $query->recent();
+            return $query->recent()->groupBy('submit_records.topic_id');
         }]);
     }
-
 
     public function getPaginator($topicIds, $perPage, $pageName = 'page', $page = null)
     {

@@ -2,8 +2,8 @@
 namespace App\Services;
 
 use App\Models\MockRecord;
+use App\Models\MockTopic;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class MockService
 {
@@ -30,14 +30,14 @@ class MockService
         return MockRecord::where(['user_id'=>$user->id])->whereNull('ended_at')->recent()->firstOrFail();
     }
 
-    /**
-     * 交卷
-     * @param User $user
-     * @return int
-     */
-    public function getCorrectTopicCount(User $user)
+    public function allMockRecordByUser($user)
     {
-        //
+        if($user instanceof User){
+            $userId = $user->id;
+        }else{
+            $userId = $user;
+        }
+        dd(MockRecord::where(['user_id'=>$userId])->with("mockTopics")->get());
     }
 
     public function getSubmitRecords($mockRecord, $user){

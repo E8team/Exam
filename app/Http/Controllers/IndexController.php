@@ -16,7 +16,6 @@ class IndexController extends Controller
 
     public function index()
     {
-        app(MockService::class)->getSubmitRecords(MockRecord::find(1), Auth::user());
         return view('welcome');
     }
 
@@ -60,7 +59,6 @@ class IndexController extends Controller
     {
         $topicService = app(TopicService::class);
         $topicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
-        //dd($topicIds);
         $submitRecords = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'mock',Auth::user())->toArray();
         $topic = new Collection();
         $topic->recordCount = 0;// 做的题目总数

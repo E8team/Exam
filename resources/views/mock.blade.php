@@ -213,18 +213,12 @@
               结束倒计时
             <span class="time time_count_down"></span>
           </div>
-          <div class="seting">
-            <i class="glyphicon glyphicon-cog"></i>
-            <div class="seting_body">
-              这里面是设置
-            </div>
-          </div>
         </div>
         <!-- 提醒框内容 -->
         <div class="remind_content">
           <ul id="subject-list" class="subject_list">
             @foreach($topics as $k => $topic)
-              <li><a class="@if(!$topic->submitRecord->isEmpty()) {!! $topic->submitRecord->first()->is_correct?'right':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
+              <li><a class="@if(!$topic->submitRecords->isEmpty()) {!! $topic->submitRecords->first()->is_correct?'right':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
             @endforeach
           </ul>
         </div>
@@ -252,13 +246,13 @@
       <div class="exam_main">
         <ul class="exam_list">
           @foreach($topics as $k => $topic)
-            <li @if(!$topic->submitRecord->isEmpty())answered="true"@endif class="exam_item" data-id="topic_{!! $topic->id !!}" data-topic-id="{!! $topic->id !!}">
+            <li @if(!$topic->submitRecords->isEmpty())answered="true"@endif class="exam_item" data-id="topic_{!! $topic->id !!}" data-topic-id="{!! $topic->id !!}">
               <p class="subject"><span>{!! $k+1 !!}</span> . {!! $topic->title !!}
-                <button type="button" class="view_ans btn-sm btn btn-link">查看答案</button>
+                <button type="button" class="view_ans btn-sm btn btn-link @if(!$topic->submitRecords->isEmpty() && !$topic->submitRecords->first()->is_correct) show" data-ans="{!! $topic->getAns() !!}" @else " @endif>查看答案</button>
               </p>
               <ul class="option_list">
                 @foreach($topic->options as $option)
-                <li data-id="{!! $option->id !!}" class="option_item @if(!$topic->submitRecord->isEmpty() && $topic->submitRecord->first()->selected_option_id == $option->id) {!! $topic->submitRecord->first()->is_correct?'option_right_active':'option_error_active' !!} @endif">
+                <li data-id="{!! $option->id !!}" class="option_item @if(!$topic->submitRecords->isEmpty() && $topic->submitRecords->first()->selected_option_id == $option->id) {!! $topic->submitRecords->first()->is_correct?'option_right_active':'option_error_active' !!} @endif">
                   <label>
                     <input type="radio" name="tobic_{!! $option->id !!}" checked>
                     <span class="letter">{!! chr(ord('A') + $loop->index) !!}. </span>{{ $option->title }}
@@ -292,7 +286,7 @@
       <!-- 显示所有的题目序号 -->
       <ul id="subject-list" class="subject_list">
         @foreach($topics as $k => $topic)
-          <li><a class="@if(!$topic->submitRecord->isEmpty()) {!! $topic->submitRecord->first()->is_correct?'right':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
+          <li><a class="@if(!$topic->submitRecords->isEmpty()) {!! $topic->submitRecords->first()->is_correct?'right':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
         @endforeach
       </ul>
     </div>

@@ -10,9 +10,9 @@ class Topic extends BaseModel
 {
     use Listable;
     protected $table = 'topics';
-
     protected static $allowSearchFields = [ 'title' ];
     protected static $allowSortFields = ['id' , 'title' , 'correct_submit_count' , 'total_submit_count'];
+    private $ans = '';
 
     public function course()
     {
@@ -56,9 +56,23 @@ class Topic extends BaseModel
         return $query->where('course_id', $course);
     }
 
-    public function submitRecord()
+    public function submitRecords()
     {
         return $this->hasMany(SubmitRecord::class);
     }
-
+    public function getAns()
+    {
+        if(''==$this->ans){
+            $ans = ord('A');
+            foreach ($this->options as $option)
+            {
+                if($option->is_correct){
+                    break;
+                }
+                $ans++;
+            }
+            $this->ans = chr($ans);
+        }
+        return $this->ans;
+    }
 }

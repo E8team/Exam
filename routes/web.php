@@ -12,6 +12,9 @@
 */
 Route::get('/', 'IndexController@index');
 
+Route::get('/score', function (){
+    return view('score');
+});
 
 Route::get('/test', 'IndexController@test');
 

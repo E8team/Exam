@@ -47,10 +47,13 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('/create_mock/course/{courseId}', 'MockController@createMock')->name('create_mock');
                 Route::get('/mock/{mockRecordId}', 'MockController@showMockView')->name('mock');
             });
+            Route::get('/end_mock/{mockRecordId}', 'MockController@endMock')->name('end_mock');
         });
         Route::get('after_verification', 'Auth\RegisterController@showAfterVerifyForm')->name('after_verification');
         Route::get('choose', 'CoursesController@showChooseCourseForm')->name('choose');
         Route::post('choose', 'CoursesController@selectCourses');
+        Route::get('re_choose', 'CoursesController@showReChooseCourseForm')->name('re_choose');
+        Route::post('re_choose', 'CoursesController@reSelectCourses');
     });
 });
 

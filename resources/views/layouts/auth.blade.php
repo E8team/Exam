@@ -21,16 +21,7 @@
             <img src="{!! asset('static/images/logo.png') !!}">
         </a>
         <p class="title">马克思学院考试系统</p>
-        <div class="login_right">
-            @if (Auth::guest())
-                还没有账号，点击 <a class="reg" href="{{route('register')}}">注册</a>
-            @else
-                <div class="btn-group">
-                    <a href="#" class="btn btn-default user_name">欢迎&nbsp;{{Auth::user()->name}}&nbsp;同学</a>
-                    <a href="{{ route('logout') }}" class="btn btn-info user_exit">退出</a>
-                </div>
-            @endif
-        </div>
+        @yield('login_right')
     </div>
 </div>
 {!! Facades\App\Widgets\Alert::render() !!}

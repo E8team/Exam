@@ -1,5 +1,10 @@
 @extends('layouts.auth')
 @section('title')忘记密码@endsection
+@section('login_right')
+    <div class="login_right">
+        还没有账号，点击 <a class="reg" href="{{route('register')}}">注册</a>
+    </div>
+@endsection
 @section('content')
     <div class="container mks_container">
         <div class="mks_container_main">

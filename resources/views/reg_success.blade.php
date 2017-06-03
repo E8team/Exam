@@ -2,7 +2,14 @@
 @section('title')
     注册成功
 @endsection
-
+@section('login_right')
+    <div class="login_right">
+        <div class="btn-group">
+            <a href="#" class="btn btn-default user_name">欢迎&nbsp;{{Auth::user()->name}}&nbsp;同学</a>
+            <a href="{{ route('logout') }}" class="btn btn-info user_exit">退出</a>
+        </div>
+    </div>
+@endsection
 @section('content')
     <div class="container mks_container">
         <div class="mks_container_main prompt prompt_success">

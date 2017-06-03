@@ -1,6 +1,10 @@
 @extends('layouts.auth')
 @section('title')重置密码@endsection
-
+@section('login_right')
+    <div class="login_right">
+        已有账号？点击 <a class="reg" href="{{route('login')}}">登录</a>
+    </div>
+@endsection
 @section('content')
     <div class="container mks_container">
         <div class="mks_container_main">

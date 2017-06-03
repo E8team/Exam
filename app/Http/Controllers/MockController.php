@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\MockRecord;
 use App\Models\MockTopic;
+use App\Services\MockService;
 use App\Services\TopicService;
 use Auth;
 use Carbon\Carbon;
+use Gate;
 
 class MockController extends Controller
 {
@@ -35,17 +37,50 @@ class MockController extends Controller
 
     public function showMockView($mockRecordId)
     {
-        $user = Auth::user();
-        $topicService = app(TopicService::class);
+
         $mockRecord = MockRecord::findOrFail($mockRecordId);
-        if($mockRecord->user_id != $user->id){
-            // todo alert
+        if(Gate::denies('mock', $mockRecord)){
+            //todo alert
             abort(404);
         }
+        $user = Auth::user();
+        $topicService = app(TopicService::class);
+
         $mockTopics = $mockRecord->mockTopics()->ordered()->limit(config('exam.mock_topics_count'))->get();
         $topics = $topicService->findTopicsFromCache($mockTopics->pluck('topic_id'));
 
         $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, 'mock', $user);
-        return view('mock', ['topics' => $topics, 'mockRecord'=>$mockRecord, 'remainingTime'=>config('exam.mock_time') - Carbon::now()->diffInSeconds($mockRecord->created_at, true)]);
+        return view('mock', [
+            'topics' => $topics,
+            'mockRecord'=>$mockRecord,
+            'remainingTime'=>config('exam.mock_time') - Carbon::now()->diffInSeconds($mockRecord->created_at, true)
+        ]);
+    }
+
+    public function endMock($mockRecordId)
+    {
+        $mockRecord = MockRecord::findOrFail($mockRecordId);
+        $user = Auth::user();
+        if($mockRecord->user_id != $user->id){
+            //todo alert
+            abort(404);
+        }
+        $mockTopicsCount = config('exam.mock_topics_count');
+        if(is_null($mockRecord->ended_at)){
+            $submitRecords = app(MockService::class)->getSubmitRecords($mockRecord, $user);
+            $submitRecords = $submitRecords->unique('topic_id');
+            $mockRecord->submit_count = $submitRecords->count();
+            $mockRecord->correct_count = $submitRecords->where('is_correct', true)->count();
+            $mockRecord->wrong_count = $mockRecord->submit_count-$mockRecord->correct_count;
+            // 计算模拟得分
+            $mockRecord->score = $mockRecord->correct_count/$mockTopicsCount*100;
+            $mockRecord->ended_at = Carbon::now();
+            $mockRecord->save();
+            MockTopic::where('mock_record_id', $mockRecord->id)->delete();
+        }
+        return view('score', [
+            'mockRecord'=>$mockRecord,
+            'mockTopicsCount'=>$mockTopicsCount
+        ]);
     }
 }

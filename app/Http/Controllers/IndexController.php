@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MockRecord;
+use App\Models\Topic;
 use App\Services\DepartmentClassService;
+use App\Services\MockService;
 use App\Services\TopicService;
 use App\Widgets\Alert;
 use Auth;
@@ -13,6 +16,7 @@ class IndexController extends Controller
 
     public function index()
     {
+        app(MockService::class)->getSubmitRecords(MockRecord::find(1), Auth::user());
         return view('welcome');
     }
 
@@ -31,7 +35,7 @@ class IndexController extends Controller
         return view('menu', ['user'=>$user, 'departmentClass' => $departmentClass, 'course'=>$course, 'practiceInfo'=>$practiceInfo, 'topicInfo'=>$topicInfo]);
     }
 
-    public function practiceSubmitRecords($courseId)
+    private function practiceSubmitRecords($courseId)
     {
         $topicService = app(TopicService::class);
         $parctice = new Collection();
@@ -52,10 +56,11 @@ class IndexController extends Controller
         return $parctice;
     }
 
-    public function mockSubmitRecord($courseId)
+    private function mockSubmitRecord($courseId)
     {
         $topicService = app(TopicService::class);
         $topicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
+        //dd($topicIds);
         $submitRecords = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'mock',Auth::user())->toArray();
         $topic = new Collection();
         $topic->recordCount = 0;// 做的题目总数
@@ -64,8 +69,9 @@ class IndexController extends Controller
         $topic->maxScore = 0;// 历史最高模拟成绩
         foreach ($submitRecords as $submitRecord)
         {
-            $topic->recordCount  += count($submitRecord['submit_record']);
+            $topic->recordCount  += count($submitRecord['submit_records']);
         }
+        //dd(app(MockService::class)->allMockRecordByUser(Auth::user()));
         return $topic;
     }
 }

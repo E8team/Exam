@@ -1,5 +1,10 @@
 @extends('layouts.auth')
 @section('title')重置密码邮箱验证@endsection
+@section('login_right')
+    <div class="login_right">
+        已有账号？点击 <a class="reg" href="{{route('login')}}">登录</a>
+    </div>
+@endsection
 @section('styles')
     <style>
         strong{

@@ -1,7 +1,5 @@
 <?php
-
 use Illuminate\Database\Seeder;
-
 class TopicSeeder extends Seeder
 {
     /**
@@ -11,8 +9,7 @@ class TopicSeeder extends Seeder
      */
     public function run()
     {
-        $marxPath = public_path('marxDoctrine.php');
-        $marx = include_once $marxPath;
+        $marx = include_once(database_path('seeds/data/marxDoctrine.php'));
         for($i=0;$i<500;$i++){
             $topicTitle = $marx[$i][1];
             $topicId = DB::table('topics')->insertGetId([
@@ -34,8 +31,7 @@ class TopicSeeder extends Seeder
             }
         }
 
-        $modernHistoryPath = public_path('modernHistory.php');
-        $modernHistory = include_once $modernHistoryPath;
+        $modernHistory = include_once(database_path('seeds/data/modernHistory.php'));
         for($i=0;$i<500;$i++){
             $topicTitle = $modernHistory[$i][1];
             $topicId = DB::table('topics')->insertGetId([

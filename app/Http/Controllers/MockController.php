@@ -44,7 +44,8 @@ class MockController extends Controller
         }
         $mockTopics = $mockRecord->mockTopics()->ordered()->limit(config('exam.mock_topics_count'))->get();
         $topics = $topicService->findTopicsFromCache($mockTopics->pluck('topic_id'));
-        $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, $user);
+
+        $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, 'mock', $user);
         return view('mock', ['topics' => $topics, 'mockRecord'=>$mockRecord, 'remainingTime'=>config('exam.mock_time') - Carbon::now()->diffInSeconds($mockRecord->created_at, true)]);
     }
 }

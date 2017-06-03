@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Topic;
 use App\Services\DepartmentClassService;
 use App\Services\TopicService;
 use App\Widgets\Alert;
@@ -28,7 +27,8 @@ class IndexController extends Controller
         //练习
         $practiceInfo = $this->practiceSubmitRecords($courseId);
         //模拟
-        return view('menu', ['user'=>$user, 'departmentClass' => $departmentClass, 'course'=>$course, 'practiceInfo'=>$practiceInfo]);
+        $topicInfo = $this->mockSubmitRecord($courseId);
+        return view('menu', ['user'=>$user, 'departmentClass' => $departmentClass, 'course'=>$course, 'practiceInfo'=>$practiceInfo, 'topicInfo'=>$topicInfo]);
     }
 
     public function practiceSubmitRecords($courseId)
@@ -52,11 +52,20 @@ class IndexController extends Controller
         return $parctice;
     }
 
-    public function mockRecord($courseId)
+    public function mockSubmitRecord($courseId)
     {
         $topicService = app(TopicService::class);
         $topicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
         $submitRecords = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'mock',Auth::user())->toArray();
-        dd($submitRecords);
+        $topic = new Collection();
+        $topic->recordCount = 0;// 做的题目总数
+        $topic->passCount = 0;// 模拟时的及格次数
+        $topic->examCount = 0;// 累计模拟次数
+        $topic->maxScore = 0;// 历史最高模拟成绩
+        foreach ($submitRecords as $submitRecord)
+        {
+            $topic->recordCount  += count($submitRecord['submit_record']);
+        }
+        return $topic;
     }
 }

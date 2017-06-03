@@ -133,7 +133,7 @@
       }
     }
     function setTime(){
-      time.innerHTML = conversionToMinutes(remainingTime--, 3);
+      time.innerHTML = conversionToMinutes(remainingTime--, 2);
     }
   })
   // ajax提交答案
@@ -201,7 +201,7 @@
         <div class="remind_content">
           <ul id="subject-list" class="subject_list">
             @foreach($topics as $k => $topic)
-              <li><a class="@if(!$topic->submitRecord->isEmpty()) {!! $topic->submit_record->is_correct?'righe':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
+              <li><a class="@if(!$topic->submitRecord->isEmpty()) {!! $topic->submitRecord->first()->is_correct?'right':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
             @endforeach
           </ul>
         </div>
@@ -233,7 +233,7 @@
               <p class="subject"><span>{!! $k+1 !!}</span> . {!! $topic->title !!}</p>
               <ul class="option_list">
                 @foreach($topic->options as $option)
-                <li data-id="1" class="option_item">
+                <li data-id="{!! $option->id !!}" class="option_item @if(!$topic->submitRecord->isEmpty() && $topic->submitRecord->first()->selected_option_id == $option->id) {!! $topic->submitRecord->first()->is_correct?'option_right_active':'option_error_active' !!} @endif">
                   <label>
                     <input type="radio" name="tobic_{!! $option->id !!}" checked>
                     <span class="letter">{!! chr(ord('A') + $loop->index) !!}. </span>{{ $option->title }}
@@ -273,7 +273,7 @@
       <!-- 显示所有的题目序号 -->
       <ul id="subject-list" class="subject_list">
         @foreach($topics as $k => $topic)
-          <li><a class="@if(!$topic->submitRecord->isEmpty()) {!! $topic->submit_record->first()->is_correct?'righe':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
+          <li><a class="@if(!$topic->submitRecord->isEmpty()){!! true?'righe':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
         @endforeach
       </ul>
     </div>

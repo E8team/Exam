@@ -29,7 +29,7 @@ class SubmitRecordController extends ApiController
             event(new SubmitedTopic($topic, $submitRecord));
             return [
                 'is_correct' => $submitRecord->is_correct,
-                'correct_id' => $topic->options->where('is_correct', true)->id
+                'correct_id' => $topic->options->where('is_correct', true)->first()->id
             ];
         }
         return $this->response->noContent();

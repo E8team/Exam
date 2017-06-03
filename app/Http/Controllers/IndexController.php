@@ -27,15 +27,8 @@ class IndexController extends Controller
             app(Alert::class)->setDanger('您没有选择这门课!');
             return abort(404);
         }
-        // /create_mock/course/{courseId}
         $departmentClass = app(DepartmentClassService::class)->getDepartmentClassFromCache($user->department_class_id);
         return view('menu', ['user'=>$user, 'departmentClass' => $departmentClass, 'course'=>$course]);
-    }
-
-    public function test(Request $request)
-    {
-        dd(app(MockService::class)->getCorrectTopicCount(User::find(1)));
-        //dd(app(TopicService::class)->findTopicsFromCache(app(TopicService::class)->randomTopicIds(\App\Models\User::find(1),1)));
     }
 
 }

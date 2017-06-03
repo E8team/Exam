@@ -99,7 +99,7 @@
           </div>
           <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
             <div class="practice_btn">
-              <a type="button" class="btn btn-info">模拟考试</a>
+              <a href="{!! route('create_mock', ['courseId'=>$course->id]) !!}" type="button" class="btn btn-info">模拟考试</a>
             </div>
           </div>
         </div>

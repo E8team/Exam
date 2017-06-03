@@ -19,7 +19,7 @@
           <span>{!! $user->student_num !!}</span>
         </div>
         <div class="info_item">
-          <p>邮箱：</p>
+          <p>邮　箱：</p>
           <span>{!! $user->email !!}</span>
         </div>
         <div class="info_item">
@@ -64,9 +64,9 @@
           </div>
           <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
             <ul class="choose_btn">
-              <li><button type="button" class="btn btn-info">继续练习</button></li>
-              <li><button type="button" class="btn btn-primary">重新开始</button></li>
-              <li><button type="button" class="btn btn-danger">错题重做</button></li>
+              <li><a type="button" class="btn btn-info">继续练习</a></li>
+              <li><a type="button" class="btn btn-primary">重新开始</a></li>
+              <li><a type="button" class="btn btn-danger">错题重做</a></li>
             </ul>
           </div>
         </div>
@@ -99,7 +99,7 @@
           </div>
           <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
             <div class="practice_btn">
-              <button type="button" class="btn btn-info">模拟考试</button>
+              <a type="button" class="btn btn-info">模拟考试</a>
             </div>
           </div>
         </div>

@@ -23,7 +23,6 @@ class IndexController extends Controller
             app(Alert::class)->setDanger('您没有选择这门课!');
             return abort(404);
         }
-        // /create_mock/course/{courseId}
         $departmentClass = app(DepartmentClassService::class)->getDepartmentClassFromCache($user->department_class_id);
         $practiceInfo = $this->practiceSubmitRecords($courseId);
         return view('menu', ['user'=>$user, 'departmentClass' => $departmentClass, 'course'=>$course, 'practiceInfo'=>$practiceInfo]);
@@ -50,5 +49,4 @@ class IndexController extends Controller
         $parctice->mistake_rate = round(($parctice->mistake / 500)*100);
         return $parctice;
     }
-
 }

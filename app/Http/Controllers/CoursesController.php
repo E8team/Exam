@@ -21,7 +21,6 @@ class CoursesController extends Controller
         return redirect(url('/'));
     }
 
-
     public function selectCourses(Request $request)
     {
         $this->validate($request, [

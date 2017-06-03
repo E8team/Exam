@@ -30,12 +30,12 @@ class MockController extends Controller
             ];
         }
         MockTopic::insert($data);
-    
         return redirect(route('mock', ['mockRecordId'=>$mockRecord->id]));
     }
 
     public function showMockView($mockRecordId)
     {
+        //todo 判断该mockRecord是否是当前登录用户的
         $topicService = app(TopicService::class);
 
         $mockRecord = MockRecord::findOrFail($mockRecordId);

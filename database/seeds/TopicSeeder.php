@@ -9,30 +9,49 @@ class TopicSeeder extends Seeder
      */
     public function run()
     {
-        //$path 文件位置这个是相对文件,
-        $path = 'F:\xampp\htdocs\modernHistory.php';
-        $topics = include_once $path;
+        $marx = include_once(database_path('seeds/data/marxDoctrine.php'));
         for($i=0;$i<500;$i++){
-            $topicTitle = $topics[$i][1];
+            $topicTitle = $marx[$i][1];
             $topicId = DB::table('topics')->insertGetId([
-                'topic_num'=>$topics[$i][0],
-                //课程ID写死，填充时注意
-                'course_id'=>2,
+                'topic_num'=>$marx[$i][0],
+                'course_id'=>1,
                 'title' => $topicTitle,
                 'correct_submit_count'=>0,
                 'total_submit_count'=>0,
                 'created_at'=>\Carbon\Carbon::now(),
                 'updated_at'=>\Carbon\Carbon::now()
             ]);
-
             for($j=2; $j<=5; $j++){
-                $option = $topics[$i][$j];
+                $option = $marx[0][$j];
                 DB::table('options')->insert([
                     'topic_id' => $topicId,
-                    'is_correct' => ord($topics[1][6])-63 == $j,
+                    'is_correct' => ord($marx[1][6])-63 == $j,
                     'title' =>$option,
                 ]);
             }
         }
+
+        $modernHistory = include_once(database_path('seeds/data/modernHistory.php'));
+        for($i=0;$i<500;$i++){
+            $topicTitle = $modernHistory[$i][1];
+            $topicId = DB::table('topics')->insertGetId([
+                'topic_num'=>$modernHistory[$i][0],
+                'course_id'=>1,
+                'title' => $topicTitle,
+                'correct_submit_count'=>0,
+                'total_submit_count'=>0,
+                'created_at'=>\Carbon\Carbon::now(),
+                'updated_at'=>\Carbon\Carbon::now()
+            ]);
+            for($j=2; $j<=5; $j++){
+                $option = $modernHistory[0][$j];
+                DB::table('options')->insert([
+                    'topic_id' => $topicId,
+                    'is_correct' => ord($modernHistory[1][6])-63 == $j,
+                    'title' =>$option,
+                ]);
+            }
+        }
+
     }
 }

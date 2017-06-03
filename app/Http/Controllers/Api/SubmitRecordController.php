@@ -29,7 +29,8 @@ class SubmitRecordController extends ApiController
             $submitRecord = SubmitRecord::create($data);
             event(new SubmitedTopic($topic, $submitRecord));
         }
-        return $this->response->noContent();
+        return $topic->options->where('is_correct', true);
+
     }
 
     private function userIsSubmibedTopic($topicId, $userId)

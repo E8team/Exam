@@ -9,6 +9,7 @@ use Cache;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Pagination\LengthAwarePaginator;
+use DB;
 
 class TopicService
 {
@@ -86,7 +87,8 @@ class TopicService
 
     public function makeTopicsWithLastSubmitRecord($topics,$type, $user)
     {
-        return $topics->load(['submitRecord' => function ($query) use ($user,$type) {
+
+      return $topics->load(['submitRecord' => function ($query) use ($user,$type) {
             if ($user instanceof User) {
                 $userId = $user->id;
             } else {
@@ -102,7 +104,8 @@ class TopicService
                     $query->mock();
                     break;
             }
-            return $query->recent()->limit(1);
+            // todo 这里必须要关闭mysql的严格模式 不知道为啥
+            return $query->recent()->groupBy('submit_records.topic_id');
         }]);
     }
 

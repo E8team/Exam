@@ -25,7 +25,7 @@ class SubmitRecord extends BaseModel
 
     public function scopePractice($query)
     {
-        return $query->where('type', 'practice');
+        return $query->where($this->getTable().'.type', 'practice');
     }
 
     public function scopeMock($query)

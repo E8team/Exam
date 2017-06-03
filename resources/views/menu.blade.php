@@ -47,18 +47,18 @@
             <ul class="main">
               <li>
                 <em class="right"></em>
-                <span>做对{{$practiceInfo->correct}}题</span>
-                <span>占比{{$practiceInfo->correct_rate}}%</span>
+                <span>做对 {{$practiceInfo->correct}} 题</span>
+                <span>占比 {{$practiceInfo->correct_rate}} %</span>
               </li>
               <li>
                 <em class="error"></em>
-                <span>做错{{$practiceInfo->mistake}}题</span>
-                <span>占比{{$practiceInfo->mistake_rate}}%</span>
+                <span>做错 {{$practiceInfo->mistake}} 题</span>
+                <span>占比 {{$practiceInfo->mistake_rate}} %</span>
               </li>
               <li>
                 <em class="no"></em>
-                <span>未做{{$practiceInfo->unfinished}}题</span>
-                <span>占比{{$practiceInfo->unfinished_rate}}%</span>
+                <span>未做 {{$practiceInfo->unfinished}} 题</span>
+                <span>占比 {{$practiceInfo->unfinished_rate}} %</span>
               </li>
             </ul>
           </div>

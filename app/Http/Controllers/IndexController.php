@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Topic;
 use App\Services\DepartmentClassService;
 use App\Services\TopicService;
 use App\Widgets\Alert;
@@ -24,7 +25,9 @@ class IndexController extends Controller
             return abort(404);
         }
         $departmentClass = app(DepartmentClassService::class)->getDepartmentClassFromCache($user->department_class_id);
+        //练习
         $practiceInfo = $this->practiceSubmitRecords($courseId);
+        //模拟
         return view('menu', ['user'=>$user, 'departmentClass' => $departmentClass, 'course'=>$course, 'practiceInfo'=>$practiceInfo]);
     }
 
@@ -34,18 +37,26 @@ class IndexController extends Controller
         $parctice = new Collection();
         $parctice->correct = 0;
         $parctice->mistake = 0;
-        $topicIds = $topicService->getTopicIdsByCourseFromCache(1);
+        $topicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
         $submitRecords = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'practice',Auth::user())->toArray();
         foreach ($submitRecords as $submitRecord)
         {
           if(!empty($submitRecord['submit_record'])){
-              !isset($submitRecord['submit_record'][0]['is_correct']) ? $parctice->mistake++ : $parctice->correct++;
+              !$submitRecord['submit_record'][0]['is_correct'] ? $parctice->mistake++ : $parctice->correct++;
           }
         }
         $parctice->unfinished = 500 - $parctice->correct-$parctice->mistake;
-        $parctice->correct_rate = round(($parctice->correct / 500)*100);
-        $parctice->unfinished_rate = round(($parctice->unfinished / 500)*100);
-        $parctice->mistake_rate = round(($parctice->mistake / 500)*100);
+        $parctice->correct_rate = $parctice->correct / 500 * 100;
+        $parctice->unfinished_rate = $parctice->unfinished / 500 * 100;
+        $parctice->mistake_rate = $parctice->mistake / 500 * 100;
         return $parctice;
+    }
+
+    public function mockRecord($courseId)
+    {
+        $topicService = app(TopicService::class);
+        $topicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
+        $submitRecords = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'mock',Auth::user())->toArray();
+        dd($submitRecords);
     }
 }

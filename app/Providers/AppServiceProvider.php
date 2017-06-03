@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
         $this->app->singleton(
             Alert::class, function ($app) {
             $defaultConfig = [

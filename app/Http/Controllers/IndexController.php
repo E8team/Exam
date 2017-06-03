@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\DepartmentClassService;
+use App\Services\MockService;
 use App\Services\TopicService;
 use App\Widgets\Alert;
 use Auth;
@@ -56,6 +57,7 @@ class IndexController extends Controller
     {
         $topicService = app(TopicService::class);
         $topicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
+        //dd($topicIds);
         $submitRecords = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'mock',Auth::user())->toArray();
         $topic = new Collection();
         $topic->recordCount = 0;// 做的题目总数
@@ -66,6 +68,7 @@ class IndexController extends Controller
         {
             $topic->recordCount  += count($submitRecord['submit_record']);
         }
+        //dd(app(MockService::class)->allMockRecordByUser(Auth::user()));
         return $topic;
     }
 }

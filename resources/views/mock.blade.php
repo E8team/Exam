@@ -120,22 +120,9 @@
     setInterval(function () {
       setTime();
     },1000);
-    function conversionToMinutes (secondNum, len) {
-      if(secondNum !== undefined){
-        secondNum = parseInt(secondNum)
-        let minute = parseInt(secondNum / 60)
-        let second = parseInt(secondNum % 60)
-        if(minute >= 0 && second >= 0){
-        	minute = String(minute)
-        	second = String(second)
-        	return new Array(len - minute.length + 1).join('0') + ((minute + ':' + new Array(2 - second.length + 1).join('0') + second).split('').join(''))
-        } else {
-        	return '0'
-        }
-      }
-    }
+
     function setTime(){
-      time.html(conversionToMinutes(remainingTime--, 2));
+      time.html(window.conversionToMinutes(remainingTime--, 2));
     }
   })
   // ajax提交答案

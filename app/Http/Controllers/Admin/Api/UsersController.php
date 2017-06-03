@@ -25,9 +25,9 @@ class UsersController extends ApiController
      * @param UserService $user
      * @return \Dingo\Api\Http\Response
      */
-    public function getUser(UserService $user)
+    public function getUser(UserService $user , $userId)
     {
-        $userId = 2;
+        //$userId = 2;
         $getUsers = $user ->getUsers($userId);
         return $this->response->item($getUsers ,new UserTransformer())
             ->addMeta('correctRate' , $user->getCorrectRate($userId));

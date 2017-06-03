@@ -11,7 +11,7 @@ use App\Transformers\SubmitRecordTransformer;
 class SubmitRecordController extends ApiController
 {
 
-    public function lists(SubmitRecordService $submitRecord)
+    public function lists()
     {
         $submits = SubmitRecord::withSort()->withSimpleSearch()->paginate($this->perPage(50));
         return $this->response->paginator($submits, new SubmitRecordTransformer())

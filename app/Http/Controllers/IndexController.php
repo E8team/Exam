@@ -23,13 +23,13 @@ class IndexController extends Controller
     public function menu($courseId)
     {
         $user = Auth::user();
-        if(!Auth::user()->isSelectedGivenCourse($courseId)){
+        if(false===($course = Auth::user()->isSelectedGivenCourse($courseId))){
             app(Alert::class)->setDanger('您没有选择这门课!');
             return abort(404);
         }
         // /create_mock/course/{courseId}
         $departmentClass = app(DepartmentClassService::class)->getDepartmentClassFromCache($user->department_class_id);
-        return view('menu', ['user'=>$user, 'departmentClass' => $departmentClass]);
+        return view('menu', ['user'=>$user, 'departmentClass' => $departmentClass, 'course'=>$course]);
     }
 
     public function test(Request $request)

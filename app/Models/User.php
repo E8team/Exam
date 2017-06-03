@@ -105,7 +105,7 @@ class User extends BaseModel implements
             $courseId = $course;
         foreach($this->courses as $course){
             if($course->id == $courseId)
-                return true;
+                return $course;
         }
         return false;
     }

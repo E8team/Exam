@@ -10,8 +10,8 @@ class SubmitRecord extends BaseModel
     use Listable;
     protected $table = 'submit_records';
 
-    protected static $allowSearchFields = ['id' , 'user_id' , 'topic_id'];
-    protected static $allowSortFields = ['id' , 'user_id' , 'topic_id' , 'is_correct' , 'type'];
+    protected static $allowSearchFields = ['id' , 'user_name' , 'topic_id'];
+    protected static $allowSortFields = ['id' , 'user_name' , 'topic_id' , 'is_correct' , 'type'];
 
     protected $fillable = ['topic_id', 'selected_option_id', 'type', 'mock_record_id', 'user_id', 'is_correct'];
     protected $casts = [

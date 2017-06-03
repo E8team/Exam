@@ -65,7 +65,7 @@ class MockController extends Controller
         $topics = $topicService->findTopicsFromCache($mockTopics->pluck('topic_id'));
         $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, 'mock', $user);
         foreach ($topics as $topic){
-            dd($topics->submitReocrds);
+            //$topic->is_correct
         }
         $mockRecord->ended_at = Carbon::now();
         $mockRecord->save();

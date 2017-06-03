@@ -17,7 +17,7 @@ class MockService
         $mockRecords = MockRecord::where(['user_id'=> $user->id])->with(["submitRecord" => function ($query){
             $query->where('type','mock');
         }])->Recent()->first();
-        $mockRecords->completed_topic_count= $mockRecords->submitRecord->count();
+        $mockRecords->completed_topic_count= $mockRecords->submitRecords->count();
        return $mockRecords;
     }
 

@@ -16,7 +16,9 @@ class TopicService
 
     public function findTopic($topicId)
     {
-        return Topic::findOrFail($topicId)->load('options');
+        $topic = Topic::findOrFail($topicId)->load('options');
+        $topic->getAns();
+        return $topic;
     }
 
     /*public function getTopicOpions($topicId)
@@ -87,7 +89,7 @@ class TopicService
 
     public function makeTopicsWithLastSubmitRecord($topics,$type, $user)
     {
-      return $topics->load(['submitRecord' => function ($query) use ($user,$type) {
+      return $topics->load(['submitRecords' => function ($query) use ($user,$type) {
             if ($user instanceof User) {
                 $userId = $user->id;
             } else {

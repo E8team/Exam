@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Topic;
 use App\Services\DepartmentClassService;
 use App\Services\TopicService;
 use App\Widgets\Alert;
@@ -31,7 +32,7 @@ class IndexController extends Controller
         return view('menu', ['user'=>$user, 'departmentClass' => $departmentClass, 'course'=>$course, 'practiceInfo'=>$practiceInfo, 'topicInfo'=>$topicInfo]);
     }
 
-    public function practiceSubmitRecords($courseId)
+    private function practiceSubmitRecords($courseId)
     {
         $topicService = app(TopicService::class);
         $parctice = new Collection();
@@ -52,7 +53,7 @@ class IndexController extends Controller
         return $parctice;
     }
 
-    public function mockSubmitRecord($courseId)
+    private function mockSubmitRecord($courseId)
     {
         $topicService = app(TopicService::class);
         $topicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
@@ -64,7 +65,7 @@ class IndexController extends Controller
         $topic->maxScore = 0;// 历史最高模拟成绩
         foreach ($submitRecords as $submitRecord)
         {
-            $topic->recordCount  += count($submitRecord['submit_record']);
+            $topic->recordCount  += count($submitRecord['submit_records']);
         }
         return $topic;
     }

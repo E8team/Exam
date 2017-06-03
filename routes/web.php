@@ -46,8 +46,8 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('/menu/{courseId}', 'IndexController@menu')->name('menu');
                 Route::get('/create_mock/course/{courseId}', 'MockController@createMock')->name('create_mock');
                 Route::get('/mock/{mockRecordId}', 'MockController@showMockView')->name('mock');
-                Route::get('/end_mock/{mockRecordId}', 'MockController@endMock')->name('end_mock');
             });
+            Route::get('/end_mock/{mockRecordId}', 'MockController@endMock')->name('end_mock');
         });
         Route::get('after_verification', 'Auth\RegisterController@showAfterVerifyForm')->name('after_verification');
         Route::get('choose', 'CoursesController@showChooseCourseForm')->name('choose');

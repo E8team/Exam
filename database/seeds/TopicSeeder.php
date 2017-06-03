@@ -22,21 +22,21 @@ class TopicSeeder extends Seeder
                 'updated_at'=>\Carbon\Carbon::now()
             ]);
             for($j=2; $j<=5; $j++){
-                $option = $marx[0][$j];
+                $option = $marx[$i][$j];
                 DB::table('options')->insert([
                     'topic_id' => $topicId,
-                    'is_correct' => ord($marx[1][6])-63 == $j,
+                    'is_correct' => ord($marx[$i][6])-63 == $j,
                     'title' =>$option,
                 ]);
             }
         }
-
+        
         $modernHistory = include_once(database_path('seeds/data/modernHistory.php'));
         for($i=0;$i<500;$i++){
             $topicTitle = $modernHistory[$i][1];
             $topicId = DB::table('topics')->insertGetId([
                 'topic_num'=>$modernHistory[$i][0],
-                'course_id'=>1,
+                'course_id'=>2,
                 'title' => $topicTitle,
                 'correct_submit_count'=>0,
                 'total_submit_count'=>0,
@@ -44,10 +44,10 @@ class TopicSeeder extends Seeder
                 'updated_at'=>\Carbon\Carbon::now()
             ]);
             for($j=2; $j<=5; $j++){
-                $option = $modernHistory[0][$j];
+                $option = $modernHistory[$i][$j];
                 DB::table('options')->insert([
                     'topic_id' => $topicId,
-                    'is_correct' => ord($modernHistory[1][6])-63 == $j,
+                    'is_correct' => ord($modernHistory[$i][6])-63 == $j,
                     'title' =>$option,
                 ]);
             }

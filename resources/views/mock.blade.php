@@ -54,12 +54,13 @@
   // show 字体、模式
 
   $(function () {
+    var $settingBtn = $('.setting');
     $('.m_setting_btn').click(function (event) {
-      $('.setting').fadeToggle("fast");
+      $settingBtn.fadeToggle("fast");
       event.stopPropagation();
     });
     $('.setting>.mask').click(function () {
-      $('.setting').fadeToggle("fast");
+      $settingBtn.fadeToggle("fast");
     })
   });
 
@@ -109,6 +110,53 @@
       event.stopPropagation();
     });
   });
+  // 倒计时
+  $(function(){
+    var remainingTime = {!! $remainingTime !!};
+    var time = document.getElementById('time');
+    setTime();
+    setInterval(function () {
+      setTime();
+    },1000);
+    function conversionToMinutes (secondNum, len) {
+      if(secondNum !== undefined){
+        secondNum = parseInt(secondNum)
+        let minute = parseInt(secondNum / 60)
+        let second = parseInt(secondNum % 60)
+        if(minute >= 0 && second >= 0){
+        	minute = String(minute)
+        	second = String(second)
+        	return new Array(len - minute.length + 1).join('0') + ((minute + ':' + new Array(2 - second.length + 1).join('0') + second).split('').join(''))
+        } else {
+        	return '0'
+        }
+      }
+    }
+    function setTime(){
+      time.innerHTML = conversionToMinutes(remainingTime--, 3);
+    }
+  })
+  // ajax提交答案
+  $(function(){
+    $('.option_item').click(function(){
+      var $this = $(this);
+      var $currentTopic = $this.parents('.exam_item');
+      $.ajax('/api/submit', {
+        type: "POST",
+        data: {
+          'topic_id': $currentTopic.attr('data-topic-id'),
+          'selected_option_id':  $this.attr('data-id'),
+          'type':  'mock',
+          'mock_record_id': {!! $mockRecord->id !!}
+        },
+        success: function(res){
+          console.log(res)
+        },
+        error: function(err){},
+        dataType: 'JSON'
+      });
+    })
+  })
 </script>
 @endpush
 @section('content')
@@ -140,7 +188,7 @@
           <h3 class="title">题号</h3>
           <div class="count_down">
             结束倒计时
-            <span class="time">00:48:39</span>
+            <span class="time" id="time"></span>
           </div>
           <div class="seting">
             <i class="glyphicon glyphicon-cog"></i>
@@ -181,11 +229,11 @@
       <div class="exam_main">
         <ul class="exam_list">
           @foreach($topics as $k => $topic)
-            <li class="exam_item" data-id="topic_{!! $topic->id !!}">
-              <p class="subject">{!! $k+1 !!} . {!! $topic->title !!}</p>
+            <li class="exam_item" data-id="topic_{!! $topic->id !!}" data-topic-id="{!! $topic->id !!}">
+              <p class="subject"><span>{!! $k+1 !!}</span> . {!! $topic->title !!}</p>
               <ul class="option_list">
                 @foreach($topic->options as $option)
-                <li class="option_item">
+                <li data-id="1" class="option_item">
                   <label>
                     <input type="radio" name="tobic_{!! $option->id !!}" checked>
                     <span class="letter">{!! chr(ord('A') + $loop->index) !!}. </span>{{ $option->title }}
@@ -237,22 +285,22 @@
   <div class="setting_box">
     <h2  class="title">设置字体、模式</h2>
      <ul class="font">
-      <li>
+      <li data-size="largeFont">
         大
       </li>
       <li class="active">
         中
       </li>
-      <li>
+      <li data-size="smallFont">
         小
       </li>
     </ul>
     <ul class="color_model">
-      <li data-mode="nightColor">
+      <li data-mode="eyeColor">
         <span><i class="glyphicon glyphicon-eye-open"></i></span>
         <p>护眼模式</p>
       </li>
-      <li data-mode="eyeColor">
+      <li data-mode="nightColor">
         <span><i class="glyphicon glyphicon-adjust"></i></span>
         <p>夜间模式</p>
       </li>

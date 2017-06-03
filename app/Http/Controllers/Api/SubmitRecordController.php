@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class SubmitRecordController extends ApiController
 {
-
     public function submit(SubmitRecordRequest $request)
     {
         $data = $request->all();

@@ -14,7 +14,7 @@
 }
 
 // 大字体
-.largeFont{
+body[size="largeFont"]{
   .exam_item .subject{
     font-size: @defauleFont + 1!important;
   }
@@ -27,7 +27,7 @@
 }
 
 // 小字体
-.smallFont{
+body[size="smallFont"]{
   .exam_item .subject{
     font-size: @defauleFont - 1!important;
   }
@@ -230,7 +230,7 @@
     .exam_list{
       .active{
         border: 1px solid #47AD76!important;
-        animation: emphasize .7s .5s;
+        animation: emphasize .2s .3s;
       }
       .exam_item{
         background-color: @defaultColor;
@@ -249,6 +249,14 @@
           word-break: break-all;
           position: relative;
           padding-left: 40px;
+          .view_ans{
+            outline: none;
+            display: none;
+            text-decoration: none;
+            line-height: normal;
+            padding-top: 0;
+            padding-bottom: 0;
+          }
           span{
             position: absolute;
             top: 15px;
@@ -263,6 +271,7 @@
             padding: 10px;
             position: relative;
             border: 1px solid #F5F5F5;
+            transition: all .2s;
             cursor: pointer;
             &:hover{
               border: 1px solid #00b33b;
@@ -290,9 +299,22 @@
               }
             }
           }
+          .option_wait{
+            border: 1px solid #5bc0de;
+            color: #5bc0de;
+            &:hover{
+              border-color: #5bc0de;
+            }
+            &:after{
+              border-top: 30px solid #5bc0de;
+            }
+          }
           .option_right_active{
             border: 1px solid #00b33b;
             color: #00b33b;
+            &:hover{
+              border-color: #00b33b;
+            }
             &:after{
               border-top: 30px solid #00b33b;
             }
@@ -300,11 +322,14 @@
           .option_error_active{
             border: 1px solid #E45C40;
             color: #E45C40;
+            &:hover{
+              border-color: #E45C40;
+            }
             &:after{
               border-top: 30px solid #E45C40;
             }
           }
-          .option_right_active,.option_error_active{
+          .option_right_active, .option_error_active, .option_wait{
             &:after{
               content: '';
               position: absolute;
@@ -347,15 +372,8 @@
   }
 }
 .remind_box_body{
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   .mask{
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     right: 0;
@@ -372,7 +390,7 @@
 .remind_box_xs{
   background-color: #fff;
   border-top: 1px solid #e0e3e9;
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -405,23 +423,8 @@
       .object_num{
         margin-left: 15px;
       }
-      .right,.error{
-        float: left;
-        margin-left: 25px;
-        span{
-          border: 1px solid #444;
-          font-size: 12px;
-          padding: 0 2px;
-          border-radius: 4px;
-          margin-right: 2px;
-          color: #444!important;
-        }
-      }
-      .error{
+      .time{
         color: #E45C40;
-      }
-      .right{
-        color: #47AD76;
       }
     }
   }
@@ -478,7 +481,7 @@
   display: none;
   >.setting_box{
     left: 0;
-    bottom: 0;
+    bottom: 50px;
     position: fixed;
     padding-top: 15px;
     width: 100%;

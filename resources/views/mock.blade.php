@@ -20,7 +20,7 @@
       var $this = $(this);
       $this.parent().find('li').removeClass("active");
       $this.addClass("active");
-      document.body.className = $this.attr('data-size');
+      document.body.setAttribute('size', $this.attr('data-size'));
     })
   });
 
@@ -65,16 +65,15 @@
   });
 
   // 锚点动画
-
+  function goSubject(targetId) {
+      var $target = $('[data-id = ' + targetId + ']');
+      $target.parent().find('li.active').removeClass('active');
+      $target.addClass('active');
+      $(document.body).animate({
+          scrollTop: $target.offset().top - 20
+      }, 300);
+  }
   $(function () {
-    function goSubject(targetId) {
-        var $target = $('[data-id = ' + targetId + ']');
-        $target.parent().find('li.active').removeClass('active');
-        $target.addClass('active');
-        $(document.body).animate({
-            scrollTop: $target.offset().top - 20
-        }, 300);
-    }
     var $subjectList = $('.subject_list');
       var hash = window.location.hash.substr(1);
       if(hash.length > 0){
@@ -113,7 +112,7 @@
   // 倒计时
   $(function(){
     var remainingTime = {!! $remainingTime !!};
-    var time = document.getElementById('time');
+    var time = $('.time_count_down');
     setTime();
     setInterval(function () {
       setTime();
@@ -133,14 +132,28 @@
       }
     }
     function setTime(){
-      time.innerHTML = conversionToMinutes(remainingTime--, 2);
+      time.html(conversionToMinutes(remainingTime--, 2));
     }
   })
   // ajax提交答案
   $(function(){
+    $('.view_ans').click(function(){
+      var $this = $(this);
+      var rightAns = $this.attr("data-ans");
+      if(rightAns){
+        $this.html("正确答案："+rightAns);
+      }
+    });
     $('.option_item').click(function(){
       var $this = $(this);
       var $currentTopic = $this.parents('.exam_item');
+      var $viewAnsBtn = $currentTopic.find('.view_ans');
+      if($currentTopic.attr('answered')){
+        return;
+      }
+      $this.addClass('option_wait');
+      $currentTopic.attr('answered', true);
+      var $currentTopicSerialBtn = $('a[href="#' + $currentTopic.attr('data-id') + '"]');
       $.ajax('/api/submit', {
         type: "POST",
         data: {
@@ -149,8 +162,18 @@
           'type':  'mock',
           'mock_record_id': {!! $mockRecord->id !!}
         },
-        success: function(res){
-          console.log(res)
+        success: function(res, textStatus, jqXHR){
+          if(jqXHR.status == 204) return;
+          $this.removeClass('option_wait');
+          if(res.is_correct){
+            $this.addClass('option_right_active');
+            $currentTopicSerialBtn.addClass('right');
+          }else{
+            $this.addClass('option_error_active');
+            $currentTopicSerialBtn.addClass('error');
+            $viewAnsBtn.show();
+            $viewAnsBtn.attr('data-ans', res.correct_option_ans);
+          }
         },
         error: function(err){},
         dataType: 'JSON'
@@ -187,8 +210,8 @@
         <div class="header">
           <h3 class="title">题号</h3>
           <div class="count_down">
-            结束倒计时
-            <span class="time" id="time"></span>
+              结束倒计时
+            <span class="time time_count_down"></span>
           </div>
           <div class="seting">
             <i class="glyphicon glyphicon-cog"></i>
@@ -229,8 +252,10 @@
       <div class="exam_main">
         <ul class="exam_list">
           @foreach($topics as $k => $topic)
-            <li class="exam_item" data-id="topic_{!! $topic->id !!}" data-topic-id="{!! $topic->id !!}">
-              <p class="subject"><span>{!! $k+1 !!}</span> . {!! $topic->title !!}</p>
+            <li @if(!$topic->submitRecord->isEmpty())answered="true"@endif class="exam_item" data-id="topic_{!! $topic->id !!}" data-topic-id="{!! $topic->id !!}">
+              <p class="subject"><span>{!! $k+1 !!}</span> . {!! $topic->title !!}
+                <button type="button" class="view_ans btn-sm btn btn-link">查看答案</button>
+              </p>
               <ul class="option_list">
                 @foreach($topic->options as $option)
                 <li data-id="{!! $option->id !!}" class="option_item @if(!$topic->submitRecord->isEmpty() && $topic->submitRecord->first()->selected_option_id == $option->id) {!! $topic->submitRecord->first()->is_correct?'option_right_active':'option_error_active' !!} @endif">
@@ -256,14 +281,8 @@
       <!-- 显示设置、对的题目数、错的题目数、共多少题和做了多少题 -->
       <span class="m_setting_btn"><i class="glyphicon glyphicon-font"></i></span>
       <div class="menu_info">
-        <div class="right">
-          <span><i class="glyphicon glyphicon-ok"></i></span>
-          0
-        </div>
-        <div class="error">
-          <span><i class="glyphicon glyphicon-remove"></i></span>
-          0
-        </div>
+        <span>结束倒计时</span>
+        <span class="time time_count_down"></span>
         <span class="object_num"><b>1</b>/500</span>
         <span class="menu"><i class="glyphicon glyphicon-th-large"></i></span>
       </div>
@@ -273,7 +292,7 @@
       <!-- 显示所有的题目序号 -->
       <ul id="subject-list" class="subject_list">
         @foreach($topics as $k => $topic)
-          <li><a class="@if(!$topic->submitRecord->isEmpty()){!! true?'righe':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
+          <li><a class="@if(!$topic->submitRecord->isEmpty()) {!! $topic->submitRecord->first()->is_correct?'right':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
         @endforeach
       </ul>
     </div>
@@ -322,8 +341,8 @@
         <p>2：点击【继续考试】，将关闭本窗口，继续考试！</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">继续答题</button>
-        <button type="button" class="btn btn-primary">确认交卷</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">继续答题</button>
+        <button type="button" class="btn btn-default">确认交卷</button>
       </div>
     </div>
   </div>

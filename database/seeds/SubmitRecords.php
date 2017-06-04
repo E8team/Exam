@@ -5,6 +5,7 @@ use App\Services\TopicService;
 
 class SubmitRecords extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -16,8 +17,8 @@ class SubmitRecords extends Seeder
         $this->mock();
         $j = 1;
         for($i = 1 ; $i<=1000000 ; $i++){
-            $userId = random_int(1,100);
-            $topicId = random_int(1,500);
+            $userId = random_int(1,5);
+            $topicId = random_int(1,1000);
             $topic = app(TopicService::class)->findTopic($topicId);
             $selOptionId = random_int(0,3);
             if($topic['options'][$selOptionId]['is_correct'] == 1){
@@ -36,7 +37,7 @@ class SubmitRecords extends Seeder
                 'mock_record_id' => $j,
                 'created_at' => \Carbon\Carbon::now()
             ]);
-            if($i % 50 ==0) $j++;
+            if($i % 50 ==0) $j++; //每50题结束把模拟记录id加1
         }
     }
 
@@ -44,7 +45,7 @@ class SubmitRecords extends Seeder
         DB::table('mock_records')->truncate();
         for ($i=1; $i<=20000; $i++)
         {
-            $userId = random_int(1,2);
+            $userId = random_int(1,3);
             DB::table('mock_records')->insert([
                 'user_id' => $userId,
                 'score' =>rand(1,50)*2,

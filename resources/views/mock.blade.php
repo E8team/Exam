@@ -46,7 +46,7 @@
     $(window).resize(function () {
         toggleFixed();
     })
-    $(document).scroll(function () {
+    $(window,document).scroll(function () {
         toggleFixed();
     })
   });
@@ -144,13 +144,16 @@
       $this.addClass('option_wait');
       $currentTopic.attr('answered', true);
       var $currentTopicSerialBtn = $('a[href="#' + $currentTopic.attr('data-id') + '"]');
-      $.ajax('/api/submit', {
-        type: "POST",
+
+      jQuery.ajax('/api/submit', {
+        type: "post",
+        contentType: "application/x-www-form-urlencoded;charset=utf-8",
+        async: false,
         data: {
           'topic_id': $currentTopic.attr('data-topic-id'),
           'selected_option_id':  $this.attr('data-id'),
           'type':  'mock',
-          'mock_record_id': {!! $mockRecord->id !!}
+          'mock_record_id': '{!! $mockRecord->id !!}'
         },
         success: function(res, textStatus, jqXHR){
           if(jqXHR.status == 204) return;
@@ -165,8 +168,9 @@
             $viewAnsBtn.attr('data-ans', res.correct_option_ans);
           }
         },
-        error: function(err){},
-        dataType: 'JSON'
+        error: function(err){
+            console.error(err)
+        }
       });
     })
   })

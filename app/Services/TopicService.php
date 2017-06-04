@@ -3,10 +3,12 @@
 namespace App\Services;
 
 use App\Models\Course;
+use App\Models\SubmitRecord;
 use App\Models\Topic;
 use App\Models\User;
 use Cache;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -85,28 +87,33 @@ class TopicService
         }
         return $randomTopicIds;
     }
-
-    public function makeTopicsWithLastSubmitRecord($topics,$type, $user)
+    //
+    public function getTopicsLastSubmitRecord($topics, $type, $user, $mockRecordId=null)
     {
-      return $topics->load(['submitRecords' => function ($query) use ($user,$type) {
-            if ($user instanceof User) {
-                $userId = $user->id;
-            } else {
-                $userId = $user;
-            }
-            $query->where('submit_records.user_id', $userId);
-            switch ($type)
-            {
-                case 'practice':
-                    $query->practice();
-                    break;
-                case 'mock':
-                    $query->mock();
-                    break;
-            }
-            // todo 这里必须要关闭mysql的严格模式 不知道为啥
-            return $query->recent()->groupBy('submit_records.topic_id');
-        }]);
+
+        if ($user instanceof User) {
+            $userId = $user->id;
+        } else {
+            $userId = $user;
+        }
+        $builder = SubmitRecord::query();
+        switch ($type)
+        {
+            case 'practice':
+                $builder->where('user_id', $userId)->practice();
+                break;
+            case 'mock':
+                $builder->where('mock_record_id', $mockRecordId)->where('mock_record_id', $mockRecordId)->mock();
+                break;
+        }
+
+        $res = $builder->whereIn('topic_id', $topics->pluck('id'))->recent()->groupBy('submit_records.topic_id')->get();
+        $relation = Topic::query()->getRelation('submitRecords');
+        return $relation->match(
+            $relation->initRelation($topics->all(), 'submitRecords'),
+            $res, 'submitRecords'
+        );
+
     }
 
     public function getPaginator($topicIds, $perPage, $pageName = 'page', $page = null)

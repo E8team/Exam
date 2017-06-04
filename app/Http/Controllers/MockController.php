@@ -43,6 +43,7 @@ class MockController extends Controller
             //todo alert
             abort(404);
         }
+
         if(!is_null($mockRecord->ended_at)){
             return redirect(route('end_mock', ['mockRecordId'=>$mockRecordId]));
         }
@@ -50,14 +51,17 @@ class MockController extends Controller
         $topicService = app(TopicService::class);
 
         $mockTopics = $mockRecord->mockTopics()->ordered()->limit(config('exam.mock_topics_count'))->get();
+
         $topics = $topicService->findTopicsFromCache($mockTopics->pluck('topic_id'));
 
-        $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, 'mock', $user);
+        $topics = $topicService->getTopicsLastSubmitRecord($topics, 'mock', $user, $mockRecordId);
+
         return view('mock', [
             'topics' => $topics,
             'mockRecord'=>$mockRecord,
             'remainingTime'=>config('exam.mock_time') - Carbon::now()->diffInSeconds($mockRecord->created_at, true)
         ]);
+
     }
 
     public function endMock($mockRecordId)

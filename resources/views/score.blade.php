@@ -33,8 +33,7 @@
 				</div>
 				<div class="btn_group">
 					<div class="btn_group_body">
-						<button type="button" class="btn btn-success btn1">重新考试</button>
-						<button type="button" class="btn btn-info btn2">退出</button>
+						<a href="{{url('/')}}" type="button" class="btn btn-success btn1">返回到主菜单</a>
 					</div>
 				</div>
 			</div>

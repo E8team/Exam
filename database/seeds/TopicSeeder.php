@@ -25,7 +25,7 @@ class TopicSeeder extends Seeder
                 $option = $marx[$i][$j];
                 DB::table('options')->insert([
                     'topic_id' => $topicId,
-                    'is_correct' => ord($marx[$i][6])-63 == $j,
+                    'is_correct' => ord(trim($marx[$i][6]))-63 == $j,
                     'title' =>$option,
                 ]);
             }

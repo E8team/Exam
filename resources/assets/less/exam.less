@@ -52,10 +52,6 @@ body[size="smallFont"]{
   background-color: #fff;
   margin: 30px 0;
   border: 1px solid #E0E3E9;
-  .breadcrumb{
-    margin: 0;
-    background-color: #fff;
-  }
   .progress_bar{
     border-top: 1px solid #f1f3f5;
     padding: 0px 20px;
@@ -76,7 +72,7 @@ body[size="smallFont"]{
         border-radius: 20px;
         background-color: @themeColor;
         overflow: hidden;
-        width: 30%;
+        width: 0;
         transition: width .3s;
       }
     }
@@ -397,6 +393,7 @@ body[size="smallFont"]{
       line-height: 50px;
       width: 260px;
       margin: 0 auto;
+      text-align: center;
       .object_num{
         margin-left: 15px;
       }
@@ -542,8 +539,9 @@ body[size="smallFont"]{
     position: absolute;
     height: 100%;
     background-color: #E45C40;
-    width: 20%;
+    width: 0;
     border-radius: 10px;
+    transition: width .3s;
   }
 }
 @media(max-width:768px){

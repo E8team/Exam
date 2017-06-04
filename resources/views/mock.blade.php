@@ -23,10 +23,11 @@
     })
   });
 
-  // 显示进度条
+  // 进度条
   $(function(){
     var $progressBarM = $('.progress_bar_m');
     var $examStateBoxTop = $('.exam_state').offset().top + $('.exam_state').height();
+
     $(window,document).scroll(function(){
       if($examStateBoxTop <= $(document).scrollTop()){
         $progressBarM.show();
@@ -135,8 +136,25 @@
       time.html(window.conversionToMinutes(remainingTime--, 2));
     }
   })
+  var submitCount = {!! $mockRecord->submit_count !!};
+  var allCount = {!! $mockRecord->mock_topics_count !!};
   // ajax提交答案
   $(function(){
+    var $pageDone = $('.page_done');
+    var $submitCount = $('.submit_count');
+    function progress(submitCount){
+
+      if(submitCount === undefined){
+        submitCount = ++window.submitCount;
+      }
+      $submitCount.html(submitCount);
+      var propor = (submitCount / allCount) * 100;
+      $pageDone.css('width', propor + '%');
+    }
+    function inc(){
+      progress();
+    }
+    progress(submitCount);
     $('.view_ans').click(function(){
       var $this = $(this);
       var rightAns = $this.attr("data-ans");
@@ -168,6 +186,7 @@
         success: function(res, textStatus, jqXHR){
           if(jqXHR.status == 204) return;
           $this.removeClass('option_wait');
+          inc();
           if(res.is_correct){
             $this.addClass('option_right_active');
             $currentTopicSerialBtn.addClass('right');
@@ -189,19 +208,12 @@
 @section('content')
 <div class="container">
   <div class="exam_state">
-    <div class="crumbs">
-      <ol class="breadcrumb">
-        <li><a href="{{url('/')}}">{{env('APP_NAME')}}</a></li>
-        <li><a href="#">{{$course->name}}</a></li>
-        <li class="active">{{'模拟'}}</li>
-      </ol>
-    </div>
     <div class="progress_bar">
       <div class="progress_box">
-        <em class="page_done">{{$mockRecord->submit_count}}</em>
+        <em class="page_done"></em>
       </div>
       <div class="txt">
-        <span>{{$mockRecord->submit_count}}</span>
+        <span class="submit_count">{{$mockRecord->submit_count}}</span>
         / {{$mockRecord->mock_topics_count}}
       </div>
     </div>
@@ -279,9 +291,9 @@
       <!-- 显示设置、对的题目数、错的题目数、共多少题和做了多少题 -->
       <span class="m_setting_btn"><i class="glyphicon glyphicon-font"></i></span>
       <div class="menu_info">
-        <span>结束倒计时</span>
+        <span>倒计时</span>
         <span class="time time_count_down"></span>
-        <span class="object_num"><b>1</b>/500</span>
+        <span class="object_num"><b class="submit_count">{{$mockRecord->submit_count}}</b>/{{$mockRecord->mock_topics_count}}</span>
         <span class="menu"><i class="glyphicon glyphicon-th-large"></i></span>
       </div>
       <a class="btn btn-primary assignment_btn" id="assignment_btn" data-toggle="modal">交卷</a>
@@ -347,6 +359,6 @@
 </div>
 <!-- 进度条 -->
 <div class="progress_bar_m">
-  <em></em>
+  <em class="page_done"></em>
 </div>
 @endsection

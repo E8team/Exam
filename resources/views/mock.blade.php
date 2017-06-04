@@ -181,18 +181,18 @@
   <div class="exam_state">
     <div class="crumbs">
       <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Library</a></li>
-        <li class="active">Data</li>
+        <li><a href="{{url('/')}}">{{env('APP_NAME')}}</a></li>
+        <li><a href="#">{{$course->name}}</a></li>
+        <li class="active">{{'模拟'}}</li>
       </ol>
     </div>
     <div class="progress_bar">
       <div class="progress_box">
-        <em class="page_done"></em>
+        <em class="page_done">{{$mockRecord->submit_count}}</em>
       </div>
       <div class="txt">
-        <span>23</span>
-        / 500
+        <span>{{$mockRecord->submit_count}}</span>
+        / {{$mockRecord->mock_topics_count}}
       </div>
     </div>
   </div>

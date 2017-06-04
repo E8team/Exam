@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\MockRecord;
 use App\Models\MockTopic;
 use App\Services\MockService;
@@ -37,8 +38,8 @@ class MockController extends Controller
 
     public function showMockView($mockRecordId)
     {
-
         $mockRecord = MockRecord::findOrFail($mockRecordId);
+        $course = Course::find($mockRecord->course_id);
         if(Gate::denies('mock', $mockRecord)){
             //todo alert
             abort(404);
@@ -56,8 +57,13 @@ class MockController extends Controller
 
         $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, 'mock', $user, $mockRecordId);
 
+        $submitRecords = app(MockService::class)->getSubmitRecords($mockRecord, $user);
+        $submitRecords = $submitRecords->unique('topic_id');
+        $mockRecord->submit_count = $submitRecords->count();
+        $mockRecord->mock_topics_count = config('exam.mock_topics_count');
         return view('mock', [
             'topics' => $topics,
+            'course' =>$course,
             'mockRecord'=>$mockRecord,
             'remainingTime'=>config('exam.mock_time') - Carbon::now()->diffInSeconds($mockRecord->created_at, true)
         ]);

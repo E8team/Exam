@@ -125,8 +125,8 @@
   });
 
   // ajax提交答案
-  var submitCount = {!! $mockRecord->submit_count !!};
-  var allCount = {!! $mockRecord->mock_topics_count !!};
+  var submitCount = {!! $practiceRecordsCount = $practiceRecords->count() !!};
+  var allCount = {!!config('exam.practice_topics_count') !!};
   var isIE8 = navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"") == "MSIE8.0"
   $(function(){
     var $pageDone = $('.page_done');
@@ -169,8 +169,7 @@
         data: {
           'topic_id': $currentTopic.attr('data-topic-id'),
           'selected_option_id':  $this.attr('data-id'),
-          'type':  'mock',
-          'mock_record_id': '{!! $mockRecord->id !!}'
+          'type':  'practice'
         },
         success: function(res, textStatus, jqXHR){
           if(jqXHR.status == 204) return;
@@ -202,8 +201,9 @@
         <em class="page_done"></em>
       </div>
       <div class="txt">
-        <span class="submit_count">{{$mockRecord->submit_count}}</span>
-        / {{$mockRecord->mock_topics_count}}
+
+        <span class="submit_count">{{$practiceRecordsCount}}</span>
+        / {{config('exam.practice_topics_count') }}
       </div>
     </div>
   </div>
@@ -223,7 +223,7 @@
             @endforeach
           </ul>
           <nav aria-label="Page navigation" class="text-center">
-            <ul class="pagination">
+            {{--<ul class="pagination">
               <li>
                 <a href="#" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
@@ -239,7 +239,8 @@
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>
-            </ul>
+            </ul>--}}
+            {!! $topics->links() !!}
           </nav>
         </div>
         <div class="footer">
@@ -267,7 +268,7 @@
         <ul class="exam_list">
           @foreach($topics as $k => $topic)
             <li @if(!$topic->submitRecords->isEmpty())answered="true"@endif class="exam_item" data-id="topic_{!! $topic->id !!}" data-topic-id="{!! $topic->id !!}">
-              <p class="subject"><span>{!! $k+1 !!}</span> . {!! $topic->title !!}
+              <p class="subject"><span>{!! $topic->topic_num !!}</span> . {!! $topic->title !!}
                 <button type="button" class="view_ans btn-sm btn btn-link @if(!$topic->submitRecords->isEmpty() && !$topic->submitRecords->first()->is_correct) show" data-ans="{!! $topic->getAns() !!}" @else " @endif>查看答案</button>
               </p>
               <ul class="option_list">
@@ -285,23 +286,7 @@
 
         </ul>
         <nav aria-label="Page navigation" class="text-center">
-          <ul class="pagination">
-            <li>
-              <a href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-              <a href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
+          {!! $topics->links() !!}
         </nav>
       </div>
     </div>
@@ -314,7 +299,7 @@
       <!-- 显示设置、对的题目数、错的题目数、共多少题和做了多少题 -->
       <span class="m_setting_btn"><i class="glyphicon glyphicon-font"></i></span>
       <div class="menu_info">
-        <span class="object_num"><b class="submit_count">{{$mockRecord->submit_count}}</b>/{{$mockRecord->mock_topics_count}}</span>
+        <span class="object_num"><b class="submit_count">{{$practiceRecordsCount}}</b>/{{}}</span>
         <span class="menu"><i class="glyphicon glyphicon-th-large"></i></span>
       </div>
       <a class="btn btn-primary assignment_btn" id="assignment_btn" data-toggle="modal">重新答题</a>
@@ -323,7 +308,7 @@
       <!-- 显示所有的题目序号 -->
       <ul id="subject-list" class="subject_list">
         @foreach($topics as $k => $topic)
-          <li><a class="@if(!$topic->submitRecords->isEmpty()) {!! $topic->submitRecords->first()->is_correct?'right':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
+          <li><a class="@if(!$topic->submitRecords->isEmpty()) {!! $topic->submitRecords->first()->is_correct?'right':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $topic->topic_num !!}</a></li>
         @endforeach
       </ul>
     </div>
@@ -373,7 +358,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
-        <a href="{!! route('end_mock', ['mockRecordId'=>$mockRecord->id]) !!}" type="button" class="btn btn-default">确认</a>
+        <a href="#" type="button" class="btn btn-default">确认</a>
       </div>
     </div>
   </div>

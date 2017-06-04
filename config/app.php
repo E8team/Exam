@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'max_per_page' => 40,
+    'max_per_page' => 50,
 
-    'default_per_page' => 20,
+    'default_per_page' => 50,
     /*
     |--------------------------------------------------------------------------
     | Application Name

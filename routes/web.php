@@ -49,6 +49,10 @@ Route::group(['middleware' => 'auth'], function () {
             });
             Route::get('/end_mock/{mockRecordId}', 'MockController@endMock')->name('end_mock');
 
+            //练习模式
+            Route::get('/practice/{courseId}', 'PracticeController@showPracticeView')->name('practice');
+
+
             //重选课程
             Route::get('re_choose', 'CoursesController@showReChooseCourseForm')->name('re_choose');
             Route::post('re_choose', 'CoursesController@reSelectCourses');

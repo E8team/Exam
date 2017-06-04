@@ -6,11 +6,12 @@ use App\Models\Course;
 use App\Models\SubmitRecord;
 use App\Models\Topic;
 use App\Models\User;
+use App\Tools\LengthAwarePaginator;
 use Cache;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\Pagination\AbstractPaginator;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class TopicService
 {
@@ -29,6 +30,7 @@ class TopicService
 
     public function findTopicFromCache($topicId)
     {
+
         return Cache::rememberForever('topic:' . $topicId, function () use ($topicId) {
             return $this->findTopic($topicId);
         });
@@ -46,7 +48,7 @@ class TopicService
 
     public function getTopicIdsByCourse($course)
     {
-        return Topic::byCourse($course)->orderedByTopicNum()->limit(500)->get(['id', 'topic_num']);
+        return Topic::byCourse($course)->orderedByTopicNum()->limit(config('exam.practice_topics_count'))->get(['id'])->pluck('id');
     }
 
     public function getTopicIdsByCourseFromCache($course)
@@ -77,9 +79,9 @@ class TopicService
             ->distinct()
             ->get()
             ->pluck('id');
-        $topIds = $this->getTopicIdsByCourseFromCache($course)->pluck('id');
+        $topicIds = $this->getTopicIdsByCourseFromCache($course);
         // 没做过的题目
-        $noSubmitTopicIds = $topIds->diff($submitedTopicIds);
+        $noSubmitTopicIds = $topicIds->diff($submitedTopicIds);
         if ($noSubmitTopicIds->count() >= $topicCount) {
             $randomTopicIds = $noSubmitTopicIds->random($topicCount);
         } else {
@@ -90,8 +92,6 @@ class TopicService
     //
     public function makeTopicsWithLastSubmitRecord($topics, $type, $userIdOrMockRecordId)
     {
-
-
         $builder = SubmitRecord::query();
         switch ($type)
         {
@@ -105,23 +105,31 @@ class TopicService
 
         $res = $builder->whereIn('topic_id', $topics->pluck('id'))->recent()->groupBy('submit_records.topic_id')->get();
         $relation = Topic::query()->getRelation('submitRecords');
-        return $relation->match(
+        return new Collection( $relation->match(
             $relation->initRelation($topics->all(), 'submitRecords'),
             $res, 'submitRecords'
-        );
+        ));
 
     }
 
     public function getPaginator($topicIds, $perPage, $pageName = 'page', $page = null)
     {
         $page = $page ?: AbstractPaginator::resolveCurrentPage($pageName);
-        if ($topicIds instanceof Collection) {
-            return new LengthAwarePaginator($this->findTopicsFromCache($topicIds->forPage($page, $perPage)), $topicIds->count(), $perPage);
+        if ($topicIds instanceof BaseCollection) {
+            $topicIdsForPage = $topicIds->forPage($page, $perPage);
+            $topicIdsCount = $topicIds->count();
+
         } else {
             // array
             $topicIdsForPage = array_slice($topicIds, ($page - 1) * $perPage, $perPage, true);
-            return new LengthAwarePaginator($this->findTopicsFromCache($topicIdsForPage), count($topicIds), $perPage);
+            $topicIdsCount = count($topicIds);
+
         }
+        return new LengthAwarePaginator($this->findTopicsFromCache($topicIdsForPage), $topicIdsCount, $perPage, $page,[
+             'path' => Paginator::resolveCurrentPath(),
+             'pageName' => $pageName,
+            ]);
+
     }
 
     public function getTopicSubmit($topicId = null)

@@ -37,4 +37,13 @@ class SubmitRecord extends BaseModel
     {
         return $this->hasMany(Topic::class);
     }
+    public function scopeByUser($query, $user)
+    {
+        if($user instanceof User){
+            $userId = $user->id;
+        }else{
+            $userId = $user;
+        }
+        return $query->where($this->getTable().'.user_id',$userId);
+    }
 }

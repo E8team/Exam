@@ -137,7 +137,7 @@
     }
   })
   var submitCount = {!! $mockRecord->submit_count !!};
-  var allCount = {!! $mockRecord->mock_topics_count !!};
+  var allCount = {!! config('exam.mock_topics_count') !!};
   // ajax提交答案
   var isIE8 = navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"") == "MSIE8.0"
   $(function(){
@@ -215,7 +215,7 @@
       </div>
       <div class="txt">
         <span class="submit_count">{{$mockRecord->submit_count}}</span>
-        / {{$mockRecord->mock_topics_count}}
+        / {{config('exam.mock_topics_count')}}
       </div>
     </div>
   </div>

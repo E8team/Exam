@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Psy\Util\Str;
 
 class User extends BaseModel implements
     AuthenticatableContract,
@@ -28,7 +29,7 @@ class User extends BaseModel implements
      */
     protected $fillable = [
         'student_num', 'id_card_num', 'name',
-        'email', 'password', 'department_class_id' , 'is_selected_courses'
+        'email', 'password', 'department_class_id', 'is_selected_courses'
     ];
 
     /**
@@ -52,9 +53,9 @@ class User extends BaseModel implements
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class , 'course_user' , 'user_id' ,'course_id');
+        return $this->belongsToMany(Course::class, 'course_user', 'user_id', 'course_id');
     }
-    
+
     /*public function courses()
     {
         return $this->belongsTo(Course::class , 'is_selected_courses');
@@ -84,7 +85,7 @@ class User extends BaseModel implements
     /**
      * Send the password reset notification.
      *
-     * @param  string  $token
+     * @param  string $token
      * @return void
      */
     public function sendPasswordResetNotification($token)
@@ -99,14 +100,22 @@ class User extends BaseModel implements
 
     public function isSelectedGivenCourse($course)
     {
-        if($course instanceof Course)
+        if ($course instanceof Course)
             $courseId = $course->id;
         else
             $courseId = $course;
-        foreach($this->courses as $course){
-            if($course->id == $courseId)
+        foreach ($this->courses as $course) {
+            if ($course->id == $courseId)
                 return $course;
         }
         return false;
+    }
+
+    public function getNameAttribute($name)
+    {
+        if(strpos($name, '·', 1)){
+            $name = strstr($name, '·', true);
+        }
+        return str_limit($name, 22, '');
     }
 }

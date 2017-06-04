@@ -2,7 +2,6 @@
 namespace App\Services;
 
 use App\Models\MockRecord;
-use App\Models\MockTopic;
 use App\Models\User;
 
 class MockService
@@ -30,14 +29,14 @@ class MockService
         return MockRecord::where(['user_id'=>$user->id])->whereNull('ended_at')->recent()->firstOrFail();
     }
 
-    public function allMockRecordByUser($user)
+    public function allMockRecordByUser($user, $courseId)
     {
         if($user instanceof User){
             $userId = $user->id;
         }else{
             $userId = $user;
         }
-        return MockRecord::where(['user_id'=>$userId])->get();
+        return MockRecord::where(['user_id'=>$userId,'course_id'=>$courseId])->get();
     }
 
     public function getSubmitRecords($mockRecord, $user){

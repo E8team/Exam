@@ -26,7 +26,7 @@ class IsMockEnded
                 if(!$mockRecord->isEnded()){
                     if($mockRecord->isOvertime()){
                         // 跳转到 结束模拟页面
-                        // return redirect()->guest()
+                        return redirect()->guest(route('end_mock',['mockRecordId' => $mockRecord->id]));
                     }else{
                         $mockUrl = route('mock', ['mockRecordId' => $mockRecord->id]);
                         // 模拟没有结束 跳转到模拟界面去

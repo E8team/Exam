@@ -86,22 +86,22 @@ class TopicService
         return $randomTopicIds;
     }
 
-    public function makeTopicsWithLastSubmitRecord($topics,$type, $user)
+    public function makeTopicsWithLastSubmitRecord($topics, $type, $user, $mockRecordId=null)
     {
-      return $topics->load(['submitRecords' => function ($query) use ($user,$type) {
+      return $topics->load(['submitRecords' => function ($query) use ($user,$type,$mockRecordId) {
             if ($user instanceof User) {
                 $userId = $user->id;
             } else {
                 $userId = $user;
             }
-            $query->where('submit_records.user_id', $userId);
             switch ($type)
             {
                 case 'practice':
+                    $query->where('submit_records.user_id', $userId);
                     $query->practice();
                     break;
                 case 'mock':
-                    $query->mock();
+                    $query->where('mock_record_id',$mockRecordId)->mock();
                     break;
             }
             // todo 这里必须要关闭mysql的严格模式 不知道为啥

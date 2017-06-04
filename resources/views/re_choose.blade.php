@@ -16,17 +16,17 @@
 		<div class="mks_container_main">
 			<div class="mks_container_form">
 				<h2>重选课程</h2>
-				<form method="post" action="##">
+				<form method="post" action="{{route('re_choose')}}">
 					<div class="again">
-  						<p>抱歉！您与注册时选择的课程不一致，请重新选择考试课程！</p>
+  						<p>您现在可以重新选择考试课程！</p>
   					</div>
   					<label class="checkbox-inline">
-						<input type="checkbox" id="inlineCheckbox1" value="option1">马克思主义基本原理概率
+						<input type="checkbox" name="course_ids[]" id="inlineCheckbox1" value="1">马克思主义基本原理概率
 					</label>
 					<label class="checkbox-inline">
-						<input type="checkbox" id="inlineCheckbox2" value="option2">中国近代史纲要
+						<input type="checkbox" name="course_ids[]" id="inlineCheckbox2" value="2">中国近代史纲要
 					</label>
-  					<a href="##" type="submit" class="btn btn-info btn-lg next_btn">确认</a>
+  					<input type="submit" class="btn btn-info btn-lg next_btn" value="提交" />
   				</form>
 			</div>
 		</div>

@@ -17,7 +17,7 @@ class MockController extends Controller
     {
         $user = Auth::user();
 
-        $mockRecord = MockRecord::create(['user_id'=>$user->id]);
+        $mockRecord = MockRecord::create(['user_id'=>$user->id, 'course_id'=>$courseId]);
 
         $topicService = app(TopicService::class);
         // 创建mock

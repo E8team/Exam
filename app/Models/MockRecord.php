@@ -13,7 +13,7 @@ use Carbon\Carbon;
 class MockRecord extends BaseModel
 {
 
-    protected $fillable = ['user_id'];
+    protected $fillable = ['user_id', 'course_id'];
 
     protected $dates = ['created_at', 'updated_at', 'ended_at'];
 

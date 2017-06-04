@@ -41,11 +41,11 @@ class IndexController extends Controller
         $parctice->correct = 0;
         $parctice->mistake = 0;
         $topicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
-        $submitRecords = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'practice',Auth::user())->toArray();
-        foreach ($submitRecords as $submitRecord)
+        $topicIds = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'practice',Auth::user());
+        foreach ($topicIds as $topicId)
         {
-          if(!empty($submitRecord['submit_record'])){
-              !$submitRecord['submit_record'][0]['is_correct'] ? $parctice->mistake++ : $parctice->correct++;
+          if(!$topicId->submitRecords->isEmpty()){
+              $topicId->submitRecords->first()->is_correct ? $parctice->mistake++ : $parctice->correct++;
           }
         }
         $parctice->unfinished = 500 - $parctice->correct-$parctice->mistake;

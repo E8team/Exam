@@ -87,15 +87,17 @@ class RegisterController extends Controller
         $data['name'] = $student->name;
         $data['department_class_id'] = $student->department_class_id;
         $data['password'] = bcrypt($data['password']);
-
+        //todo  这里暂时把邮箱验证关闭
+        $data['verified'] = 1;
         $user = User::create($data);
-
+        $user->verified = 1;
+        $user->save();
         event(new Registered($user));
 
         $this->guard()->login($user);
 
-        return $this->sendVerifyEmail();
-
+        //return $this->sendVerifyEmail();
+        return redirect(route('choose'));
     }
 
     public function sendVerifyEmail()

@@ -130,10 +130,9 @@
 	margin-bottom: 30px;
 	text-indent: 2em;
 }
+/*媒体查询*/
 @media screen and (max-width: 768px){
-	.prompt{
-		width: 100%;
-	}
+	.prompt{width: 100%;}
 }
 @media screen and (max-width: 550px){
 	.prompt_title{width: 100%;}
@@ -142,7 +141,6 @@
 @media screen and (max-width: 460px){
 	.checkbox-inline+.checkbox-inline{margin-left: 0;}
 	.container{width: 100%;}
-	.login_right{display: none;}
 	.mks_container_main{width: 100%;border: none;}
 	.prompt{width: 100%;}
 }

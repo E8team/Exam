@@ -124,6 +124,11 @@
 	color: #999;
 	border-radius: 0px 4px 4px 0px;
 }
+/*重新选择课程*/
+.again p{
+	margin-bottom: 30px;
+	text-indent: 2em;
+}
 @media screen and (max-width: 768px){
 	.prompt{
 		width: 100%;

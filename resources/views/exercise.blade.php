@@ -116,29 +116,17 @@
     });
   });
 
-  // 交卷
+  // 重新答题
   $(function (){
     $('#assignment_btn').click(function(event){
       $('#assignment').modal('toggle');
       event.stopPropagation();
     });
   });
-  // 倒计时
-  $(function(){
-    var remainingTime = {!! $remainingTime !!};
-    var time = $('.time_count_down');
-    setTime();
-    setInterval(function () {
-      setTime();
-    },1000);
 
-    function setTime(){
-      time.html(window.conversionToMinutes(remainingTime--, 2));
-    }
-  })
+  // ajax提交答案
   var submitCount = {!! $mockRecord->submit_count !!};
   var allCount = {!! $mockRecord->mock_topics_count !!};
-  // ajax提交答案
   var isIE8 = navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"") == "MSIE8.0"
   $(function(){
     var $pageDone = $('.page_done');
@@ -226,10 +214,6 @@
         <!-- 提醒框头部 -->
         <div class="header">
           <h3 class="title">题号</h3>
-          <div class="count_down">
-              结束倒计时
-            <span class="time time_count_down"></span>
-          </div>
         </div>
         <!-- 提醒框内容 -->
         <div class="remind_content">
@@ -238,6 +222,25 @@
               <li><a class="@if(!$topic->submitRecords->isEmpty()) {!! $topic->submitRecords->first()->is_correct?'right':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
             @endforeach
           </ul>
+          <nav aria-label="Page navigation" class="text-center">
+            <ul class="pagination">
+              <li>
+                <a href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li>
+                <a href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
         <div class="footer">
           <ul class="subject_state">
@@ -254,7 +257,7 @@
               <em></em>
             </li>
           </ul>
-          <a type="button" class="btn btn-primary" data-target="#assignment" data-toggle="modal">交卷</a>
+          <a type="button" class="btn btn-primary" data-target="#assignment" data-toggle="modal">重新答题</a>
         </div>
       </div>
     </div>
@@ -281,6 +284,25 @@
           @endforeach
 
         </ul>
+        <nav aria-label="Page navigation" class="text-center">
+          <ul class="pagination">
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
@@ -292,12 +314,10 @@
       <!-- 显示设置、对的题目数、错的题目数、共多少题和做了多少题 -->
       <span class="m_setting_btn"><i class="glyphicon glyphicon-font"></i></span>
       <div class="menu_info">
-        <span>倒计时</span>
-        <span class="time time_count_down"></span>
         <span class="object_num"><b class="submit_count">{{$mockRecord->submit_count}}</b>/{{$mockRecord->mock_topics_count}}</span>
         <span class="menu"><i class="glyphicon glyphicon-th-large"></i></span>
       </div>
-      <a class="btn btn-primary assignment_btn" id="assignment_btn" data-toggle="modal">交卷</a>
+      <a class="btn btn-primary assignment_btn" id="assignment_btn" data-toggle="modal">重新答题</a>
     </div>
     <div class="subject_list_body">
       <!-- 显示所有的题目序号 -->
@@ -348,12 +368,12 @@
     <div class="modal-content">
       <div class="modal-body confirma_box">
         <p>操作提示：</p>
-        <p>1：点击【确认交卷】，将提交成绩，结束答题！</p>
-        <p>2：点击【继续答题】，将关闭本窗口，继续答题！</p>
+        <p>1：点击【确认】，将重新开始练习！</p>
+        <p>2：点击【取消】，将关闭本窗口，继续答题！</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">继续答题</button>
-        <a href="{!! route('end_mock', ['mockRecordId'=>$mockRecord->id]) !!}" type="button" class="btn btn-default">确认交卷</a>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+        <a href="{!! route('end_mock', ['mockRecordId'=>$mockRecord->id]) !!}" type="button" class="btn btn-default">确认</a>
       </div>
     </div>
   </div>

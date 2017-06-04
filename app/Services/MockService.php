@@ -39,7 +39,4 @@ class MockService
         return MockRecord::where(['user_id'=>$userId,'course_id'=>$courseId])->get();
     }
 
-    public function getSubmitRecords($mockRecord, $user){
-        return $mockRecord->submitRecords()->where('submit_records.user_id', $user->id)->get();
-    }
 }

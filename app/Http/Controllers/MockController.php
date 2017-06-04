@@ -47,14 +47,13 @@ class MockController extends Controller
         if(!is_null($mockRecord->ended_at)){
             return redirect(route('end_mock', ['mockRecordId'=>$mockRecordId]));
         }
-        $user = Auth::user();
         $topicService = app(TopicService::class);
 
         $mockTopics = $mockRecord->mockTopics()->ordered()->limit(config('exam.mock_topics_count'))->get();
 
         $topics = $topicService->findTopicsFromCache($mockTopics->pluck('topic_id'));
 
-        $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, 'mock', $user, $mockRecordId);
+        $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, 'mock', $mockRecordId);
 
         return view('mock', [
             'topics' => $topics,
@@ -74,7 +73,7 @@ class MockController extends Controller
         $user = Auth::user();
         $mockTopicsCount = config('exam.mock_topics_count');
         if(is_null($mockRecord->ended_at)){
-            $submitRecords = app(MockService::class)->getSubmitRecords($mockRecord, $user);
+            $submitRecords = $mockRecord->submitRecords;
             $submitRecords = $submitRecords->unique('topic_id');
             $mockRecord->submit_count = $submitRecords->count();
             $mockRecord->correct_count = $submitRecords->where('is_correct', true)->count();

@@ -47,7 +47,7 @@ class TopicSeeder extends Seeder
                 $option = $modernHistory[$i][$j];
                 DB::table('options')->insert([
                     'topic_id' => $topicId,
-                    'is_correct' => ord($modernHistory[$i][6])-63 == $j,
+                    'is_correct' => ord(trim($modernHistory[$i][6]))-63 == $j,
                     'title' =>$option,
                 ]);
             }

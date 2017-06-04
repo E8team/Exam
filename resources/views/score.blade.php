@@ -16,7 +16,7 @@
 		<div class=" mks_container_score">
 			<h2>答题结束！</h2>
 			<div class="container_score_body">
-				<div class="title"><h3>试卷得分</h3></div>
+				<div class="title"><h3>答题详情</h3></div>
 				<div class="score_lcon">
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 						<div class="re_num"><em>{!! $mockRecord->score !!}</em>分</div>

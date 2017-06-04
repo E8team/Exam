@@ -139,6 +139,7 @@
   var submitCount = {!! $mockRecord->submit_count !!};
   var allCount = {!! $mockRecord->mock_topics_count !!};
   // ajax提交答案
+  var isIE8 = navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"") == "MSIE8.0"
   $(function(){
     var $pageDone = $('.page_done');
     var $submitCount = $('.submit_count');
@@ -176,7 +177,7 @@
       jQuery.ajax('/api/submit', {
         type: "post",
         contentType: "application/x-www-form-urlencoded;charset=utf-8",
-        async: false,
+        async: !isIE8,
         data: {
           'topic_id': $currentTopic.attr('data-topic-id'),
           'selected_option_id':  $this.attr('data-id'),

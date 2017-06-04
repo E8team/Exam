@@ -56,7 +56,7 @@ class MockController extends Controller
 
         $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, 'mock', $mockRecordId);
 
-        $submitRecords = app(MockService::class)->getSubmitRecords($mockRecord, $user);
+        $submitRecords = $mockRecord->submitRecords;
         $submitRecords = $submitRecords->unique('topic_id');
         $mockRecord->submit_count = $submitRecords->count();
         $mockRecord->mock_topics_count = config('exam.mock_topics_count');
@@ -76,7 +76,6 @@ class MockController extends Controller
             //todo alert
             abort(404);
         }
-        $user = Auth::user();
         $mockTopicsCount = config('exam.mock_topics_count');
         if(is_null($mockRecord->ended_at)){
             $submitRecords = $mockRecord->submitRecords;

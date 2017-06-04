@@ -36,7 +36,7 @@ class IndexController extends Controller
         $parctice['correct'] = 0;
         $parctice['mistake'] = 0;
         $topicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
-        $topicIds = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'practice',Auth::user());
+        $topicIds = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'practice',Auth::id());
         foreach ($topicIds as $topicId)
         {
           if(!$topicId->submitRecords->isEmpty()){

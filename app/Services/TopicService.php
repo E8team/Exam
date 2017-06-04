@@ -88,7 +88,7 @@ class TopicService
         return $randomTopicIds;
     }
     //
-    public function makeTopicsWithLastSubmitRecord($topics, $type, $user = null, $mockRecordId=null)
+    public function makeTopicsWithLastSubmitRecord($topics, $type, $userIdOrMockRecordId)
     {
 
 
@@ -96,15 +96,10 @@ class TopicService
         switch ($type)
         {
             case 'practice':
-                if ($user instanceof User) {
-                    $userId = $user->id;
-                } else {
-                    $userId = $user;
-                }
-                $builder->where('user_id', $userId)->practice();
+                $builder->where('user_id', $userIdOrMockRecordId)->practice();
                 break;
             case 'mock':
-                $builder->where('mock_record_id', $mockRecordId)->where('mock_record_id', $mockRecordId)->mock();
+                $builder->where('mock_record_id', $userIdOrMockRecordId)->mock();
                 break;
         }
 

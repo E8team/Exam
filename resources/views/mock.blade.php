@@ -2,8 +2,8 @@
 @section('title')随机答题中@endsection
 @push('js')
 <script type="text/javascript">
- // 切换主题
 
+ // 切换主题
   $(function () {
     $('.color_model>li').click(function() {
       var $this = $(this);
@@ -14,7 +14,6 @@
   });
 
   // 改变字号
-
   $(function () {
     $('.font>li').click(function () {
       var $this = $(this);
@@ -24,8 +23,20 @@
     })
   });
 
-  // 固定定位
+  // 显示进度条
+  $(function(){
+    var $progressBarM = $('.progress_bar_m');
+    var $examStateBoxTop = $('.exam_state').offset().top + $('.exam_state').height();
+    $(window,document).scroll(function(){
+      if($examStateBoxTop <= $(document).scrollTop()){
+        $progressBarM.show();
+      }else{
+        $progressBarM.hide();
+      }
+    });
+  });
 
+  // 固定定位
   $(function () {
     var $remindBox = $('.remind_box');
     var $remindBoxTop = $remindBox.offset().top;
@@ -52,7 +63,6 @@
   });
 
   // show 字体、模式
-
   $(function () {
     var $settingBtn = $('.setting');
     $('.m_setting_btn').click(function (event) {
@@ -334,5 +344,9 @@
       </div>
     </div>
   </div>
+</div>
+<!-- 进度条 -->
+<div class="progress_bar_m">
+  <em></em>
 </div>
 @endsection

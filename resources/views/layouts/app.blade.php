@@ -48,9 +48,6 @@
 @yield('js')
 @stack('js')
 <script>
-    $(document).ready(function () {
-        $('.bg_box').height($(window).height() - 60);
-    });
     $(function () {
         $(".chevron-down").click(function () {
             $(document.body).animate({

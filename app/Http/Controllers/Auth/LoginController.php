@@ -72,11 +72,12 @@ class LoginController extends Controller
     {
         $this->validate($request, [
             $this->username() => 'required|digits:10|exists:users,student_num',
-            'password' => 'required|string',
+            'password' => 'required',
         ],[
             $this->username().'.exists' => '该学号不存在',
             $this->username().'.required' =>'请填写学号',
-            $this->username().'.digits' =>'学号必须为10位的数字'
+            $this->username().'.digits' =>'学号必须为10位的数字',
+            'password.required' =>'请输入密码',
         ]);
     }
 

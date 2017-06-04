@@ -119,3 +119,6 @@ li{list-style: none;}
         width: 75%;
     }
 }
+.btn1{
+    float: none!important;
+}

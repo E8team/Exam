@@ -20,12 +20,13 @@ class SubmitRecordController extends ApiController
         /**
          * 模拟的时候，这里判断当前登录的用户是否已经提交过该题目。 为了防止用户重复提交
          */
-        if(!($data['type']=='mock' && $this->userIsSubmibedTopic($data['topic_id'], $userId)))
+        if(!($data['type']=='mock' && $this->hasSubmibedTopic($data['topic_id'], $request->get('mock_record_id'))))
         {
             $correctOption = $topic->options->where('is_correct', true)->first();
             $data['is_correct'] = $correctOption->id == $data['selected_option_id'];
             $data['user_id'] = $userId;
             $submitRecord = SubmitRecord::create($data);
+
             event(new SubmitedTopic($topic, $submitRecord));
 
             return [
@@ -36,9 +37,9 @@ class SubmitRecordController extends ApiController
         return $this->response->noContent();
     }
 
-    private function userIsSubmibedTopic($topicId, $userId)
+    private function hasSubmibedTopic($topicId, $mockRecordId)
     {
-        return SubmitRecord::where(['user_id' => $userId,'topic_id' =>$topicId,'type' =>'mock'])->first();
+        return SubmitRecord::where(['mock_record_id'=>$mockRecordId,'topic_id' =>$topicId,'type' =>'mock'])->count() >0;
     }
 
 }

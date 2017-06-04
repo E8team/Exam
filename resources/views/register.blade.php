@@ -6,7 +6,7 @@
     </div>
 @endsection
 @section('content')
-    <div class="container mks_container">
+    <div class="container">
         <div class="mks_container_main">
             <div class="mks_container_form">
                 <h2>账号注册</h2>

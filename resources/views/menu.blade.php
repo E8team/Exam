@@ -47,26 +47,26 @@
             <ul class="main">
               <li>
                 <em class="right"></em>
-                <span>做对 {{$practiceInfo->correct}} 题</span>
-                <span>占比 {{$practiceInfo->correct_rate}} %</span>
+                <span>做对 {{$practiceInfo['correct']}} 题</span>
+                <span>占比 {{$practiceInfo['correct_rate']}} %</span>
               </li>
               <li>
                 <em class="error"></em>
-                <span>做错 {{$practiceInfo->mistake}} 题</span>
-                <span>占比 {{$practiceInfo->mistake_rate}} %</span>
+                <span>做错 {{$practiceInfo['mistake']}} 题</span>
+                <span>占比 {{$practiceInfo['mistake_rate']}} %</span>
               </li>
               <li>
                 <em class="no"></em>
-                <span>未做 {{$practiceInfo->unfinished}} 题</span>
-                <span>占比 {{$practiceInfo->unfinished_rate}} %</span>
+                <span>未做 {{$practiceInfo['unfinished']}} 题</span>
+                <span>占比 {{$practiceInfo['unfinished_rate']}} %</span>
               </li>
             </ul>
           </div>
           <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
             <ul class="choose_btn">
-              <li><a type="button" class="btn btn-info">继续练习</a></li>
-              <li><a type="button" class="btn btn-primary">重新开始</a></li>
-              <li><a type="button" class="btn btn-danger">错题重做</a></li>
+              {{--<li><a type="button" class="btn btn-info">继续练习</a></li>--}}
+              <li><a href="#" type="button" class="btn btn-primary">重新开始</a></li>
+              {{--<li><a type="button" class="btn btn-danger">错题重做</a></li>--}}
             </ul>
           </div>
         </div>
@@ -79,19 +79,19 @@
             <div class="data">
               <div class="cumula_ball">
                 <span>累计答题数</span>
-                <p>{{$topicInfo->recordCount}}</p>
+                <p>{{$topicInfo['recordCount']}}</p>
               </div>
               <ul>
                 <li>
-                  <p class="num">{{$topicInfo->passCount}}</p>
+                  <p class="num">{{$topicInfo['passCount']}}</p>
                   <p>及格次数</p>
                 </li>
                 <li>
-                  <p class="num">{{$topicInfo->examCount}}</p>
+                  <p class="num">{{$topicInfo['examCount']}}</p>
                   <p>累计考试次数</p>
                 </li>
                 <li>
-                  <p class="num">{{$topicInfo->maxScore}}</p>
+                  <p class="num">{{$topicInfo['maxScore']}}</p>
                   <p>历史最高</p>
                 </li>
               </ul>
@@ -107,5 +107,4 @@
     </div>
   </div>
 </div>
-
 @endsection

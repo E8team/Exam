@@ -171,6 +171,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Jrean\UserVerification\UserVerificationServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
+        Appstract\Opcache\OpcacheServiceProvider::class,
         /*
          * Application Service Providers...
          */

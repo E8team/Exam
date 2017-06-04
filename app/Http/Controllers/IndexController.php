@@ -35,14 +35,14 @@ class IndexController extends Controller
         $topicService = app(TopicService::class);
         $parctice['correct'] = 0;
         $parctice['mistake'] = 0;
-        $topicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
-        $topicIds = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'practice',Auth::id());
-        foreach ($topicIds as $topicId)
+        //$topicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
+        //$topicIds = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'practice',Auth::id());
+        /*foreach ($topicIds as $topicId)
         {
           if(!$topicId->submitRecords->isEmpty()){
               $topicId->submitRecords->first()->is_correct ? $parctice['mistake']++ : $parctice['correct']++;
           }
-        }
+        }*/
         $parctice['unfinished']= 500 - $parctice['correct']-$parctice['mistake']; // 未完成数量
         $parctice['correct_rate'] = $parctice['correct'] / 500 * 100; // 正确率
         $parctice['unfinished_rate'] = $parctice['unfinished'] / 500 * 100;  // 未完成率

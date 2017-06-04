@@ -21,7 +21,7 @@
   						<p>您现在可以重新选择考试课程！</p>
   					</div>
   					<label class="checkbox-inline">
-						<input type="checkbox" name="course_ids[]" id="inlineCheckbox1" value="1">马克思主义基本原理概率
+						<input type="checkbox" name="course_ids[]" id="inlineCheckbox1" value="1">马克思主义基本原理概论
 					</label>
 					<label class="checkbox-inline">
 						<input type="checkbox" name="course_ids[]" id="inlineCheckbox2" value="2">中国近代史纲要

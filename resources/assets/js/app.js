@@ -1,6 +1,6 @@
 require('./bootstrap');
 $(function(){
-  window.fastclick(document.body);
+  // window.fastclick(document.body);
   window.conversionToMinutes = function (secondNum, len) {
         if(secondNum !== undefined){
             secondNum = parseInt(secondNum);

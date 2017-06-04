@@ -75,6 +75,7 @@ class ResetPasswordController extends Controller
      */
     protected function rules()
     {
+        dd(1);
         //confirmed  表明该字段值需与对应的字段值 foo_confirmation相同
         return [
             'token' => 'required',

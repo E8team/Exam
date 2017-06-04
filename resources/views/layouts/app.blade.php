@@ -26,10 +26,10 @@
             <p class="title">马克思学院考试系统</p>
             @if (Route::has('login'))
                 <div class="top-right links">
-                    <div class="login hidden-xs">
+                    <div class="login">
                         <div class="btn-group" role="group">
                             @if (Auth::check())
-                                <a href="#" class="btn btn-default">欢迎&nbsp;{{Auth::user()->name}}&nbsp;同学</a>
+                                <a href="#" class="btn btn-default">{{Auth::user()->name}}</a>
                                 <a href="{{ route('logout') }}" class="btn btn-info">退出</a>
                             @else
                                 <a href="{{route('login')}}" class="btn btn-default">登录</a>

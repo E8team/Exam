@@ -2,7 +2,7 @@
 @section('title')登录@endsection
 @section('login_right')
     <div class="login_right">
-        还没有账号，点击 <a class="reg" href="{{route('register')}}">注册</a>
+        <a class="reg" href="{{route('register')}}">注册</a>
     </div>
 @endsection
 @section('content')

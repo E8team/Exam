@@ -88,7 +88,7 @@ class TopicService
         return $randomTopicIds;
     }
     //
-    public function getTopicsLastSubmitRecord($topics, $type, $user, $mockRecordId=null)
+    public function makeTopicsWithLastSubmitRecord($topics, $type, $user, $mockRecordId=null)
     {
 
         if ($user instanceof User) {

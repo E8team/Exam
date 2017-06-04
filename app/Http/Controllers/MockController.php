@@ -54,7 +54,7 @@ class MockController extends Controller
 
         $topics = $topicService->findTopicsFromCache($mockTopics->pluck('topic_id'));
 
-        $topics = $topicService->getTopicsLastSubmitRecord($topics, 'mock', $user, $mockRecordId);
+        $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, 'mock', $user, $mockRecordId);
 
         return view('mock', [
             'topics' => $topics,

@@ -27,6 +27,6 @@
 {!! Facades\App\Widgets\Alert::render() !!}
 @yield('content')
 <!-- 底部 -->
-<div class="footer_nav">E8网络技术联盟</div>
+<div class="footer_nav">E8net</div>
 </body>
 </html>

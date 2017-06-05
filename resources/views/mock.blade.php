@@ -134,7 +134,10 @@
     },1000);
 
     function setTime(){
-      time.html(window.conversionToMinutes(remainingTime--, 2));
+      time.html(window.conversionToMinutes(remainingTime, 2));
+      if(remainingTime-- == 0){
+        window.location = '{!! route('end_mock', ['mockRecordId'=>$mockRecord->id]) !!}';
+      }
     }
   })
   var submitCount = {!! $mockRecord->submit_count !!};

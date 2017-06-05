@@ -88,7 +88,7 @@
                 </li>
                 <li>
                   <p class="num">{{$topicInfo['examCount']}}</p>
-                  <p>累计考试次数</p>
+                  <p>考试次数</p>
                 </li>
                 <li>
                   <p class="num">{{$topicInfo['maxScore']}}</p>

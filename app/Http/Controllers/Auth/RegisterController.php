@@ -157,7 +157,8 @@ class RegisterController extends Controller
     {
         $studentService = app(StudentService::class);
         $student = $studentService->findByStudentNum($data['student_num']);
-        if (substr($student->id_card_num, -strlen($data['id_card'])) == $data['id_card']) {
+
+        if (strtolower(substr($student->id_card_num, -strlen($data['id_card']))) == strtolower($data['id_card'])) {
             return $student;
         } else {
             return false;

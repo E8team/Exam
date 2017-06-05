@@ -73,7 +73,11 @@ class TopicService
             $courseId = $course;
         }
         //todo 这条语句很慢
-//        select distinct `topics`.`id` from `submit_records` inner join `topics` on `submit_records`.`topic_id` = `topics`.`id` where `submit_records`.`user_id` = '1' and `submit_records`.`user_id` is not null and `topics`.`course_id` = '1' and `submit_records`.`type` = 'mock'
+// select distinct `topics`.`id`
+// from `submit_records` inner join `topics`
+// on `submit_records`.`topic_id` = `topics`.`id`
+// where `submit_records`.`user_id` = '1' and `submit_records`.`user_id` is not null
+// and `topics`.`course_id` = '1' and `submit_records`.`type` = 'mock'
         // 优先获取没有模拟过的题目
         $submitedTopicIds = $user->submitRecords()->select('topics.id')->join('topics', 'submit_records.topic_id', '=', 'topics.id')
             ->where('topics.course_id', $courseId)

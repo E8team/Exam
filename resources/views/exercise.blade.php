@@ -240,7 +240,8 @@
                 </a>
               </li>
             </ul>--}}
-            {!! $topics->links() !!}
+            {!! $topics->links('pagination.simple-default') !!}
+
           </nav>
         </div>
         <div class="footer">
@@ -286,7 +287,7 @@
 
         </ul>
         <nav aria-label="Page navigation" class="text-center">
-          {!! $topics->links() !!}
+          {!! $topics->links('pagination.simple-default') !!}
         </nav>
       </div>
     </div>

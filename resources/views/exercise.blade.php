@@ -296,7 +296,7 @@
       <!-- 显示设置、对的题目数、错的题目数、共多少题和做了多少题 -->
       <span class="m_setting_btn"><i class="glyphicon glyphicon-font"></i></span>
       <div class="menu_info">
-        <span class="object_num"><b class="submit_count">{{$practiceRecordsCount}}</b>/{{env('exam.practice_topics_count')}}</span>
+        <span class="object_num"><b class="submit_count">{{$practiceRecordsCount}}</b>/{{config('exam.practice_topics_count')}}</span>
         <span class="menu"><i class="glyphicon glyphicon-th-large"></i></span>
       </div>
       <a class="btn btn-primary assignment_btn" id="assignment_btn" data-toggle="modal">重新答题</a>

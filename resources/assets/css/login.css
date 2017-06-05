@@ -139,6 +139,8 @@
 	.login_btn{width: 100%;}
 }
 @media screen and (max-width: 460px){
+	.nav .title{font-size:20px;}
+	.login_right{display:block;}
 	.checkbox-inline+.checkbox-inline{margin-left: 0;}
 	.container{width: 100%;}
 	.mks_container_main{width: 100%;border: none;}

@@ -3,7 +3,6 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="renderer" content="webkit">
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - {!! env('APP_NAME','马克思学院考试系统')!!}</title>

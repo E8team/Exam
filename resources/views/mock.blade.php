@@ -90,9 +90,10 @@
       if(hash.length > 0){
         goSubject(window.location.hash.substr(1));
       }
-      document.body.onhashchange = function () {
+
+      window.addEventListener('hashchange',function () {
           goSubject(window.location.hash.substr(1));
-      }
+      });
 //      $subjectList.find('li>a').click(function () {
 //        var targetId = this.getAttribute('href').substr(1);
 //        goSubject(targetId);

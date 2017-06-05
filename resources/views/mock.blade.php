@@ -30,9 +30,9 @@
 
     $(window,document).scroll(function(){
       if($examStateBoxTop <= $(document).scrollTop()){
-        $progressBarM.show();
+        $progressBarM.fadeIn();
       }else{
-        $progressBarM.hide();
+        $progressBarM.fadeOut();
       }
     });
   });
@@ -137,7 +137,7 @@
     }
   })
   var submitCount = {!! $mockRecord->submit_count !!};
-  var allCount = {!! $mockRecord->mock_topics_count !!};
+  var allCount = {!! config('exam.mock_topics_count') !!};
   // ajax提交答案
   $(function(){
     var $pageDone = $('.page_done');
@@ -221,8 +221,8 @@
         <em class="page_done"></em>
       </div>
       <div class="txt">
-        <span class="submit_count">{{$mockRecord->submit_count}}</span>
-        / {{$mockRecord->mock_topics_count}}
+        <span class="submit_count">{!! $mockRecord->submit_count !!}</span>
+        / {!! config('exam.mock_topics_count') !!}
       </div>
     </div>
   </div>
@@ -301,7 +301,7 @@
       <div class="menu_info">
         <span>倒计时</span>
         <span class="time time_count_down"></span>
-        <span class="object_num"><b class="submit_count">{{$mockRecord->submit_count}}</b>/{{$mockRecord->mock_topics_count}}</span>
+        <span class="object_num"><b class="submit_count">{!! $mockRecord->submit_count !!}</b>/{!! config('exam.mock_topics_count') !!}</span>
         <span class="menu"><i class="glyphicon glyphicon-th-large"></i></span>
       </div>
       <a class="btn btn-primary assignment_btn" id="assignment_btn" data-toggle="modal">交卷</a>

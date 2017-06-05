@@ -12,13 +12,6 @@
 */
 Route::get('/', 'IndexController@index');
 
-Route::get('/exercise', function (){
-    return view('exercise');
-});
-
-Route::get('/score', function (){
-    return view('score');
-});
 
 Route::get('/test', 'IndexController@test');
 
@@ -48,6 +41,11 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('/mock/{mockRecordId}', 'MockController@showMockView')->name('mock');
             });
             Route::get('/end_mock/{mockRecordId}', 'MockController@endMock')->name('end_mock');
+
+            //练习模式
+            Route::get('/practice/{courseId}', 'PracticeController@showPracticeView')->name('practice');
+            Route::get('/reset_practice/{courseId}', 'PracticeController@resetPracticeRecords')->name('reset_practice');
+
 
             //重选课程
             Route::get('re_choose', 'CoursesController@showReChooseCourseForm')->name('re_choose');

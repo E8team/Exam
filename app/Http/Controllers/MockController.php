@@ -39,7 +39,6 @@ class MockController extends Controller
     public function showMockView($mockRecordId)
     {
         $mockRecord = MockRecord::findOrFail($mockRecordId);
-        $course = Course::find($mockRecord->course_id);
         if(Gate::denies('mock', $mockRecord)){
             //todo alert
             abort(404);
@@ -55,14 +54,11 @@ class MockController extends Controller
         $topics = $topicService->findTopicsFromCache($mockTopics->pluck('topic_id'));
 
         $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, 'mock', $mockRecordId);
-
         $submitRecords = $mockRecord->submitRecords;
         $submitRecords = $submitRecords->unique('topic_id');
         $mockRecord->submit_count = $submitRecords->count();
-        $mockRecord->mock_topics_count = config('exam.mock_topics_count');
         return view('mock', [
             'topics' => $topics,
-            'course' =>$course,
             'mockRecord'=>$mockRecord,
             'remainingTime'=>config('exam.mock_time') - Carbon::now()->diffInSeconds($mockRecord->created_at, true)
         ]);

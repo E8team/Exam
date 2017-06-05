@@ -30,26 +30,23 @@ class IndexController extends Controller
         return view('menu', ['user'=>$user, 'departmentClass' => $departmentClass, 'course'=>$course, 'practiceInfo'=>$practiceInfo, 'topicInfo'=>$topicInfo]);
     }
 
+    /**
+     * 统计练习记录
+     * @param $courseId
+     * @return mixed
+     */
     private function practiceSubmitRecords($courseId)
     {
         $topicService = app(TopicService::class);
-        $parctice['correct'] = 0;
-        $parctice['mistake'] = 0;
-        $topicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
-        $topicIds = $topicService->makeTopicsWithLastSubmitRecord($topicIds,'practice',Auth::id());
-        foreach ($topicIds as $topicId)
-        {
-          if(!$topicId->submitRecords->isEmpty()){
-              $topicId->submitRecords->first()->is_correct ? $parctice['mistake']++ : $parctice['correct']++;
-          }
-        }
-        $parctice['unfinished']= 500 - $parctice['correct']-$parctice['mistake']; // 未完成数量
-        $parctice['correct_rate'] = $parctice['correct'] / 500 * 100; // 正确率
-        $parctice['unfinished_rate'] = $parctice['unfinished'] / 500 * 100;  // 未完成率
-        $parctice['mistake_rate'] = $parctice['mistake'] / 500 * 100; // 错误率
-        return $parctice;
+        $practiceStatistics = $topicService->getPracticeRecords($courseId, Auth::id());
+        return $practiceStatistics;
     }
 
+    /**
+     * 统计模拟记录
+     * @param $courseId
+     * @return mixed
+     */
     private function mockSubmitRecord($courseId)
     {
         $topic['recordCount'] = 0;// 做的题目总数

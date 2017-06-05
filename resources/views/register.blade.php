@@ -2,7 +2,7 @@
 @section('title')注册@endsection
 @section('login_right')
     <div class="login_right">
-        已有账号？点击 <a class="reg" href="{{route('login')}}">登录</a>
+        <a class="reg" href="{{route('login')}}">登录</a>
     </div>
 @endsection
 @section('content')

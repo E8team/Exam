@@ -54,7 +54,7 @@ li{list-style: none;}
     height: 49px;
     line-height: 49px;
     border-bottom: 1px solid #eff0f2;
-    display: block;	
+    display: block;
 }
 .score_lcon ul .ld{
 	border-bottom: none;
@@ -106,12 +106,21 @@ li{list-style: none;}
 @media screen and (min-width: 768px){
     .score{
         width: 750px;
-    }    
+    }
 }
 @media screen and (max-width: 768px){
     .score{
         width: 100%;
     }
+    .score_lcon .re_num{
+        margin: 30px auto;
+				width: 100px!important;
+				height: 100px!important;
+				line-height: 100px!important;
+    }
+		.re_num em{
+			font-size: 40px!important;
+		}
     .score_lcon .re_num{
         margin: 30px auto;
     }

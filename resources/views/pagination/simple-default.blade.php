@@ -6,12 +6,13 @@
         @else
             <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a></li>
         @endif
-        <select class="form-control">
+        <li class="page_pagination">
+        <select class="form-control page_select">
             {{-- Pagination Elements --}}
             @foreach ($elements as $element)
                 {{-- "Three Dots" Separator --}}
                 @if (is_string($element))
-                    <option class="disabled">{{ $element }}</option>
+                    <option disabled>{{ $element }}</option>
                 @endif
 
                 {{-- Array Of Links --}}
@@ -20,12 +21,13 @@
                         @if ($page == $paginator->currentPage())
                             <option selected>{{ $page }}</option>
                         @else
-                            <option>{{ $page }}</option>
+                            <option value="{{ $url }}">{{ $page }}</option>
                         @endif
                     @endforeach
                 @endif
             @endforeach
         </select>
+        </li>
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
             <li><a href="{{ $paginator->nextPageUrl() }}" rel="next">@lang('pagination.next')</a></li>

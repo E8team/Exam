@@ -13,6 +13,13 @@
     })
   });
 
+  //
+  $(function(){
+    $('.page_select').change(function(){
+      if(this.value)
+        window.location = this.value;
+    });
+  });
   // 改变字号
   $(function () {
     $('.font>li').click(function () {
@@ -271,7 +278,12 @@
 
         </ul>
         <nav aria-label="Page navigation" class="text-center">
-          {!! $topics->links('pagination.simple-default') !!}
+          <div class="hidden-xs">
+            {!! $topics->links() !!}
+          </div>
+          <div class="hidden-lg hidden-md hidden-sm">
+              {!! $topics->links('pagination.simple-default') !!}
+          </div>
         </nav>
       </div>
     </div>

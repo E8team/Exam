@@ -252,7 +252,7 @@
           </ul>
           <div class="btn-group" role="group">
             <a type="button" href="{!! route('menu', ['courseId'=>$courseId]) !!}" class="btn btn-default">返回</a>
-            <a type="button" class="answer_again btn btn-primary" data-target="#assignment" data-toggle="modal">重新答题</a>
+            <a type="button" class="answer_again btn btn-danger" data-target="#assignment" data-toggle="modal">重新答题</a>
           </div>
         </div>
       </div>
@@ -302,7 +302,7 @@
         <span class="object_num"><b class="submit_count">{{$practiceRecordsCount}}</b>/{{config('exam.practice_topics_count')}}</span>
         <span class="menu"><i class="glyphicon glyphicon-th-large"></i></span>
       </div>
-      <a class="btn btn-primary assignment_btn" id="assignment_btn" data-toggle="modal">重新答题</a>
+      <a class="btn btn-danger assignment_btn" id="assignment_btn" data-toggle="modal">重新答题</a>
     </div>
     <div class="subject_list_body">
       <!-- 显示所有的题目序号 -->

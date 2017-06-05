@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 
 class TopicService
 {
@@ -142,4 +143,50 @@ class TopicService
             return Topic::findOrFail($topicId)->load('submitRecord');
         }
     }
+
+    /**
+     * 清空练习记录
+     * @param $courseId
+     * @param $user
+     * @return mixed
+     */
+    public function resetPracticeRecords($courseId, $user)
+    {
+        if($user instanceof User){
+            $userId = Auth::id();
+        }else{
+            $userId = $user;
+        }
+        $topicIds = $this->getTopicIdsByCourseFromCache($courseId);
+        return SubmitRecord::byUser($userId)->practice()->topicIds($topicIds)->delete();
+    }
+
+    /**
+     * 统计练习记录相关信息（成绩、正确率等）
+     * @param $courseId
+     * @param $userId
+     * @return mixed
+     */
+    public function getPracticeRecords($courseId, $userId)
+    {
+        $parctice['correct'] = 0;
+        $parctice['mistake'] = 0;
+        $topicIds = $this->getTopicIdsByCourseFromCache($courseId);
+        $practiceRecords = SubmitRecord::byUser($userId)->practice()->topicIds($topicIds)->get();
+        foreach ($practiceRecords as $practiceRecord)
+        {
+            if(true == $practiceRecord->is_correct)
+            {
+                $parctice['correct']++;
+            }else{
+                $parctice['mistake']++;
+            }
+        }
+        $parctice['unfinished']= 500 - $parctice['correct']-$parctice['mistake']; // 未完成数量
+        $parctice['correct_rate'] = $parctice['correct'] / 500 * 100; // 正确率
+        $parctice['unfinished_rate'] = $parctice['unfinished'] / 500 * 100;  // 未完成率
+        $parctice['mistake_rate'] = $parctice['mistake'] / 500 * 100; // 错误率
+        return $parctice;
+    }
+
 }

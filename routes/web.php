@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 
             //练习模式
             Route::get('/practice/{courseId}', 'PracticeController@showPracticeView')->name('practice');
+            Route::get('/reset_practice/{courseId}', 'PracticeController@resetPracticeRecords')->name('reset_practice');
 
 
             //重选课程

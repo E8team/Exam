@@ -265,7 +265,7 @@
               <em></em>
             </li>
           </ul>
-          <a type="button" class="btn btn-primary" data-target="#assignment" data-toggle="modal">交卷</a>
+          <a type="button" class="btn btn-primary assignment" data-target="#assignment" data-toggle="modal">交卷</a>
         </div>
       </div>
     </div>

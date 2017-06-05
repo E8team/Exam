@@ -32,6 +32,10 @@ class SubmitRecord extends BaseModel
     {
         return $query->where($this->getTable().'.type', 'mock');
     }
+    public function scopeTopicIds($query, $topicIds)
+    {
+        return $query->whereIn($this->getTable().'.topic_id', $topicIds);
+    }
 
     public function topics()
     {

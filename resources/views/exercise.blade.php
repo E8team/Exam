@@ -219,27 +219,11 @@
         <div class="remind_content">
           <ul id="subject-list" class="subject_list">
             @foreach($topics as $k => $topic)
-              <li><a class="@if(!$topic->submitRecords->isEmpty()) {!! $topic->submitRecords->first()->is_correct?'right':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $k+1 !!}</a></li>
+              <li><a class="@if(!$topic->submitRecords->isEmpty()) {!! $topic->submitRecords->first()->is_correct?'right':'error' !!} @endif" href="#topic_{!! $topic->id !!}">{!! $topic->id !!}</a></li>
             @endforeach
           </ul>
           <nav aria-label="Page navigation" class="text-center">
-            {{--<ul class="pagination">
-              <li>
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li>
-                <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>--}}
+
             {!! $topics->links('pagination.simple-default') !!}
 
           </nav>
@@ -354,12 +338,12 @@
     <div class="modal-content">
       <div class="modal-body confirma_box">
         <p>操作提示：</p>
-        <p>1：点击【确认】，将重新开始练习！</p>
+        <p>1：点击【确认】，将清空以前的练习记录重新开始练习！</p>
         <p>2：点击【取消】，将关闭本窗口，继续答题！</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
-        <a href="#" type="button" class="btn btn-default">确认</a>
+        <a href="{!! route('reset_practice',$topics->first()->course_id) !!}" type="button" class="btn btn-default">确认</a>
       </div>
     </div>
   </div>

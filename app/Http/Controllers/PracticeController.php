@@ -29,7 +29,7 @@ class PracticeController extends Controller
         $practiceTopicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
         $topics = $topicService->getPaginator($practiceTopicIds, $this->perPage());
         $topics->setCollection($topicService->makeTopicsWithLastSubmitRecord($topics, 'practice', $user->id));
-        $practiceRecords = SubmitRecord::byUser($user)->practice()->get();
+        $practiceRecords = SubmitRecord::byUser($user)->practice()->topicIds($practiceTopicIds)->get();
         return view('exercise', [
             'topics' => $topics,
             'practiceRecords' =>$practiceRecords,

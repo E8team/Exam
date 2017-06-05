@@ -139,7 +139,6 @@
   var submitCount = {!! $mockRecord->submit_count !!};
   var allCount = {!! config('exam.mock_topics_count') !!};
   // ajax提交答案
-  var isIE8 = navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"") == "MSIE8.0"
   $(function(){
     var $pageDone = $('.page_done');
     var $submitCount = $('.submit_count');
@@ -174,15 +173,21 @@
       $currentTopic.attr('answered', true);
       var $currentTopicSerialBtn = $('a[href="#' + $currentTopic.attr('data-id') + '"]');
 
-      jQuery.ajax('/api/submit', {
+      $.ajax('/api/submit', {
         type: "post",
-        contentType: "application/x-www-form-urlencoded;charset=utf-8",
-        async: !isIE8,
+        xhr:  (window.ActiveXObject) ?
+        function() {
+            try {
+                return new window.ActiveXObject("Microsoft.XMLHTTP");
+            } catch(e) {}
+        } : function() {
+            return new window.XMLHttpRequest();
+        },
         data: {
-          'topic_id': $currentTopic.attr('data-topic-id'),
-          'selected_option_id':  $this.attr('data-id'),
-          'type':  'mock',
-          'mock_record_id': '{!! $mockRecord->id !!}'
+          topic_id: $currentTopic.attr('data-topic-id'),
+          selected_option_id:  $this.attr('data-id'),
+          type:  'mock',
+          mock_record_id: "{!! $mockRecord->id !!}"
         },
         success: function(res, textStatus, jqXHR){
           if(jqXHR.status == 204) return;
@@ -199,11 +204,13 @@
           }
         },
         error: function(err){
-            console.log(err)
+            $currentTopic.removeAttr('answered');
+            $this.removeClass('option_wait');
+            console.log(err);
         }
       });
-    })
-  })
+    });
+  });
 </script>
 @endpush
 @section('content')

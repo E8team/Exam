@@ -65,7 +65,8 @@
           <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
             <ul class="choose_btn">
               {{--<li><a type="button" class="btn btn-info">继续练习</a></li>--}}
-              <li><a href="{{route('practice',$course->id)}}" type="button" class="btn btn-primary">重新开始</a></li>
+              <li><a href="{{route('practice',$course->id)}}" type="button" class="btn btn-info">继续答题</a></li>
+              <li><a href="{!! route('reset_practice', $course->id) !!}" type="button" class="btn btn-primary">重新开始</a></li>
               {{--<li><a type="button" class="btn btn-danger">错题重做</a></li>--}}
             </ul>
           </div>

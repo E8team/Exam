@@ -19,7 +19,7 @@
         <a class="logo" href="{{url('/')}}">
             <img src="{!! asset('static/images/logo.png') !!}">
         </a>
-        <p class="title">{!! env('APP_NAME','马克思学院考试系统')!!}</p>
+        <p class="title hidden-xs">{!! env('APP_NAME','马克思学院考试系统')!!}</p>
         @yield('login_right')
     </div>
 </div>

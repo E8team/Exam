@@ -10,4 +10,4 @@ Route::get('student' , 'StudentController@getCourseStudent');
 //Route::get('topic' , 'TopicController@getTopicIdsByCourse');
 Route::get('topic' , 'TopicController@getTopicSubmit');
 
-Route::get('login' , 'auth\LoginController@showLoginForm');
+Route::get('login' , 'Auth\LoginController@showLoginForm');

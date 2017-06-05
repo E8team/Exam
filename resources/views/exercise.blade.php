@@ -250,7 +250,10 @@
               <em></em>
             </li>
           </ul>
-          <a type="button" class="btn btn-primary" data-target="#assignment" data-toggle="modal">重新答题</a>
+          <div class="btn-group" role="group">
+            <a type="button" href="{!! route('menu', ['courseId'=>$courseId]) !!}" class="btn btn-default">返回</a>
+            <a type="button" class="answer_again btn btn-primary" data-target="#assignment" data-toggle="modal">重新答题</a>
+          </div>
         </div>
       </div>
     </div>
@@ -355,7 +358,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
-        <a href="{!! route('reset_practice',$topics->first()->course_id) !!}" type="button" class="btn btn-default">确认</a>
+        <a href="{!! route('reset_practice',$courseId) !!}" type="button" class="btn btn-default">确认</a>
       </div>
     </div>
   </div>

@@ -18,7 +18,7 @@ class PracticeController extends Controller
 
         $topicService->resetPracticeRecords($courseId, $user);
 
-        return redirect(route('menu',['courseId'=>$courseId]));
+        return redirect(route('practice',['courseId'=>$courseId]));
     }
 
     public function showPracticeView($courseId)
@@ -33,6 +33,7 @@ class PracticeController extends Controller
         return view('exercise', [
             'topics' => $topics,
             'practiceRecords' =>$practiceRecords,
+            'courseId' => $courseId
         ]);
 
     }

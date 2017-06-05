@@ -22,7 +22,7 @@ mix.webpackConfig({
 mix.js('resources/assets/js/app.js', 'public/static/js')
     .less('resources/assets/less/app.less', 'public/static/css')
     .copy('resources/assets/images', 'public/static/images/')
-    .copy('resources/assets/css', 'public/static/css')
+    .copy('resources/assets/css/*', 'public/static/css')
     .copy('node_modules/es5-shim/es5-shim.min.js', 'public/static/js')
     .copy('node_modules/es5-shim/es5-sham.min.js', 'public/static/js')
     .copy('node_modules/Respond.js/dest/respond.min.js', 'public/static/js')

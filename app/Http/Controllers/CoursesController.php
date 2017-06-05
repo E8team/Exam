@@ -6,6 +6,9 @@ namespace App\Http\Controllers;
 use App\Services\DepartmentClassService;
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\Course;
+use App\Widgets\Alert;
+use Illuminate\Validation\ValidationException;
 
 class CoursesController extends Controller
 {
@@ -26,14 +29,24 @@ class CoursesController extends Controller
 
     public function showReChooseCourseForm()
     {
-        return view('re_choose');
+        $userSelectedCourses = Auth::user()->courses;
+        $courses = Course::all();
+        return view('re_choose',['userSelectedCourses'=> $userSelectedCourses, 'courses'=>$courses]);
     }
 
     public function selectCourses(Request $request)
     {
-        $this->validate($request, [
-            'course_ids' => 'required|array'
-        ]);
+        try {
+          $this->validate($request, [
+              'course_ids' => 'required|array'
+          ],[
+            'course_ids.required' =>'请选择课程'
+          ]);
+        } catch (ValidationException $e) {
+            app(Alert::class)->setDanger($e->validator->errors()->get('course_ids')[0]);
+            return redirect()->back();
+        }
+
         $user = Auth::user();
         $user->update(['is_selected_courses' => 1]);
         $user->courses()->attach($request->get('course_ids'));
@@ -42,12 +55,19 @@ class CoursesController extends Controller
 
     public function reSelectCourses(Request $request)
     {
-        $this->validate($request, [
-            'course_ids' => 'required|array'
-        ]);
+        try {
+          $this->validate($request, [
+              'course_ids' => 'required|array'
+          ],[
+            'course_ids.required' =>'请选择课程'
+          ]);
+        } catch (ValidationException $e) {
+            app(Alert::class)->setDanger($e->validator->errors()->get('course_ids')[0]);
+            return redirect()->back();
+        }
+
         $user = Auth::user();
-        $user->courses()->detach();
-        $this->selectCourses($request);
+        $user->courses()->sync($request->get('course_ids'));
         return redirect(url('/'));
     }
 }

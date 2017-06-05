@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group{!! $errors->has('password') ? ' has-error' : '' !!}">
                         <label for="exampleInputPassword1">设置密码</label>
-                        <input type="password" name="password" value="{{old('password')}}" class="form-control" id="exampleInputPassword1"
+                        <input type="password" name="password" class="form-control" id="exampleInputPassword1"
                                placeholder="密码长度需要在 6~24 位之间">
                         @if ($errors->has('password'))
                             <span class="help-block">

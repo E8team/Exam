@@ -23,7 +23,13 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+       //注册全局路由参数规则
+       Route::patterns(
+           [
+           'courseId' => '[0-9]+',
+           'mockRecordId' => '[0-9]+'
+           ]
+       );
 
         parent::boot();
     }

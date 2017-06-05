@@ -13,4 +13,5 @@ class Course extends BaseModel
     {
         return $this->belongsToMany(User::class,'course_user' ,  'course_id' ,'user_id');
     }
+
 }

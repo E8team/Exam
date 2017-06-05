@@ -20,12 +20,12 @@
 					<div class="again">
   						<p>您现在可以重新选择考试课程！</p>
   					</div>
+            @foreach($courses as $course)
   					<label class="checkbox-inline">
-						<input type="checkbox" name="course_ids[]" id="inlineCheckbox1" value="1">马克思主义基本原理概论
-					</label>
-					<label class="checkbox-inline">
-						<input type="checkbox" name="course_ids[]" id="inlineCheckbox2" value="2">中国近代史纲要
-					</label>
+              <input type="checkbox" @if(!$userSelectedCourses->where('id', $course->id)->isEmpty()) checked @endif name="course_ids[]"  value="{!! $course->id !!}">{!! $course->name !!}
+            </label>
+            @endforeach
+
   					<input type="submit" class="btn btn-info btn-lg next_btn" value="提交" />
   				</form>
 			</div>

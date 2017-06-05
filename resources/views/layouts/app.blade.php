@@ -26,10 +26,10 @@
             <a class="logo" href="{{url('/')}}">
                 <img src="{!! asset('static/images/logo.png') !!}">
             </a>
-            <p class="title">{!! env('APP_NAME','马克思学院考试系统')!!}</p>
+            <p class="title hidden-xs">{!! env('APP_NAME','马克思学院考试系统')!!}</p>
             @if (Route::has('login'))
                 <div class="top-right links">
-                    <div class="login hidden-xs">
+                    <div class="login">
                         <div class="btn-group" role="group">
                             @if (Auth::check())
                                 <a href="#" class="btn btn-default">欢迎&nbsp;{{Auth::user()->name}}&nbsp;同学</a>

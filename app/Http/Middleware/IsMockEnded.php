@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Services\MockService;
 use Closure;
 use Auth;
+use App\Widgets\Alert;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class IsMockEnded
@@ -25,6 +26,7 @@ class IsMockEnded
                 $mockRecord = app(MockService::class)->getNotEndedMockRecord(Auth::user());
                 if(!$mockRecord->isEnded()){
                     if($mockRecord->isOvertime()){
+                        app(Alert::class)->setInfo('这是您上次的答题结果');
                         // 跳转到 结束模拟页面
                         return redirect()->guest(route('end_mock',['mockRecordId' => $mockRecord->id]));
                     }else{

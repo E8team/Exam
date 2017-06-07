@@ -54,15 +54,11 @@ class MockController extends Controller
         $topics = $topicService->findTopicsFromCache($mockTopics->pluck('topic_id'));
 
         $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, 'mock', $mockRecordId);
-        $submitRecords = $mockRecord->submitRecords;
-        $submitRecords = $submitRecords->unique('topic_id');
-        $mockRecord->submit_count = $submitRecords->count();
         return view('mock', [
             'topics' => $topics,
             'mockRecord'=>$mockRecord,
             'remainingTime'=>config('exam.mock_time') - Carbon::now()->diffInSeconds($mockRecord->created_at, true)
         ]);
-
     }
 
     public function endMock($mockRecordId)
@@ -74,10 +70,6 @@ class MockController extends Controller
         }
         $mockTopicsCount = config('exam.mock_topics_count');
         if(is_null($mockRecord->ended_at)){
-            $submitRecords = $mockRecord->submitRecords;
-            $submitRecords = $submitRecords->unique('topic_id');
-            $mockRecord->submit_count = $submitRecords->count();
-            $mockRecord->correct_count = $submitRecords->where('is_correct', true)->count();
             // 计算模拟得分
             $mockRecord->score = $mockRecord->correct_count/$mockTopicsCount*100;
             $mockRecord->ended_at = Carbon::now();

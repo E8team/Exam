@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\PracticeSubmitCount;
 use App\Models\SubmitRecord;
 use App\Services\TopicService;
 use Auth;
@@ -29,10 +30,16 @@ class PracticeController extends Controller
         $practiceTopicIds = $topicService->getTopicIdsByCourseFromCache($courseId);
         $topics = $topicService->getPaginator($practiceTopicIds, $this->perPage());
         $topics->setCollection($topicService->makeTopicsWithLastSubmitRecord($topics, 'practice', $user->id));
-        $practiceRecords = SubmitRecord::byUser($user)->practice()->topicIds($practiceTopicIds)->get();
+        $practiceSubmitCount = PracticeSubmitCount::firstOrCreate(['user_id'=>$user->id, 'course_id'=>$courseId],
+            [
+                'user_id' => $user->id,
+                'course_id' => $courseId,
+                'correct_count' => 0,
+                'submit_count' => 0
+            ]);
         return view('exercise', [
             'topics' => $topics,
-            'practiceRecords' =>$practiceRecords,
+            'practiceSubmitCount' =>$practiceSubmitCount,
             'courseId' => $courseId
         ]);
 

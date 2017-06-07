@@ -11,6 +11,7 @@
             <div class="mks_container_form">
                 <h2>用户登录</h2>
                 <form method="post" action="{{route('login')}}">
+                    {!! csrf_field() !!}
                     <div class="form-group{!! $errors->has('student_num') ? ' has-error' : '' !!}">
                         <label for="student_id">学号</label>
                         <input type="text" class="form-control" id="student_id" name="student_num" value="{{ old('student_num') }}" placeholder="请输入学号">

@@ -11,8 +11,7 @@
             <div class="mks_container_form">
                 <h2>重置密码</h2>
                 <form method="post" action="{{ route('password.request') }}">
-                    {{--把发送的token带回去验证--}}
-                    <input type="hidden" name="token" value="{{ $token }}">
+                    {!! csrf_field() !!}
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         <label>邮箱</label>
                         <input type="text" name="email" class="form-control" placeholder="请输入注册时的邮箱" {{old('email')}} required>

@@ -17,6 +17,7 @@
 			<div class="mks_container_form">
 				<h2>重选课程</h2>
 				<form method="post" action="{{route('re_choose')}}">
+					{!! csrf_field() !!}
 					<div class="again">
   						<p>您现在可以重新选择考试课程！</p>
   					</div>

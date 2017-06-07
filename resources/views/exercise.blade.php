@@ -132,7 +132,7 @@
   });
 
   // ajax提交答案
-  var submitCount = {!! $practiceRecordsCount = $practiceRecords->count() !!};
+  var submitCount = {!! $practiceRecordsCount = $practiceSubmitCount->submit_count !!};
   var allCount = {!!config('exam.practice_topics_count') !!};
   var isIE8 = navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"") == "MSIE8.0"
   $(function(){

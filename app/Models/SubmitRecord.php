@@ -50,4 +50,14 @@ class SubmitRecord extends BaseModel
         }
         return $query->where($this->getTable().'.user_id',$userId);
     }
+
+    public function isMock()
+    {
+        return $this->type == 'mock';
+    }
+
+    public function isPractice()
+    {
+        return $this->type == 'practice';
+    }
 }

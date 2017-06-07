@@ -33,7 +33,7 @@
 				</div>
 				<div class="btn_group">
 					<div class="btn_group_body">
-						<a href="{{url('/')}}" type="button" class="btn btn-success btn1">返回到主菜单</a>
+						<a href="{{route('menu',['courseId'=>$mockRecord->course_id])}}" type="button" class="btn btn-success btn1">返回到主菜单</a>
 					</div>
 				</div>
 			</div>

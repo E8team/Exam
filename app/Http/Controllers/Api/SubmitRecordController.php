@@ -26,7 +26,6 @@ class SubmitRecordController extends ApiController
             $data['is_correct'] = $correctOption->id == $data['selected_option_id'];
             $data['user_id'] = $userId;
             $submitRecord = SubmitRecord::create($data);
-
             event(new SubmitedTopic($topic, $submitRecord));
 
             return [

@@ -11,6 +11,7 @@
             <div class="mks_container_form">
                 <h2>忘记密码</h2>
                 <form method="post" action="{{route('password.email')}}">
+                    {!! csrf_field() !!}
                     <div class="form-groupv{!! $errors->has('email') ? ' has-error' : '' !!}">
                         <label for="exampleInputEmail1">邮箱地址</label>
                         <input type="email" name="email" class="form-control" id="exampleInputEmail1"  value="{{old('email')}}" placeholder="请输入您的邮箱">

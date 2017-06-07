@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Course;
+use App\Models\PracticeSubmitCount;
 use App\Models\SubmitRecord;
 use App\Models\Topic;
 use App\Models\User;
@@ -109,7 +110,6 @@ class TopicService
                 $builder->where('mock_record_id', $userIdOrMockRecordId)->mock();
                 break;
         }
-
         $res = $builder->whereIn('topic_id', $topics->pluck('id'))->recent()->groupBy('submit_records.topic_id')->get();
         $relation = Topic::query()->getRelation('submitRecords');
         return new Collection( $relation->match(
@@ -173,19 +173,9 @@ class TopicService
      */
     public function getPracticeRecords($courseId, $userId)
     {
-        $parctice['correct'] = 0;
-        $parctice['mistake'] = 0;
-        $topicIds = $this->getTopicIdsByCourseFromCache($courseId);
-        $practiceRecords = SubmitRecord::byUser($userId)->practice()->topicIds($topicIds)->get();
-        foreach ($practiceRecords as $practiceRecord)
-        {
-            if(true == $practiceRecord->is_correct)
-            {
-                $parctice['correct']++;
-            }else{
-                $parctice['mistake']++;
-            }
-        }
+        $practiceRecord = PracticeSubmitCount::where(['user_id'=>$userId, 'course_id'=>$courseId])->firstOrFail();
+        $parctice['correct'] = $practiceRecord->correct_count;
+        $parctice['mistake'] = $practiceRecord->submit_count - $parctice['correct'];
         $parctice['unfinished']= 500 - $parctice['correct']-$parctice['mistake']; // 未完成数量
         $parctice['correct_rate'] = $parctice['correct'] / 500 * 100; // 正确率
         $parctice['unfinished_rate'] = $parctice['unfinished'] / 500 * 100;  // 未完成率

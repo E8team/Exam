@@ -16,6 +16,7 @@
             <div class="mks_container_form">
                 <h2>选择课程</h2>
                 <form method="post" action="{{route('choose')}}">
+                    {!! csrf_field() !!}
                     <div class="form-group form_text">
                         <label class="col-sm-4 control-label control-title">学号</label>
                         <label class="col-sm-8 form-control-static control-main">{{$user->student_num}}</label>

@@ -263,7 +263,10 @@
         <ul class="exam_list">
           @foreach($topics as $k => $topic)
             <li @if(!$topic->submitRecords->isEmpty())answered="true"@endif class="exam_item" data-id="topic_{!! $topic->id !!}" data-topic-id="{!! $topic->id !!}">
-              <p class="subject"><span class="num">{!! $topic->topic_num !!}</span> . {!! $topic->title !!}
+              <p class="subject">
+                <span class="num">{!! $topic->topic_num !!}</span>
+                <span class="passing_rate">[通过率: 40.5%]</span>
+                {!! $topic->title !!}
                 <button type="button" class="view_ans btn-sm btn btn-link @if(!$topic->submitRecords->isEmpty() && !$topic->submitRecords->first()->is_correct) show" data-ans="{!! $topic->getAns() !!}" @else " @endif>查看答案</button>
               </p>
               <ul class="option_list">

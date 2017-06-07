@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>@yield('title') - {!! env('APP_NAME','马克思学院考试系统')!!}</title>
+    <title>@yield('title') - {!! config('app.name') !!}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -26,7 +26,7 @@
             <a class="logo" href="{{url('/')}}">
                 <img src="{!! asset('static/images/logo.png') !!}">
             </a>
-            <p class="title hidden-xs">{!! env('APP_NAME','马克思学院考试系统')!!}</p>
+            <p class="title hidden-xs">{!! config('app.name') !!}</p>
             @if (Route::has('login'))
                 <div class="top-right links">
                     <div class="login">

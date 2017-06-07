@@ -3,7 +3,7 @@
 @section('content')
 <!-- 背景 -->
 <div class="up_top_padding bg_box">
-	<h2>{!! env('APP_NAME','马克思主义学院政治理论课考试系统') !!}</h2>
+	<h2>{!! config('app.name') !!}</h2>
 	@if(!Auth::check())
 		<a href="{{route('register')}}" type="button" class="btn btn-info btn-lg hidden-xs hidden-md">注册一个学生账号</a>
 	@endif

@@ -175,13 +175,23 @@ class TopicService
      */
     public function getPracticeRecords($courseId, $userId)
     {
-        $practiceRecord = PracticeSubmitCount::where(['user_id'=>$userId, 'course_id'=>$courseId])->firstOrFail();
-        $parctice['correct'] = $practiceRecord->correct_count;
-        $parctice['mistake'] = $practiceRecord->submit_count - $parctice['correct'];
-        $parctice['unfinished']= 500 - $parctice['correct']-$parctice['mistake']; // 未完成数量
-        $parctice['correct_rate'] = $parctice['correct'] / 500 * 100; // 正确率
-        $parctice['unfinished_rate'] = $parctice['unfinished'] / 500 * 100;  // 未完成率
-        $parctice['mistake_rate'] = $parctice['mistake'] / 500 * 100; // 错误率
+        $parctice['correct'] = 0;
+        $parctice['mistake'] = 0;
+        $parctice['unfinished'] = 0;
+        $parctice['correct_rate'] = 0;
+        $parctice['unfinished_rate'] = 0;
+        $parctice['mistake_rate'] = 0;
+
+        $practiceRecord = PracticeSubmitCount::where(['user_id'=>$userId, 'course_id'=>$courseId])->first();
+        //判断有没有练习过
+        if(!is_null($practiceRecord)){
+            $parctice['correct'] = $practiceRecord->correct_count;
+            $parctice['mistake'] = $practiceRecord->submit_count - $parctice['correct'];
+            $parctice['unfinished']= 500 - $parctice['correct']-$parctice['mistake']; // 未完成数量
+            $parctice['correct_rate'] = $parctice['correct'] / 500 * 100; // 正确率
+            $parctice['unfinished_rate'] = $parctice['unfinished'] / 500 * 100;  // 未完成率
+            $parctice['mistake_rate'] = $parctice['mistake'] / 500 * 100; // 错误率
+        }
         return $parctice;
     }
 

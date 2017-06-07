@@ -177,9 +177,9 @@ class TopicService
     {
         $parctice['correct'] = 0;
         $parctice['mistake'] = 0;
-        $parctice['unfinished'] = 0;
+        $parctice['unfinished'] = 500;
         $parctice['correct_rate'] = 0;
-        $parctice['unfinished_rate'] = 0;
+        $parctice['unfinished_rate'] = 100;
         $parctice['mistake_rate'] = 0;
 
         $practiceRecord = PracticeSubmitCount::where(['user_id'=>$userId, 'course_id'=>$courseId])->first();

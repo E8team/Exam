@@ -13,8 +13,8 @@ class SubmitRecords extends Seeder
      */
     public function run()
     {
-        DB::table('submit_records')->truncate();
-        $this->mock();
+        //DB::table('submit_records')->truncate();
+        $this->mock();dd(1);
         $j = 1;
         for($i = 1 ; $i<=1000000 ; $i++){
             $userId = random_int(1,5);

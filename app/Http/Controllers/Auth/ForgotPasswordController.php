@@ -47,10 +47,9 @@ class ForgotPasswordController extends Controller
      * @param  string  $response
      * @return \Illuminate\Http\RedirectResponse
      */
-    protected function sendResetLinkResponse($response)
+    protected function sendResetLinkResponse()
     {
         return view('reset_wait_verify');
-        //return back()->with('status', trans($response));
     }
 
 }

@@ -11,6 +11,7 @@
             <div class="mks_container_form">
                 <h2>重置密码</h2>
                 <form method="post" action="{{ route('password.request') }}">
+                    <input type="hidden" name="token" value="{!! $token !!}">
                     {!! csrf_field() !!}
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         <label>邮箱</label>
@@ -36,6 +37,13 @@
                         @if ($errors->has('password_confirmation'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('password_confirmation') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <div class="form-group{{ $errors->has('token') ? ' has-error' : '' }}">
+                        @if ($errors->has('token'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('token') }}</strong>
                             </span>
                         @endif
                     </div>

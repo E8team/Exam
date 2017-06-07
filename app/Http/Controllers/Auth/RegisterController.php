@@ -17,7 +17,6 @@ use UserVerification;
 
 class RegisterController extends Controller
 {
-    private $sendEmailTitle = '马克思学院考试系统';
     protected $redirectAfterVerification = 'after_verification';
     /*
     |--------------------------------------------------------------------------
@@ -109,7 +108,7 @@ class RegisterController extends Controller
         $user = Auth::user();
         if (!$user->verified) {
             UserVerification::generate($user);
-            UserVerification::sendQueue($user, $this->sendEmailTitle);
+            UserVerification::sendQueue($user, config("app.name"));
             return redirect(route('wait_verify'));
         } else {
             return redirect(route('after_verification'));

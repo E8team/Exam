@@ -81,7 +81,7 @@ class TopicService
 // where `submit_records`.`user_id` = '1' and `submit_records`.`user_id` is not null
 // and `topics`.`course_id` = '1' and `submit_records`.`type` = 'mock'
         // 优先获取没有模拟过的题目
-        $submitedTopicIds = $user->submitRecords()->select('topics.id')->join('topics', 'submit_records.topic_id', '=', 'topics.id')
+       /* $submitedTopicIds = $user->submitRecords()->select('topics.id')->join('topics', 'submit_records.topic_id', '=', 'topics.id')
             ->where('topics.course_id', $courseId)
             ->mock()
             ->distinct()
@@ -94,8 +94,10 @@ class TopicService
             $randomTopicIds = $noSubmitTopicIds->random($topicCount);
         } else {
             $randomTopicIds = $submitedTopicIds->random($topicCount - $noSubmitTopicIds->count())->merge($noSubmitTopicIds);
-        }
-        return $randomTopicIds;
+        }*/
+        $topicIds = $this->getTopicIdsByCourseFromCache($course);
+        return $topicIds->random($topicCount);
+        //return $randomTopicIds;
     }
     //
     public function makeTopicsWithLastSubmitRecord($topics, $type, $userIdOrMockRecordId)

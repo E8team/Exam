@@ -164,6 +164,12 @@ class TopicService
             $userId = $user;
         }
         $topicIds = $this->getTopicIdsByCourseFromCache($courseId);
+        PracticeSubmitCount::where(['user_id'=>$userId,'course_id'=>$courseId])->update([
+            'user_id'=>$userId,
+            'course_id'=>$courseId,
+            'correct_count' =>0,
+            'submit_count' =>0
+        ]);
         return SubmitRecord::byUser($userId)->practice()->topicIds($topicIds)->delete();
     }
 

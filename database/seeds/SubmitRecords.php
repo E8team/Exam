@@ -13,8 +13,8 @@ class SubmitRecords extends Seeder
      */
     public function run()
     {
-        //DB::table('submit_records')->truncate();
-        $this->mock();dd(1);
+        DB::table('submit_records')->truncate();
+        $this->mock();
         $j = 1;
         for($i = 1 ; $i<=1000000 ; $i++){
             $userId = random_int(1,5);
@@ -51,6 +51,7 @@ class SubmitRecords extends Seeder
                 'score' =>rand(1,50)*2,
                 'submit_count' =>50,
                 'correct_count' =>rand(1,50),
+                'course_id' =>rand(1,2),
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
                 'ended_at' => \Carbon\Carbon::now()

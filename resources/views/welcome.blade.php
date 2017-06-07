@@ -5,7 +5,7 @@
 <div class="up_top_padding bg_box">
 	<h2>{!! config('app.name') !!}</h2>
 	@if(!Auth::check())
-		<a href="{{route('register')}}" type="button" class="btn btn-info btn-lg hidden-xs hidden-md">注册一个学生账号</a>
+		<a href="{{route('register')}}" type="button" class="btn btn-info hidden-xs hidden-md">注册一个学生账号</a>
 	@endif
 	<div class="chevron-down hidden-xs hidden-md"><i class="glyphicon glyphicon-chevron-down"></i></div>
 </div>

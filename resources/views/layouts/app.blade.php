@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{!! asset(mix('static/css/bootstarp.css')) !!}" >
     <link rel="stylesheet" href="{!! asset(mix('static/css/app.css')) !!}" >
+    <script src="https://unpkg.com/alloylever@1.0.0/alloy-lever.js"></script>
     @yield('styles')
     <!--[if lt IE 9]>
     <script type="text/javascript" src="{{ asset('static/js/es5-shim.min.js') }}"></script>
@@ -58,6 +59,16 @@
             }, 500);
         });
     });
+    AlloyLever.config({
+      cdn:'//s.url.cn/qqun/qun/qqweb/m/qun/confession/js/vconsole.min.js',  //vconsole的CDN地址
+      reportUrl: "//a.qq.com",  //错误上报地址
+      reportPrefix: 'qun',    //错误上报msg前缀，一般用于标识业务类型
+      reportKey: 'msg',        //错误上报msg前缀的key，用户上报系统接收存储msg
+      otherReport: {              //需要上报的其他信息
+          uin: 491862102
+      },
+      // entry:""          //请点击这个DOM元素6次召唤vConsole。//你可以通过AlloyLever.entry('#entry2')设置多个机关入口召唤神龙
+  })
 </script>
 </body>
 </html>

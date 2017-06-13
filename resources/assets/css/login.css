@@ -49,11 +49,11 @@
 }
 .next_btn{
 	width: 100%;
-    margin-top: 30px;
-    font-size: 14px;
-    height: 30px;
-    padding: 0;
-    line-height: 30px;
+  margin-top: 30px;
+  font-size: 14px;
+  height: 30px;
+  padding: 0;
+  line-height: 30px;
 }
 /*信息确认*/
 .form_text{
@@ -125,6 +125,23 @@
 .again p{
 	margin-bottom: 30px;
 	text-indent: 2em;
+}
+
+/* 提示页面 */
+.prompt_box{
+	width: 600px;
+	background-color: #fff;
+	padding: 40px;
+  margin: 30px auto;
+  border-radius: 10px;
+  border: 1px solid #ccc
+}
+.prompt_box .content{
+	font-size: 16px;
+}
+.prompt_btn{
+	margin-top: 30px;
+	text-align: center;
 }
 /*媒体查询*/
 @media screen and (max-width: 768px){

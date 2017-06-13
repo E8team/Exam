@@ -15,6 +15,7 @@ Route::get('/', 'IndexController@index');
 
 Route::get('/test', 'IndexController@test');
 
+Route::get('/prompt', function(){return view('prompt');});
 
 Route::get('/courses', 'TestController@courses');
 

@@ -99,9 +99,13 @@
             </div>
           </div>
           <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-            <div class="practice_btn">
-              <a href="{!! route('create_mock', ['courseId'=>$course->id]) !!}" type="button" class="btn btn-info">随机答题</a>
-            </div>
+            <form action="{!! route('create_mock') !!}" method="post">
+              <div class="practice_btn">
+                {!! csrf_field() !!}
+                <input type="hidden" name="course_id" value="{!! $course->id !!}">
+                <button type="submit" class="btn btn-info">随机答题</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

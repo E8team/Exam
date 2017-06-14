@@ -365,10 +365,14 @@
         <p>1：点击【确认交卷】，将提交成绩，结束答题！</p>
         <p>2：点击【继续答题】，将关闭本窗口，继续答题！</p>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">继续答题</button>
-        <a href="{!! route('end_mock', ['mockRecordId'=>$mockRecord->id]) !!}" type="button" class="btn btn-default">确认交卷</a>
-      </div>
+      <form method="post" action="{!! route('end_mock') !!}">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">继续答题</button>
+          {!! csrf_field() !!}
+          <input type="hidden" name="mock_record_id" value="{!! $mockRecord->id !!}">
+          <button  type="submit" class="btn btn-primary">交卷</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

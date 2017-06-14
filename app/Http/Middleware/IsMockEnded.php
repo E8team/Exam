@@ -25,17 +25,16 @@ class IsMockEnded
             try{
                 $mockRecord = app(MockService::class)->getNotEndedMockRecord(Auth::user());
                 if(!$mockRecord->isEnded()){
-                    if($mockRecord->isOvertime()){
-                        app(Alert::class)->setInfo('这是您上次的答题结果');
-                        // 跳转到 结束模拟页面
-                        return redirect()->guest(route('end_mock',['mockRecordId' => $mockRecord->id]));
-                    }else{
-                        $mockUrl = route('mock', ['mockRecordId' => $mockRecord->id]);
-                        // 模拟没有结束 跳转到模拟界面去
+                    if(!$mockRecord->isOvertime()){
+                        $mockUrl = route('mock',['mockRecordId' => $mockRecord->id]);
                         if($request->url() != $mockUrl)
-                            return redirect($mockUrl);
+                            return redirect()->guest(route('cue_mocking', ['mockRecordId'=>$mockRecord->id]));
+                    }else{
+                        return redirect()->guest(route('cue_overtime_mock', ['mockRecordId'=>$mockRecord->id]));
                     }
+
                 }
+
             }catch (ModelNotFoundException $exception) {}
         }
 

@@ -10,22 +10,27 @@ use App\Services\TopicService;
 use Auth;
 use Carbon\Carbon;
 use Gate;
+use Illuminate\Http\Request;
 
 class MockController extends Controller
 {
 
-    public function createMock($courseId)
+    public function createMock(Request $request)
     {
+        $courseId = intval($request->get('course_id'));
+        if(!$courseId){
+            return abort(404);
+        }
         $user = Auth::user();
 
-        $mockRecord = MockRecord::create(['user_id'=>$user->id, 'course_id'=>$courseId]);
+        $mockRecord = MockRecord::create(['user_id' => $user->id, 'course_id' => $courseId]);
 
         $topicService = app(TopicService::class);
         // 创建mock
         $topicIds = $topicService->randomTopicIds($user, $courseId, config('exam.mock_topics_count'));
         $data = [];
         $i = 1;
-        foreach ($topicIds as $topicId){
+        foreach ($topicIds as $topicId) {
             $data[] = [
                 'mock_record_id' => $mockRecord->id,
                 'topic_id' => $topicId,
@@ -33,19 +38,19 @@ class MockController extends Controller
             ];
         }
         MockTopic::insert($data);
-        return redirect(route('mock', ['mockRecordId'=>$mockRecord->id]));
+        return redirect(route('mock', ['mockRecordId' => $mockRecord->id]));
     }
 
     public function showMockView($mockRecordId)
     {
         $mockRecord = MockRecord::findOrFail($mockRecordId);
-        if(Gate::denies('mock', $mockRecord)){
+        if (Gate::denies('mock', $mockRecord)) {
             //todo alert
             abort(404);
         }
 
-        if(!is_null($mockRecord->ended_at)){
-            return redirect(route('end_mock', ['mockRecordId'=>$mockRecordId]));
+        if (!is_null($mockRecord->ended_at)) {
+            return redirect(route('end_mock', ['mockRecordId' => $mockRecordId]));
         }
         $topicService = app(TopicService::class);
 
@@ -56,31 +61,49 @@ class MockController extends Controller
         $topics = $topicService->makeTopicsWithLastSubmitRecord($topics, 'mock', $mockRecordId);
         return view('mock', [
             'topics' => $topics,
-            'mockRecord'=>$mockRecord,
-            'remainingTime'=>config('exam.mock_time') - Carbon::now()->diffInSeconds($mockRecord->created_at, true)
+            'mockRecord' => $mockRecord,
+            'remainingTime' => config('exam.mock_time') - Carbon::now()->diffInSeconds($mockRecord->created_at, true)
         ]);
     }
 
-    public function endMock($mockRecordId)
+    public function endMock(Request $request)
     {
-        $mockRecord = MockRecord::findOrFail($mockRecordId);
-        if(Gate::denies('mock', $mockRecord)){
+        $mockRecord = MockRecord::findOrFail(intval($request->get('mock_record_id')));
+        if (Gate::denies('mock', $mockRecord)) {
             //todo alert
             abort(404);
         }
         $mockTopicsCount = config('exam.mock_topics_count');
-        if(is_null($mockRecord->ended_at)){
+        if (is_null($mockRecord->ended_at)) {
             // 计算模拟得分
-            $mockRecord->score = $mockRecord->correct_count/$mockTopicsCount*100;
+            $mockRecord->score = $mockRecord->correct_count / $mockTopicsCount * 100;
             $mockRecord->ended_at = Carbon::now();
             $mockRecord->save();
             MockTopic::where('mock_record_id', $mockRecord->id)->delete();
         }
-        $wrongCount =  $mockRecord->submit_count - $mockRecord->correct_count;
+        $wrongCount = $mockRecord->submit_count - $mockRecord->correct_count;
         return view('score', [
-            'mockRecord'=>$mockRecord,
+            'mockRecord' => $mockRecord,
             'wrongCount' => $wrongCount,
-            'mockTopicsCount'=>$mockTopicsCount
+            'mockTopicsCount' => $mockTopicsCount
         ]);
+    }
+
+    public function cueOvertimeMock($mockRecordId)
+    {
+        $mockRecord = MockRecord::findOrFail($mockRecordId);
+        if (!$mockRecord->isEnded() && $mockRecord->isOvertime()) {
+            return view('cue_overtime_mock', ['mockRecord' => $mockRecord]);
+        }
+        return abort('404');
+    }
+
+    public function cueMocking($mockRecordId)
+    {
+        $mockRecord = MockRecord::findOrFail($mockRecordId);
+        if (!$mockRecord->isEnded() && !$mockRecord->isOvertime()) {
+            return view('cue_mocking', ['mockRecord' => $mockRecord]);
+        }
+        return abort('404');
     }
 }

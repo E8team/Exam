@@ -15,7 +15,7 @@ Route::get('/', 'IndexController@index');
 
 Route::get('/test', 'IndexController@test');
 
-Route::get('/prompt', function(){return view('prompt');});
+
 
 Route::get('/courses', 'TestController@courses');
 
@@ -38,10 +38,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['middleware' => 'user_selected_courses'], function () {
             Route::group(['middleware' => 'isMockEnded'], function () {
                 Route::get('/menu/{courseId}', 'IndexController@menu')->name('menu');
-                Route::get('/create_mock/course/{courseId}', 'MockController@createMock')->name('create_mock');
+                Route::post('/create_mock', 'MockController@createMock')->name('create_mock');
                 Route::get('/mock/{mockRecordId}', 'MockController@showMockView')->name('mock');
             });
-            Route::get('/end_mock/{mockRecordId}', 'MockController@endMock')->name('end_mock');
+            Route::get('/cue_mocking/{mockRecordId}', 'MockController@cueMocking')->name('cue_mocking');
+            Route::get('/cue_overtime_mock/{mockRecordId}', 'MockController@cueOvertimeMock')->name('cue_overtime_mock');
+            Route::post('/end_mock', 'MockController@endMock')->name('end_mock');
 
             //练习模式
             Route::get('/practice/{courseId}', 'PracticeController@showPracticeView')->name('practice');
